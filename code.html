@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UNNA – Conexão Mulher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Newsreader:ital,wght@0,400;0,600;1,400&family=Manrope:wght@400;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "background": "#fff8f7",
+          "surface-container-low": "#fff0f1",
+          "surface-variant": "#ffd9de",
+          "surface-container": "#ffe9eb",
+          "tertiary": "#4b4246",
+          "surface-container-lowest": "#ffffff",
+          "primary-container": "#b21b47",
+          "surface-tint": "#b51e49",
+          "primary-fixed-dim": "#ffb2bc",
+          "inverse-surface": "#5a1829",
+          "surface-container-highest": "#ffd9de",
+          "on-background": "#3e0215",
+          "on-surface": "#3e0215",
+          "surface-container-high": "#ffe1e4",
+          "on-secondary-container": "#782442",
+          "outline": "#8d7073",
+          "secondary-container": "#fd8fae",
+          "outline-variant": "#e1bec1",
+          "surface-dim": "#ffced4",
+          "on-secondary": "#ffffff",
+          "secondary": "#9a3f5c",
+          "primary": "#8d0032",
+          "inverse-primary": "#ffb2bc",
+          "on-primary": "#ffffff",
+          "surface": "#fff8f7",
+          "surface-bright": "#fff8f7",
+          "on-surface-variant": "#594043"
+        },
+        borderRadius: {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        fontFamily: {
+          headline: ["Noto Serif", "serif"],
+          body: ["Newsreader", "serif"],
+          label: ["Manrope", "sans-serif"]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  /* ── Material Symbols ─────────────────────────────── */
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    vertical-align: middle;
+  }
+  .icon-fill {
+    font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+  }
+
+  /* ── Signature Gradient ───────────────────────────── */
+  .editorial-gradient {
+    background: linear-gradient(135deg, #f7e8ed, #e7b8c6, #ffffff);
+  }
+
+  /* ── Glassmorphism ────────────────────────────────── */
+  .signature-glass {
+    background: rgba(255, 248, 247, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* ── Text Glow ────────────────────────────────────── */
+  .text-glow {
+    text-shadow: 0 0 40px rgba(141, 0, 50, 0.12);
+  }
+
+  /* ── Warm Shadows ─────────────────────────────────── */
+  .shadow-warm {
+    box-shadow: 0 20px 48px -8px rgba(62, 2, 21, 0.07),
+                0 6px 16px -4px rgba(62, 2, 21, 0.04);
+  }
+  .shadow-warm-lg {
+    box-shadow: 0 32px 64px -12px rgba(62, 2, 21, 0.09),
+                0 12px 32px -8px rgba(62, 2, 21, 0.05);
+  }
+
+  /* ── Nav scroll state ─────────────────────────────── */
+  #main-nav.is-scrolled {
+    box-shadow: 0 4px 32px rgba(62, 2, 21, 0.07);
+  }
+
+  /* ── Mobile Menu ──────────────────────────────────── */
+  #mobile-menu {
+    transform: translateY(-110%);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #mobile-menu.open {
+    transform: translateY(0);
+  }
+
+  /* ── Hamburger animation ──────────────────────────── */
+  #hamburger span {
+    transition: transform 0.28s ease, opacity 0.28s ease;
+    transform-origin: center;
+    display: block;
+  }
+  #hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  #hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  #hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  /* ── Scroll Reveal ────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+  .reveal-d4 { transition-delay: 0.45s; }
+
+  /* ── Image zoom on hover ──────────────────────────── */
+  .img-zoom {
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .img-hover:hover .img-zoom { transform: scale(1.08); }
+
+  /* ── Ripple ───────────────────────────────────────── */
+  .ripple {
+    position: relative;
+    overflow: hidden;
+  }
+  .ripple::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at var(--rx, 50%) var(--ry, 50%),
+      rgba(255,255,255,0.28) 0%,
+      transparent 65%
+    );
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+  .ripple:active::after { opacity: 1; transition-duration: 0.08s; }
+
+  /* ── Focus ring ───────────────────────────────────── */
+  :focus-visible {
+    outline: 2px solid #8d0032;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* ── Skip link ────────────────────────────────────── */
+  .skip-link {
+    position: absolute;
+    top: -200%;
+    left: 1rem;
+    z-index: 9999;
+    background: #8d0032;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    font-family: "Manrope", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 0 0 0.5rem 0.5rem;
+    text-decoration: none;
+    transition: top 0.2s;
+  }
+  .skip-link:focus { top: 0; }
+
+  /* ── Ghost divider (no-line rule compliant) ───────── */
+  .ghost-rule {
+    border: none;
+    border-bottom: 1.5px solid rgba(225, 190, 193, 0.28);
+  }
+
+  /* ── Chip ─────────────────────────────────────────── */
+  .chip {
+    background-color: #fd8fae;
+    color: #782442;
+  }
+
+  /* ── Input lined ──────────────────────────────────── */
+  .input-lined {
+    width: 100%;
+    background: #ffd9de;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0.5rem 0.5rem 0 0;
+    padding: 0.8rem 1rem;
+    font-family: "Newsreader", serif;
+    font-size: 1rem;
+    color: #3e0215;
+    transition: border-color 0.22s;
+    outline: none;
+  }
+  .input-lined:focus { border-bottom-color: #8d0032; }
+  .input-lined::placeholder { color: #594043; opacity: 0.55; }
+  .input-lined[aria-invalid="true"] { border-bottom-color: #ba1a1a; }
+
+  /* ── Scrollbar ────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #fff8f7; }
+  ::-webkit-scrollbar-thumb { background: #e7b8c6; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #8d0032; }
+
+  /* ── Reduced motion ───────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, #mobile-menu, .img-zoom {
+      transition: none !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
+
+<!-- Skip Navigation -->
+<a class="skip-link" href="#main-content">Ir para o conteúdo principal</a>
+
+<!-- ══════════════════ HEADER / NAV ══════════════════ -->
+<header role="banner">
+  <nav id="main-nav" aria-label="Navegação principal"
+       class="fixed top-0 w-full z-50 bg-[#fff8f7]/82 backdrop-blur-xl transition-shadow duration-300">
+    <div class="flex justify-between items-center px-6 md:px-10 py-5 max-w-7xl mx-auto w-full">
+
+      <!-- Logo -->
+      <a href="#" aria-label="UNNA Conexão Mulher – página inicial"
+         class="font-headline text-xl md:text-2xl font-bold italic text-on-background tracking-tight hover:text-primary transition-colors duration-300 focus-visible:rounded">
+        UNNA – Conexão Mulher
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav aria-label="Seções da página" class="hidden md:flex gap-10 items-center">
+        <a class="font-label uppercase tracking-widest text-xs text-on-background/60 hover:text-primary hover:opacity-100 transition-all duration-300" href="#about">Sobre</a>
+        <a class="font-label uppercase tracking-widest text-xs text-on-background/60 hover:text-primary hover:opacity-100 transition-all duration-300" href="#events">Encontros</a>
+        <a class="font-label uppercase tracking-widest text-xs text-primary border-b border-primary/40 pb-0.5" href="#speakers">Especialistas</a>
+        <a class="font-label uppercase tracking-widest text-xs text-on-background/60 hover:text-primary hover:opacity-100 transition-all duration-300" href="#cta">Participar</a>
+      </nav>
+
+      <!-- Desktop CTA -->
+      <a href="#cta"
+         class="hidden md:inline-flex items-center gap-2 bg-primary text-on-primary font-label px-6 py-2.5 rounded-xl text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-warm ripple">
+        Quero Participar
+      </a>
+
+      <!-- Hamburger -->
+      <button id="hamburger"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+              aria-label="Abrir menu"
+              class="md:hidden flex flex-col gap-[5px] p-2 -mr-2 rounded-lg">
+        <span class="w-6 h-0.5 bg-on-background rounded-full"></span>
+        <span class="w-6 h-0.5 bg-on-background rounded-full"></span>
+        <span class="w-6 h-0.5 bg-on-background rounded-full"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu"
+         role="dialog"
+         aria-label="Menu de navegação"
+         class="md:hidden absolute top-full left-0 w-full bg-[#fff8f7]/98 backdrop-blur-xl shadow-warm-lg"
+         style="border-top: 1px solid rgba(225,190,193,0.3);">
+      <nav class="px-8 py-10 flex flex-col gap-7">
+        <a class="font-headline text-2xl text-on-background hover:text-primary transition-colors" href="#about" data-close-menu>Sobre</a>
+        <a class="font-headline text-2xl text-on-background hover:text-primary transition-colors" href="#events" data-close-menu>Próximos Encontros</a>
+        <a class="font-headline text-2xl text-primary" href="#speakers" data-close-menu>Especialistas</a>
+        <a class="mt-2 bg-primary text-on-primary font-label px-8 py-4 rounded-xl text-center uppercase tracking-widest hover:brightness-110 transition-all ripple" href="#cta" data-close-menu>
+          Quero Participar
+        </a>
+      </nav>
+    </div>
+  </nav>
+</header>
+
+<!-- ══════════════════ MAIN ══════════════════════════ -->
+<main id="main-content" class="pt-24 overflow-x-hidden" tabindex="-1">
+
+  <!-- ── HERO ─────────────────────────────────────── -->
+  <section id="about" aria-labelledby="hero-heading"
+           class="relative min-h-[92vh] flex items-center px-6 md:px-12 py-20 editorial-gradient overflow-hidden">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center relative z-10 w-full">
+
+      <!-- Left: Copy -->
+      <div class="lg:col-span-7 space-y-10">
+        <div class="space-y-4 reveal">
+          <span class="font-label text-primary uppercase tracking-[0.3em] text-xs block">Conexão &amp; Propósito</span>
+          <h1 id="hero-heading" class="font-headline text-6xl md:text-8xl text-on-background leading-[0.9] tracking-tighter text-glow">
+            UNNA –<br/><span class="italic">Conexão Mulher</span>
+          </h1>
+        </div>
+        <p class="font-body text-2xl md:text-3xl text-on-surface-variant max-w-xl italic leading-snug reveal reveal-d1">
+          O palco onde ideias florescem, marcas ganham propósito e mulheres brilham juntas.
+        </p>
+        <p class="font-body text-lg text-on-surface/80 max-w-md reveal reveal-d2">
+          Existem lugares que inspiram, e existem lugares que transformam ambientes.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 pt-4 reveal reveal-d3">
+          <!-- ⚠ Substitua 5500000000000 pelo número real de WhatsApp -->
+          <a href="https://wa.me/5500000000000?text=Olá!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conexão%20Mulher."
+             target="_blank" rel="noopener noreferrer"
+             class="bg-primary text-on-primary px-8 py-4 rounded-xl flex items-center justify-center gap-3 font-label font-semibold tracking-wide hover:brightness-110 active:scale-95 transition-all shadow-warm-lg ripple"
+             aria-label="Garantir minha vaga via WhatsApp (abre em nova aba)">
+            <span aria-hidden="true" class="material-symbols-outlined icon-fill text-xl">chat</span>
+            Garantir minha vaga via WhatsApp
+          </a>
+          <a href="#events"
+             class="bg-surface-container-highest text-on-secondary-container px-8 py-4 rounded-xl flex items-center justify-center gap-2 font-label font-semibold hover:bg-surface-dim active:scale-95 transition-colors ripple">
+            <span aria-hidden="true">📍</span> Ver todas as cidades
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Image -->
+      <div class="lg:col-span-5 relative reveal reveal-d2">
+        <div class="aspect-[4/5] rounded-xl overflow-hidden shadow-warm-lg rotate-3 scale-105 border-[12px] border-white/30 img-hover">
+          <img class="w-full h-full object-cover img-zoom"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz5ZxJdxtytcTHcsL8miKQuwe8KEY-1UDAi5j6JwE8NjOyZU6FgBTuweAaaSQiMmys6W6skNJEpmd5beRf7TYIb4d5wzUejN6Pvycq_gVHp5uu9oWLog4so0RH9PjQcXoInl9cwBq_cXCsVRImfbjOyH_KtvH_zq0sikkUz0TrA9ctHq5K9X_ZyXd6ZY2xFPHebRgggJJhQOmS0USxajdI9TOWYGIVzJAQepBY19YOscTgAY4IPHhlWfOPdd968VhGeGljFbFcZn82"
+               alt="Mulher profissional em ambiente arquitetônico sereno com iluminação editorial natural"/>
+        </div>
+        <blockquote class="absolute -bottom-10 -left-6 lg:-left-14 signature-glass p-6 md:p-8 rounded-xl max-w-xs shadow-warm -rotate-2"
+                    style="border: 1px solid rgba(255,255,255,0.35);">
+          <p class="font-body italic text-on-surface text-base md:text-lg leading-relaxed">
+            "A capa pesou, mas foi quando eu tirei que me senti leve de verdade."
+          </p>
+        </blockquote>
+      </div>
+    </div>
+    <!-- Decorative shape -->
+    <div aria-hidden="true" class="absolute top-0 right-0 w-1/3 h-full bg-primary/5 rounded-l-full blur-3xl pointer-events-none"></div>
+  </section>
+
+  <!-- ── CURRENT CYCLE ──────────────────────────────── -->
+  <section id="cycle" aria-labelledby="cycle-heading" class="py-32 px-6 md:px-12 bg-surface">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-end gap-8 pb-12 mb-20 ghost-rule">
+        <div class="max-w-2xl reveal">
+          <span class="font-label text-secondary uppercase tracking-widest text-xs mb-4 block">Ciclo Atual</span>
+          <h2 id="cycle-heading" class="font-headline text-4xl md:text-6xl text-on-background leading-tight">
+            IMPERFEITA, REAL E PODEROSA
+            <br/><span class="italic text-primary">– Seu poder é ser você</span>
+          </h2>
+        </div>
+        <div class="text-right reveal reveal-d2">
+          <p class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-2">Tema em Destaque</p>
+          <p class="font-headline text-xl italic max-w-xs">Resiliência em Ação – Como transformar o peso da vida em força</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-16 items-start">
+        <div class="space-y-8 reveal">
+          <p class="font-body text-xl text-on-surface leading-relaxed">
+            Para mulheres únicas que merecem confiança e vivem com autodefesa. Um encontro que une palestra e vivências práticas para o despertar da consciência e saúde.
+          </p>
+          <div class="flex gap-4 items-center p-6 bg-surface-container-low rounded-xl">
+            <span aria-hidden="true" class="material-symbols-outlined icon-fill text-4xl text-primary">psychology</span>
+            <div>
+              <h3 class="font-label font-semibold text-on-surface">Vivências Transformadoras</h3>
+              <p class="text-sm text-on-surface-variant mt-1">Práticas imersivas de autoconhecimento e conexão.</p>
+            </div>
+          </div>
+        </div>
+        <figure class="rounded-xl overflow-hidden shadow-warm reveal reveal-d2">
+          <img class="w-full h-80 object-cover"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDS8L41d0NXt3DYp0mbaob5NKTeohTy3IArEF5naWT1MaC1iL3SNrYWA3OvHj5hRo-G6zZZzZiul2eldxB-lEHGkogeLhF-BwBvC9fLNiawDMurAvWgIi6ygWT2igkpBg6xocuPUN4dydFjSro7Xaab2CWXg63jwZMXm8phQy9fS7bKq0rAOJVFUt48XC9Od7pI9vVr2Yrwg4Hg0toka_U7xh_hPTwPocHcSF7LXdTwHhwwM13zqNOozC-pz8lSn-VqLLibgFtmHFkm"
+               alt="Grupo de mulheres diversas sentadas em círculo em conversa significativa num estúdio luminoso"
+               loading="lazy"/>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── EVENTS ─────────────────────────────────────── -->
+  <section id="events" aria-labelledby="events-heading" class="py-24 px-6 md:px-12 bg-surface-container-low">
+    <div class="max-w-7xl mx-auto space-y-16">
+
+      <div class="text-center space-y-4 reveal">
+        <h2 id="events-heading" class="font-headline text-4xl md:text-5xl text-on-background">Próximos Encontros</h2>
+        <p class="font-label text-xs text-on-surface/60 uppercase tracking-[0.2em]">Garanta seu lugar no palco da transformação</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Event 1 -->
+        <article class="bg-surface-container-lowest p-1 rounded-2xl img-hover cursor-pointer shadow-warm hover:-translate-y-2 transition-transform duration-500 reveal"
+                 aria-label="Evento em Não-Me-Toque, RS">
+          <div class="relative overflow-hidden rounded-xl h-64">
+            <img class="w-full h-full object-cover img-zoom"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDP9M6GbeeNB5SWISPO2jMiOIVzwB3BrFgFeRGUuGYM9sKf-Q8hDjLkYcuZ2q9OsItK37OOqt0tJ9YJBj2pjC9fKU9rLxx_pu-Thxz9brxNA06AAeHH3zc_9klxEcZvumGyRYCF2hTdBhMY_fjrRmsX8tQcmzyBKprMQPYOxjHlp9YQb1Qu3n0mpwu7Ws2OtBumHX3m-o_TO-l_pXEvGxYFpSKMPyRQZzIi_ZP9BdVfltkc7bRogUim6KJCdbY9NgfRGUmHJr8hAs4"
+                 alt="Local de evento elegante com iluminação suave e mobiliário minimalista"
+                 loading="lazy"/>
+            <div class="absolute top-4 right-4 bg-primary text-on-primary font-label px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+              22 ABR
+            </div>
+          </div>
+          <div class="p-8 space-y-4">
+            <h3 class="font-headline text-2xl text-on-background">Não-Me-Toque / RS</h3>
+            <div class="flex flex-wrap gap-6 text-sm font-label text-on-surface-variant">
+              <span class="flex items-center gap-2">
+                <span aria-hidden="true" class="material-symbols-outlined text-base">schedule</span>
+                <time datetime="19:30">19h30</time>
+              </span>
+              <span class="flex items-center gap-2">
+                <span aria-hidden="true" class="material-symbols-outlined text-base">location_on</span>
+                Balão Mágico
+              </span>
+            </div>
+            <button class="reserve-btn w-full py-3 mt-2 text-primary font-label font-bold text-sm uppercase tracking-widest hover:bg-primary hover:text-on-primary rounded-xl transition-all ripple"
+                    style="border-bottom: 2px solid rgba(141,0,50,0.2);"
+                    data-event="Não-Me-Toque / RS"
+                    data-date="22 de Abril"
+                    aria-label="Reservar convite para Não-Me-Toque / RS — 22 de Abril">
+              Reservar Convite
+            </button>
+          </div>
+        </article>
+
+        <!-- Event 2 -->
+        <article class="bg-surface-container-lowest p-1 rounded-2xl img-hover cursor-pointer shadow-warm hover:-translate-y-2 transition-transform duration-500 reveal reveal-d2"
+                 aria-label="Evento em Cruz Alta, RS">
+          <div class="relative overflow-hidden rounded-xl h-64">
+            <img class="w-full h-full object-cover img-zoom"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuASz_TSqEpcTkm_Z_oFT-exXz6ryKzRaxBX2uINzsMIYwZcrUUEGZ8JBzspB211sNYuCsNXVnYZnqMmBofiOvoyBY1tp28tJaAQFFZqdy-dGO0m0h213AR23Mg39UWOCsQig4EfAtzshtWvIrDvCWNj1az5O0EWtbDy5zuFgox8NzPBw-56jz-oLX1ue4srOXhrD1CyOxbw2L9-Lp6GWSEP1vny8xm2kyAXHA1w1geV3HQvAXWsfGHW10uKkt-b23YL9baHpikDUbfS06FGEeVPAIi"
+                 alt="Interior de jardim de evento luxuoso com iluminação delicada e detalhes em madeira"
+                 loading="lazy"/>
+            <div class="absolute top-4 right-4 bg-primary text-on-primary font-label px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+              23 ABR
+            </div>
+          </div>
+          <div class="p-8 space-y-4">
+            <h3 class="font-headline text-2xl text-on-background">Cruz Alta / RS</h3>
+            <div class="flex flex-wrap gap-6 text-sm font-label text-on-surface-variant">
+              <span class="flex items-center gap-2">
+                <span aria-hidden="true" class="material-symbols-outlined text-base">schedule</span>
+                <time datetime="19:30">19h30</time>
+              </span>
+              <span class="flex items-center gap-2">
+                <span aria-hidden="true" class="material-symbols-outlined text-base">location_on</span>
+                Espaço Garden
+              </span>
+            </div>
+            <button class="reserve-btn w-full py-3 mt-2 text-primary font-label font-bold text-sm uppercase tracking-widest hover:bg-primary hover:text-on-primary rounded-xl transition-all ripple"
+                    style="border-bottom: 2px solid rgba(141,0,50,0.2);"
+                    data-event="Cruz Alta / RS"
+                    data-date="23 de Abril"
+                    aria-label="Reservar convite para Cruz Alta / RS — 23 de Abril">
+              Reservar Convite
+            </button>
+          </div>
+        </article>
+      </div>
+
+      <!-- Coming soon -->
+      <div class="p-10 md:p-12 bg-surface-container-lowest rounded-2xl text-center space-y-6 shadow-warm reveal">
+        <span class="font-label text-xs uppercase tracking-widest text-primary font-bold">Em breve nas cidades</span>
+        <p class="font-headline text-2xl md:text-3xl italic text-on-surface/80 leading-relaxed max-w-4xl mx-auto">
+          Panambi, Palmeira, Rondinha, Constantina, Sarandi e Passo Fundo (PF)
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SPEAKERS ───────────────────────────────────── -->
+  <section id="speakers" aria-labelledby="speakers-heading" class="py-32 px-6 md:px-12 bg-surface">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
+
+      <!-- Left: Speaker cards -->
+      <div class="order-2 lg:order-1 space-y-10">
+
+        <div class="flex gap-6 items-start reveal">
+          <div class="w-24 h-24 flex-shrink-0 rounded-full overflow-hidden shadow-warm grayscale hover:grayscale-0 transition-all duration-500">
+            <img class="w-full h-full object-cover"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVr0eAs79g30f2s7uII5_fBTEogcqwgIGmOjs6wD8tc2Xc_aakkocrtF6KEv0x3B83yoyFYAMX0sQd-XIzmx5Ryx663Rnz_iB54YqMf-EUJ20AGusiwv3_xLofajeayIErCTYbUSsC8lW2RooOQ810vpqpUsX7yElg6C4HgeuTIZvO_TwvoNbz7r_FVoPzYJVh0cTbk5jRCLfyTK1-aPXik-aLbqmP5HMeTr5jbrkyxsT37ZS0Zo3boR9DGz45aoA4XcK24AG3xzU3"
+                 alt="Foto profissional de Ana Paula Nogueira"
+                 loading="lazy"/>
+          </div>
+          <div>
+            <h3 class="font-headline text-2xl text-on-background">Ana Paula Nogueira</h3>
+            <p class="font-label text-primary text-xs uppercase tracking-widest font-bold mt-1">Nutricionista Holística / Idealizadora</p>
+            <p class="mt-2 text-on-surface-variant italic font-body">Especialista em saúde integrativa e equilíbrio feminino através da nutrição consciente.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-6 items-start reveal reveal-d2">
+          <div class="w-24 h-24 flex-shrink-0 rounded-full overflow-hidden shadow-warm grayscale hover:grayscale-0 transition-all duration-500">
+            <img class="w-full h-full object-cover"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMoWH6-HQ6kKjFfW9R2Owm1ndkMZDEJOXkx6KwCMuYRI27SriuOrpBMwDwuZvYZnqMmBofiOvoyBY1tp28tJaAQFFZqdy-dGO0m0h213AR23Mg39UWOCsQig4EfAtzshtWvIrDvCWNj1az5O0EWtbDy5zuFgox8NzPBw-56jz-oLX1ue4srOXhrD1CyOxbw2L9-Lp6GWSEP1vny8xm2kyAXHA1w1geV3HQvAXWsfGHW10uKkt-b23YL9baHpikDUbfS06FGEeVPAIi"
+                 alt="Retrato de Simone Zanatta, terapeuta de constelação familiar"
+                 loading="lazy"/>
+          </div>
+          <div>
+            <h3 class="font-headline text-2xl text-on-background">Simone Zanatta</h3>
+            <p class="font-label text-primary text-xs uppercase tracking-widest font-bold mt-1">Terapeuta Constelação Familiar</p>
+            <p class="mt-2 text-on-surface-variant italic font-body">Guia de jornadas sistêmicas para libertação de pesos emocionais e cura geracional.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Headline -->
+      <div class="order-1 lg:order-2 space-y-8 reveal">
+        <span class="chip font-label text-xs uppercase tracking-[0.3em] px-4 py-1.5 rounded-full inline-block">As Mentes</span>
+        <h2 id="speakers-heading" class="font-headline text-5xl md:text-7xl text-on-background leading-[1.1]">
+          Inspirando <br/><span class="italic text-primary">Novas Narrativas</span>
+        </h2>
+        <p class="font-body text-xl leading-relaxed text-on-surface/80">
+          O encontro é conduzido por especialistas que dedicam suas vidas ao desenvolvimento humano integral, unindo ciência e sensibilidade.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ──────────────────────────────────── -->
+  <section id="cta" aria-labelledby="cta-heading" class="py-32 px-6">
+    <div class="max-w-4xl mx-auto editorial-gradient p-12 md:p-24 rounded-3xl text-center space-y-10 shadow-warm-lg relative overflow-hidden reveal">
+      <div aria-hidden="true" class="absolute inset-0 opacity-10 pointer-events-none">
+        <img class="w-full h-full object-cover"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpV5gDM2UKLBFv8wluJVptKk0S3TU60u2Sprz7d9YJJRDebQ2mKWTXW-LKmOoh0iSrVGuFMwoyE-9nm7MeHQHjIxIFVl01uJmNBcnNvJKddbEKHW0XRgtYPjWYxH82O31Um6mH0621J_t_UnN_8AASY7oW-6nqy_lc_bev1rv-ze3g-yPa6r5F28fyDffCtccEn_V7ieIhZgOgjTo6iDN_KpupcmBKY6IHXCYsk0EugJEMFKnicmZl9VdPm4175Sob4Znbns22Y2Gm"
+             alt=""/>
+      </div>
+      <h2 id="cta-heading" class="font-headline text-4xl md:text-6xl text-on-background relative z-10">
+        Sua jornada começa com um sim para você mesma.
+      </h2>
+      <div class="relative z-10">
+        <!-- ⚠ Substitua 5500000000000 pelo número real -->
+        <a href="https://wa.me/5500000000000?text=Olá!%20Quero%20participar%20do%20UNNA%20Conexão%20Mulher."
+           target="_blank" rel="noopener noreferrer"
+           class="inline-block bg-primary text-on-primary px-10 py-5 rounded-full font-label font-bold uppercase tracking-widest shadow-warm-lg hover:brightness-110 hover:scale-105 active:scale-95 transition-all ripple"
+           aria-label="Quero participar — abre WhatsApp">
+          Quero Participar
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════════ FOOTER ════════════════════════ -->
+<footer role="contentinfo" class="bg-surface-container-low mt-12">
+  <div class="flex flex-col md:flex-row justify-between items-center px-8 md:px-12 py-16 max-w-7xl mx-auto gap-8">
+    <div class="text-center md:text-left">
+      <p class="font-headline text-xl font-bold text-on-background">UNNA – Conexão Mulher</p>
+      <p class="font-body italic text-on-surface/55 mt-2">© 2024 UNNA – Conexão Mulher. Todos os direitos reservados.</p>
+    </div>
+    <nav aria-label="Links do rodapé" class="flex gap-8 md:gap-12 font-body italic text-lg">
+      <a class="text-on-surface/55 hover:text-primary transition-colors duration-300"
+         href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+         aria-label="Instagram (abre em nova aba)">Instagram</a>
+      <a class="text-on-surface/55 hover:text-primary transition-colors duration-300"
+         href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+         aria-label="LinkedIn (abre em nova aba)">LinkedIn</a>
+      <a class="text-on-surface/55 hover:text-primary transition-colors duration-300" href="#">
+        Privacy Policy
+      </a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ══════════════════ RESERVE MODAL ════════════════ -->
+<div id="reserve-modal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="modal-title"
+     class="fixed inset-0 z-[200] flex items-end sm:items-center justify-center p-4
+            opacity-0 pointer-events-none transition-opacity duration-300">
+  <!-- Backdrop -->
+  <div id="modal-backdrop" class="absolute inset-0 bg-on-background/40 backdrop-blur-sm"></div>
+  <!-- Panel -->
+  <div id="modal-panel"
+       class="relative bg-surface-container-lowest rounded-3xl p-8 md:p-12 w-full max-w-lg
+              shadow-warm-lg translate-y-6 transition-transform duration-300">
+
+    <!-- Close -->
+    <button id="modal-close"
+            aria-label="Fechar"
+            class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
+      <span aria-hidden="true" class="material-symbols-outlined">close</span>
+    </button>
+
+    <!-- Header -->
+    <div class="mb-7">
+      <span class="font-label text-xs uppercase tracking-[0.3em] text-primary font-bold">Reservar Convite</span>
+      <h3 id="modal-title" class="font-headline text-3xl text-on-background mt-2"></h3>
+      <p id="modal-date" class="font-body italic text-on-surface-variant mt-1"></p>
+    </div>
+
+    <!-- Form -->
+    <form id="reserve-form" novalidate class="space-y-5">
+      <div>
+        <label for="r-name" class="font-label text-xs uppercase tracking-widest text-on-surface-variant block mb-2">
+          Seu Nome <span aria-hidden="true" class="text-primary">*</span><span class="sr-only"> (obrigatório)</span>
+        </label>
+        <input id="r-name" name="name" type="text" required aria-required="true"
+               autocomplete="name" placeholder="Como posso te chamar?" class="input-lined"/>
+        <p id="r-name-err" class="text-xs text-[#ba1a1a] mt-1 hidden" role="alert"></p>
+      </div>
+      <div>
+        <label for="r-phone" class="font-label text-xs uppercase tracking-widest text-on-surface-variant block mb-2">
+          WhatsApp <span aria-hidden="true" class="text-primary">*</span><span class="sr-only"> (obrigatório)</span>
+        </label>
+        <input id="r-phone" name="phone" type="tel" required aria-required="true"
+               autocomplete="tel" placeholder="(00) 00000-0000" class="input-lined"/>
+        <p id="r-phone-err" class="text-xs text-[#ba1a1a] mt-1 hidden" role="alert"></p>
+      </div>
+
+      <div id="form-live" role="status" aria-live="polite" class="sr-only"></div>
+
+      <button type="submit"
+              class="w-full bg-primary text-on-primary font-label font-bold py-4 rounded-xl uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all ripple">
+        Confirmar Interesse
+      </button>
+      <p class="font-body text-sm italic text-on-surface-variant text-center">
+        Entraremos em contato pelo WhatsApp para confirmar sua vaga.
+      </p>
+    </form>
+
+    <!-- Success -->
+    <div id="form-success" class="hidden text-center space-y-5 py-4">
+      <span aria-hidden="true" class="text-6xl block">🌸</span>
+      <h4 class="font-headline text-2xl text-on-background">Interesse registrado!</h4>
+      <p class="font-body italic text-on-surface-variant">Entraremos em contato em breve pelo WhatsApp.</p>
+      <button id="success-close"
+              class="mt-2 bg-primary text-on-primary font-label font-bold py-3 px-8 rounded-xl uppercase tracking-widest hover:brightness-110 transition-all">
+        Fechar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ JAVASCRIPT ════════════════════ -->
+<script>
+(function () {
+  "use strict";
+
+  // ── Ripple hover effect ─────────────────────────────
+  document.querySelectorAll(".ripple").forEach(el => {
+    el.addEventListener("mousemove", e => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--rx", ((e.clientX - r.left) / r.width * 100) + "%");
+      el.style.setProperty("--ry", ((e.clientY - r.top) / r.height * 100) + "%");
+    });
+  });
+
+  // ── Nav: shadow on scroll ───────────────────────────
+  const nav = document.getElementById("main-nav");
+  window.addEventListener("scroll", () => {
+    nav.classList.toggle("is-scrolled", window.scrollY > 24);
+  }, { passive: true });
+
+  // ── Mobile menu ─────────────────────────────────────
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobile-menu");
+  let menuOpen = false;
+
+  function openMenu() {
+    menuOpen = true;
+    hamburger.classList.add("open");
+    hamburger.setAttribute("aria-expanded", "true");
+    hamburger.setAttribute("aria-label", "Fechar menu");
+    mobileMenu.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    menuOpen = false;
+    hamburger.classList.remove("open");
+    hamburger.setAttribute("aria-expanded", "false");
+    hamburger.setAttribute("aria-label", "Abrir menu");
+    mobileMenu.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  hamburger.addEventListener("click", () => menuOpen ? closeMenu() : openMenu());
+
+  document.querySelectorAll("[data-close-menu]").forEach(link =>
+    link.addEventListener("click", closeMenu)
+  );
+
+  // ── Smooth anchor scroll ────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener("click", e => {
+      const id = a.getAttribute("href");
+      if (id === "#") return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      const offset = nav.offsetHeight + 16;
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: "smooth" });
+      target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+    });
+  });
+
+  // ── Escape key ──────────────────────────────────────
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    if (menuOpen) closeMenu();
+    if (!modal.classList.contains("pointer-events-none")) closeModal();
+  });
+
+  // ── Reveal on scroll ────────────────────────────────
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -32px 0px" });
+
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+  // Immediately reveal above-fold elements
+  document.querySelectorAll(".reveal").forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight) {
+      el.classList.add("visible");
+    }
+  });
+
+  // ── Modal ───────────────────────────────────────────
+  const modal       = document.getElementById("reserve-modal");
+  const modalPanel  = document.getElementById("modal-panel");
+  const modalTitle  = document.getElementById("modal-title");
+  const modalDate   = document.getElementById("modal-date");
+  const modalClose  = document.getElementById("modal-close");
+  const reserveForm = document.getElementById("reserve-form");
+  const formSuccess = document.getElementById("form-success");
+  const formLive    = document.getElementById("form-live");
+  let lastFocus     = null;
+
+  function openModal(eventName, eventDate) {
+    lastFocus = document.activeElement;
+    modalTitle.textContent = eventName;
+    modalDate.textContent  = eventDate;
+    reserveForm.classList.remove("hidden");
+    formSuccess.classList.add("hidden");
+    reserveForm.reset();
+    clearErrors();
+    modal.classList.remove("opacity-0", "pointer-events-none");
+    requestAnimationFrame(() => modalPanel.classList.remove("translate-y-6"));
+    document.body.style.overflow = "hidden";
+    setTimeout(() => modalClose.focus(), 80);
+  }
+
+  function closeModal() {
+    modal.classList.add("opacity-0", "pointer-events-none");
+    modalPanel.classList.add("translate-y-6");
+    document.body.style.overflow = "";
+    lastFocus && lastFocus.focus();
+  }
+
+  document.querySelectorAll(".reserve-btn").forEach(btn =>
+    btn.addEventListener("click", () => openModal(btn.dataset.event, btn.dataset.date))
+  );
+
+  modalClose.addEventListener("click", closeModal);
+  document.getElementById("success-close").addEventListener("click", closeModal);
+  document.getElementById("modal-backdrop").addEventListener("click", closeModal);
+
+  // Focus trap
+  modal.addEventListener("keydown", e => {
+    if (e.key !== "Tab") return;
+    const focusable = Array.from(
+      modal.querySelectorAll("button:not([disabled]), input, [tabindex]:not([tabindex='-1'])")
+    ).filter(el => !el.closest(".hidden"));
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  // Form validation helpers
+  function showError(inputId, errId, msg) {
+    const inp = document.getElementById(inputId);
+    const err = document.getElementById(errId);
+    inp.setAttribute("aria-invalid", "true");
+    err.textContent = msg;
+    err.classList.remove("hidden");
+  }
+  function clearErrors() {
+    ["r-name", "r-phone"].forEach(id => {
+      document.getElementById(id).removeAttribute("aria-invalid");
+    });
+    ["r-name-err", "r-phone-err"].forEach(id => {
+      const el = document.getElementById(id);
+      el.textContent = "";
+      el.classList.add("hidden");
+    });
+  }
+
+  // Form submission
+  reserveForm.addEventListener("submit", e => {
+    e.preventDefault();
+    clearErrors();
+    const name  = document.getElementById("r-name").value.trim();
+    const phone = document.getElementById("r-phone").value.trim();
+    let valid = true;
+
+    if (!name) {
+      showError("r-name", "r-name-err", "Por favor, informe seu nome.");
+      valid = false;
+    }
+    if (!phone || phone.replace(/\D/g, "").length < 10) {
+      showError("r-phone", "r-phone-err", "Informe um WhatsApp válido com DDD.");
+      valid = false;
+    }
+    if (!valid) {
+      document.getElementById("r-name").getAttribute("aria-invalid") && document.getElementById("r-name").focus();
+      return;
+    }
+
+    // ⚠ Substitua 5500000000000 pelo número real
+    const msg = encodeURIComponent(
+      `Olá! Me chamo ${name} e quero reservar minha vaga no evento ${modalTitle.textContent} (${modalDate.textContent}). Meu WhatsApp: ${phone}`
+    );
+    window.open(`https://wa.me/5500000000000?text=${msg}`, "_blank", "noopener,noreferrer");
+
+    reserveForm.classList.add("hidden");
+    formSuccess.classList.remove("hidden");
+    formLive.textContent = "Sua reserva foi enviada com sucesso!";
+    document.getElementById("success-close").focus();
+  });
+
+  // Phone mask
+  document.getElementById("r-phone").addEventListener("input", function () {
+    let v = this.value.replace(/\D/g, "").slice(0, 11);
+    if (v.length >= 7)      v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+    else if (v.length >= 3) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+    else if (v.length > 0)  v = `(${v}`;
+    this.value = v;
+  });
+
+})();
+</script>
+</body>
+</html>
