@@ -4,6 +4,16 @@ import Lenis from 'lenis'
 // Module-level singleton — safe for a single-page landing app
 let _lenis = null
 
+/** Pause Lenis smooth scroll (e.g. while another component hijacks wheel events). */
+export function pauseLenis() {
+  _lenis?.stop()
+}
+
+/** Resume Lenis smooth scroll after it was paused. */
+export function resumeLenis() {
+  _lenis?.start()
+}
+
 /**
  * Scroll to a target via Lenis (falls back to native if not initialised yet).
  * @param {string|HTMLElement} target  CSS selector or element

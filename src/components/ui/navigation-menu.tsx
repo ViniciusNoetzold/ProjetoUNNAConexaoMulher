@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { label: "Encontros",     href: "#events" },
   { label: "Especialistas", href: "#speakers" },
   { label: "Participar",    href: "#cta" },
+  { label: "Galeria",       href: "/galeria", isPage: true },
 ]
 
 const EXPAND_SCROLL_THRESHOLD = 80
@@ -116,6 +117,9 @@ export function AnimatedNavFramer() {
   }
 
   function handleLinkClick(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
+    if (!isExpanded) return
+    // Page links (/galeria, etc.) — let the browser navigate normally
+    if (!href.startsWith('#')) return
     e.preventDefault()
     e.stopPropagation()
     scrollTo(href, { offset: -80 })

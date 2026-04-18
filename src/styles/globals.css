@@ -219,6 +219,15 @@
     background: #8d0032;
   }
 
+  /* Hide horizontal scrollbar (filter pills row) */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   /* Ghost divider (DESIGN.md no-line rule) */
   .ghost-rule {
     border: none;
