@@ -9,7 +9,9 @@
       "Bash(npm install:*)",
       "Bash(rtk npm:*)",
       "Bash(rtk find:*)",
-      "Bash(npm i:*)"
+      "Bash(npm i:*)",
+      "Bash(rtk wc:*)",
+      "Bash(rtk git:*)"
     ]
   }
 }
