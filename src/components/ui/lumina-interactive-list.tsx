@@ -32,7 +32,7 @@ export function LuminaSlider() {
           transitionDuration: 2.5,
           autoSlideSpeed: 5000,
           currentEffect: "glass",
-          globalIntensity: 1.0,
+          globalIntensity: 0.25,
           speedMultiplier: 1.0,
           distortionStrength: 1.0,
           colorEnhancement: 1.0,
@@ -40,7 +40,7 @@ export function LuminaSlider() {
           glassChromaticAberration: 1.0,
           glassBubbleClarity: 1.0,
           glassEdgeGlow: 1.0,
-          glassLiquidFlow: 1.0,
+          glassLiquidFlow: 0.25,
         },
       };
 
@@ -57,37 +57,16 @@ export function LuminaSlider() {
       const PROGRESS_UPDATE_INTERVAL = 50;
       const TRANSITION_DURATION = () => SLIDER_CONFIG.settings.transitionDuration;
 
+      const SLIDE_DESCRIPTION =
+        "O palco onde ideias florescem, marcas ganham propósito e mulheres brilham juntas.";
+
       const slides = [
-        {
-          title: "UNNA – Conexão Mulher",
-          description: "O palco onde ideias florescem, marcas ganham propósito e mulheres brilham juntas.",
-          media: "https://assets.codepen.io/7558/orange-portrait-001.jpg",
-        },
-        {
-          title: "Propósito & Marca",
-          description: "Mulheres que transformam o mercado com autenticidade e visão.",
-          media: "https://assets.codepen.io/7558/orange-portrait-002.jpg",
-        },
-        {
-          title: "Conexão Real",
-          description: "Redes que nascem de conversas verdadeiras e parceiras de jornada.",
-          media: "https://assets.codepen.io/7558/orange-portrait-003.jpg",
-        },
-        {
-          title: "Empoderamento",
-          description: "Quando uma mulher cresce, ela puxa outras com ela.",
-          media: "https://assets.codepen.io/7558/orange-portrait-004.jpg",
-        },
-        {
-          title: "Negócios & Propósito",
-          description: "O encontro entre sua marca e seu maior potencial.",
-          media: "https://assets.codepen.io/7558/orange-portrait-005.jpg",
-        },
-        {
-          title: "Juntas Brilhamos",
-          description: "Um evento que vai além do networking: é uma transformação.",
-          media: "https://assets.codepen.io/7558/orange-portrait-006.jpg",
-        },
+        { title: "UNNA – Conexão Mulher", description: SLIDE_DESCRIPTION, media: "/HeroFotos/3.jpg" },
+        { title: "Propósito & Marca",     description: SLIDE_DESCRIPTION, media: "/HeroFotos/10.jpg" },
+        { title: "Conexão Real",          description: SLIDE_DESCRIPTION, media: "/HeroFotos/15.jpg" },
+        { title: "Empoderamento",         description: SLIDE_DESCRIPTION, media: "/HeroFotos/17.jpg" },
+        { title: "Negócios & Propósito",  description: SLIDE_DESCRIPTION, media: "/HeroFotos/21.jpg" },
+        { title: "Juntas Brilhamos",      description: SLIDE_DESCRIPTION, media: "/HeroFotos/24.jpg" },
       ];
 
       // Shaders
@@ -171,13 +150,6 @@ export function LuminaSlider() {
         }, 500);
       };
 
-      const updateCounter = (idx: number) => {
-        const sn = container.querySelector('#lumina-number') as HTMLElement;
-        const st = container.querySelector('#lumina-total')  as HTMLElement;
-        if (sn) sn.textContent = String(idx + 1).padStart(2, '0');
-        if (st) st.textContent = String(slides.length).padStart(2, '0');
-      };
-
       const updateNavigationState = (idx: number) =>
         container.querySelectorAll('.slide-nav-item').forEach((el, i) => el.classList.toggle('active', i === idx));
 
@@ -246,7 +218,6 @@ export function LuminaSlider() {
 
         updateContent(targetIndex);
         currentSlideIndex = targetIndex;
-        updateCounter(currentSlideIndex);
         updateNavigationState(currentSlideIndex);
 
         gsap.fromTo(
@@ -275,7 +246,9 @@ export function LuminaSlider() {
           const item = document.createElement('div');
           item.className = `slide-nav-item${i === 0 ? ' active' : ''}`;
           item.dataset.slideIndex = String(i);
-          item.innerHTML = `<div class="slide-nav-title">${slide.title}</div><div class="slide-progress-line"><div class="slide-progress-fill"></div></div>`;
+          item.setAttribute('role', 'button');
+          item.setAttribute('aria-label', `Ir para slide ${i + 1}: ${slide.title}`);
+          item.innerHTML = `<div class="slide-progress-line"><div class="slide-progress-fill"></div></div>`;
           item.addEventListener('click', (e) => {
             e.stopPropagation();
             if (!isTransitioning && i !== currentSlideIndex) {
@@ -293,6 +266,15 @@ export function LuminaSlider() {
           const l = new THREE.TextureLoader();
           l.load(src, (t: any) => {
             t.minFilter = t.magFilter = THREE.LinearFilter;
+            // Non-POT textures + LinearFilter require mipmaps off in WebGL1,
+            // otherwise the texture is flagged incomplete and degrades.
+            t.generateMipmaps = false;
+            // Anisotropic filtering improves clarity under the refraction shader,
+            // where UVs are sampled at oblique offsets.
+            if (renderer?.capabilities?.getMaxAnisotropy) {
+              t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+            }
+            t.needsUpdate = true;
             t.userData = { size: new THREE.Vector2(t.image.width, t.image.height) };
             resolve(t);
           }, undefined, reject);
@@ -307,9 +289,16 @@ export function LuminaSlider() {
 
         scene    = new THREE.Scene();
         camera   = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-        renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
+        renderer = new THREE.WebGLRenderer({
+          canvas,
+          antialias: false,
+          alpha: false,
+          powerPreference: 'high-performance',
+        });
         renderer.setSize(w, h);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        // Cap at 3 to cover Retina XDR and DPR-3 mobile (iPhone Pro, high-end Android)
+        // at native pixel density without redundant rendering on extreme DPRs.
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 3));
 
         shaderMaterial = new THREE.ShaderMaterial({
           uniforms: {
@@ -320,7 +309,7 @@ export function LuminaSlider() {
             uTexture1Size: { value: new THREE.Vector2(1, 1) },
             uTexture2Size: { value: new THREE.Vector2(1, 1) },
             uEffectType: { value: 0 },
-            uGlobalIntensity: { value: 1.0 },
+            uGlobalIntensity: { value: 0.25 },
             uSpeedMultiplier: { value: 1.0 },
             uDistortionStrength: { value: 1.0 },
             uColorEnhancement: { value: 1.0 },
@@ -328,7 +317,7 @@ export function LuminaSlider() {
             uGlassChromaticAberration: { value: 1.0 },
             uGlassBubbleClarity: { value: 1.0 },
             uGlassEdgeGlow: { value: 1.0 },
-            uGlassLiquidFlow: { value: 1.0 },
+            uGlassLiquidFlow: { value: 0.25 },
           },
           vertexShader,
           fragmentShader,
@@ -370,7 +359,6 @@ export function LuminaSlider() {
 
       // Init
       createSlidesNavigation();
-      updateCounter(0);
 
       const titleEl = container.querySelector('#lumina-title') as HTMLElement;
       const descEl  = container.querySelector('#lumina-desc')  as HTMLElement;
@@ -427,13 +415,6 @@ export function LuminaSlider() {
   return (
     <div ref={containerRef} className="lumina-wrapper">
       <canvas className="webgl-canvas" />
-
-      {/* Slide counter */}
-      <div className="lumina-counter" aria-hidden="true">
-        <span id="lumina-number">01</span>
-        <span className="lumina-sep">/</span>
-        <span id="lumina-total">06</span>
-      </div>
 
       {/* Slide caption (bottom-left) */}
       <div className="lumina-caption">

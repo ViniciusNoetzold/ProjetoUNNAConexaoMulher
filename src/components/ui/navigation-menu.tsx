@@ -126,7 +126,7 @@ export function AnimatedNavFramer() {
   }
 
   return (
-    <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50">
+    <div className="fixed top-7 left-1/2 -translate-x-1/2 z-50">
       <motion.nav
         aria-label="Navegação principal"
         initial={{ y: -72, opacity: 0 }}

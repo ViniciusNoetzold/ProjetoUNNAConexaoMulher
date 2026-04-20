@@ -75,23 +75,15 @@ export default function HeroUnna() {
             {...fadeY(LEFT_DELAYS[2])}
             className="font-body text-lg md:text-xl italic leading-snug text-white/75 max-w-sm"
           >
-            O palco onde ideias florescem, marcas ganham propósito e mulheres brilham juntas.
-          </motion.p>
-
-          {/* Body */}
-          <motion.p
-            {...fadeY(LEFT_DELAYS[3])}
-            className="font-body text-sm md:text-base text-white/55 max-w-xs leading-relaxed"
-          >
-            Existem lugares que inspiram, e existem lugares que transformam.
+            Ideias florescem. Marcas crescem. Mulheres brilham.
           </motion.p>
 
           {/* CTAs */}
           <motion.div
-            {...fadeY(LEFT_DELAYS[4])}
+            {...fadeY(LEFT_DELAYS[3])}
             className="flex flex-col sm:flex-row gap-3 pt-2"
           >
-            {/* Primary */}
+            {/* Primary — glass rosado */}
             <motion.a
               href={WA_URL}
               target="_blank"
@@ -99,35 +91,43 @@ export default function HeroUnna() {
               aria-label="Garantir minha vaga via WhatsApp (abre em nova aba)"
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "gap-2 font-semibold tracking-wide",
-                "bg-[#8d0032] hover:bg-[#a8003b] text-white border-0"
+                "font-semibold tracking-wide text-white",
+                "backdrop-blur-md transition-all duration-300",
+                "bg-[rgba(141,0,50,0.20)] hover:bg-[rgba(141,0,50,0.35)]",
+                "border border-[rgba(141,0,50,0.40)]"
               )}
-              style={{ boxShadow: "0 12px 36px rgba(141,0,50,0.40)" }}
+              style={{
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                boxShadow: "0 12px 36px rgba(141,0,50,0.20)",
+              }}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 22 }}
             >
-              <span aria-hidden="true" className="material-symbols-outlined icon-fill text-lg leading-none">
-                chat
-              </span>
-              Garantir minha vaga via WhatsApp
+              Garantir minha vaga
             </motion.a>
 
-            {/* Secondary */}
+            {/* Secondary — glass translúcido */}
             <motion.a
               href="#events"
               onClick={(e: React.MouseEvent) => { e.preventDefault(); scrollTo("#events") }}
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "gap-2 font-semibold",
-                "border-white/30 text-white hover:bg-white/10 hover:border-white/50 bg-transparent"
+                "font-semibold text-white",
+                "backdrop-blur-md transition-all duration-300",
+                "bg-white/10 hover:bg-white/[0.18]",
+                "border border-white/25 hover:border-white/40"
               )}
+              style={{
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+              }}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: "spring", stiffness: 400, damping: 22 }}
             >
-              <span aria-hidden="true" className="text-base leading-none">📍</span>
-              Ver todas as cidades
+              Ver cidades
             </motion.a>
           </motion.div>
         </div>

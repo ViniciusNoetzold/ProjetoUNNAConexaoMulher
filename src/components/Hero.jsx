@@ -1,6 +1,15 @@
-import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { scrollTo } from '../hooks/useLenis'
+
+import heroBg1 from '../../Unna Conexão Mulher Fotos/HeroFotos/3.jpg'
+import heroBg2 from '../../Unna Conexão Mulher Fotos/HeroFotos/10.jpg'
+import heroBg3 from '../../Unna Conexão Mulher Fotos/HeroFotos/15.jpg'
+import heroBg4 from '../../Unna Conexão Mulher Fotos/HeroFotos/17.jpg'
+import heroBg5 from '../../Unna Conexão Mulher Fotos/HeroFotos/21.jpg'
+import heroBg6 from '../../Unna Conexão Mulher Fotos/HeroFotos/24.jpg'
+
+const heroSlides = [heroBg1, heroBg2, heroBg3, heroBg4, heroBg5, heroBg6]
 
 // ⚠ Substitua pelo número real de WhatsApp
 const WA_VAGA = 'https://wa.me/5555996880252?text=Olá!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conexão%20Mulher.'
@@ -26,6 +35,14 @@ const rise = {
 
 export default function Hero() {
   const sectionRef = useRef(null)
+  const [slideIndex, setSlideIndex] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setSlideIndex(prev => (prev + 1) % heroSlides.length)
+    }, 5000)
+    return () => clearInterval(id)
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -45,6 +62,23 @@ export default function Hero() {
       className="relative min-h-[92vh] flex items-center px-6 md:px-12 py-20 pt-28 overflow-hidden"
       style={{ background: 'var(--gradient-editorial)' }}
     >
+      {/* Background slideshow */}
+      <div aria-hidden="true" className="absolute inset-0 overflow-hidden pointer-events-none">
+        <AnimatePresence mode="sync">
+          <motion.img
+            key={slideIndex}
+            src={heroSlides[slideIndex]}
+            alt=""
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: 'easeInOut' }}
+            className="absolute inset-0 w-full h-full object-cover object-top"
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-black/45" />
+      </div>
+
       {/* Parallax ambient blob */}
       <motion.div
         aria-hidden="true"

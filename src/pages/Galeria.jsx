@@ -4,6 +4,14 @@ import { ZoomParallax } from '../components/ui/zoom-parallax'
 import ImageGallery from '../components/ui/image-gallery'
 import Footer from '../components/Footer'
 
+import galeria1  from '../../Unna Conexão Mulher Fotos/Seção1Galeria/1.jpg'
+import galeria2  from '../../Unna Conexão Mulher Fotos/Seção1Galeria/2.jpg'
+import galeria4  from '../../Unna Conexão Mulher Fotos/Seção1Galeria/4.jpg'
+import galeria16 from '../../Unna Conexão Mulher Fotos/Seção1Galeria/16.jpg'
+import galeria20 from '../../Unna Conexão Mulher Fotos/Seção1Galeria/20.jpg'
+import galeria23 from '../../Unna Conexão Mulher Fotos/Seção1Galeria/23.jpg'
+import galeria27 from '../../Unna Conexão Mulher Fotos/Seção1Galeria/27.jpg'
+
 const WA_NUMBER = '5555996880252'
 
 const VP = { once: true, margin: '-40px' }
@@ -16,37 +24,16 @@ const fadeUp = {
   }),
 }
 
-// ── 7 imagens — máximo suportado pelo ZoomParallax ────────
-// Todas retratam mulheres em eventos, conexão e liderança
+// ── 7 imagens reais — 20.jpg no slot central (index 0) ────
+// ZoomParallax: o primeiro item é a imagem de destaque central.
 const GALLERY_IMAGES = [
-  {
-    src: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1280&h=720&fit=crop&q=80',
-    alt: 'Mulheres em evento de networking e conexão',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1280&h=720&fit=crop&q=80',
-    alt: 'Evento de empreendedorismo feminino',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=1280&h=720&fit=crop&q=80',
-    alt: 'Mulheres conectando e conversando em evento',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1280&h=720&fit=crop&q=80',
-    alt: 'Palestra e liderança feminina',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1280&h=720&fit=crop&q=80',
-    alt: 'Celebração e encerramento de evento',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1280&h=720&fit=crop&q=80',
-    alt: 'Noite de encontro e propósito',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=1280&h=720&fit=crop&q=80',
-    alt: 'Palco e apresentação no evento UNNA',
-  },
+  { src: galeria20, alt: 'Destaque do evento UNNA Conexão Mulher' },
+  { src: galeria1,  alt: 'Momento do evento UNNA Conexão Mulher' },
+  { src: galeria16, alt: 'Momento do evento UNNA Conexão Mulher' },
+  { src: galeria4,  alt: 'Momento do evento UNNA Conexão Mulher' },
+  { src: galeria23, alt: 'Momento do evento UNNA Conexão Mulher' },
+  { src: galeria2,  alt: 'Momento do evento UNNA Conexão Mulher' },
+  { src: galeria27, alt: 'Momento do evento UNNA Conexão Mulher' },
 ]
 
 export default function Galeria({ onReserve }) {

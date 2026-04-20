@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 
-// Shared reveal variant factory — accepts a stagger delay via `custom` prop
+import cicloAtualImg from '../../Unna Conexão Mulher Fotos/CicloAtual/18.jpg'
+
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   visible: (delay = 0) => ({
@@ -12,9 +13,31 @@ const fadeUp = {
 
 const VP = { once: true, margin: '-40px' }
 
+const pillars = [
+  {
+    icon: 'auto_awesome',
+    title: 'Conteúdo que impacta',
+    desc: 'Palestras e temas que fazem sentido real na sua vida',
+  },
+  {
+    icon: 'favorite',
+    title: 'Conexões verdadeiras',
+    desc: 'Mulheres reais, histórias reais, vínculos que ficam',
+  },
+  {
+    icon: 'star',
+    title: 'Vivências práticas',
+    desc: 'Dinâmicas imersivas de autoconhecimento e conexão',
+  },
+]
+
 export default function Cycle() {
   return (
-    <section id="cycle" aria-labelledby="cycle-heading" className="py-32 px-6 md:px-12 bg-white relative overflow-hidden">
+    <section
+      id="cycle"
+      aria-labelledby="cycle-heading"
+      className="py-32 px-6 md:px-12 bg-white relative overflow-hidden"
+    >
       {/* Soft Glow Background */}
       <div
         aria-hidden="true"
@@ -23,93 +46,149 @@ export default function Cycle() {
           backgroundImage: 'radial-gradient(circle at center, #fff8f6, transparent)',
         }}
       />
+
       <div className="relative z-10 max-w-7xl mx-auto">
 
-        {/* ── Header row ─────────────────────────── */}
-        <div className="flex flex-col md:flex-row justify-between items-end gap-8 pb-12 mb-20 ghost-rule">
-          <motion.div
-            className="max-w-2xl"
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={VP}
+        {/* ── Topo: badge + título + subtítulo + separador ─── */}
+        <motion.div
+          className="text-center max-w-4xl mx-auto mb-16"
+          custom={0}
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VP}
+        >
+          <span
+            className="inline-block font-label text-[0.7rem] uppercase tracking-[0.3em] font-semibold text-primary px-4 py-1.5 rounded-full mb-6"
+            style={{
+              background: 'rgba(141, 0, 50, 0.08)',
+              border: '1px solid rgba(141, 0, 50, 0.20)',
+            }}
           >
-            <span className="font-label text-secondary uppercase tracking-widest text-xs mb-4 block">
-              Ciclo Atual
-            </span>
-            <h2 id="cycle-heading" className="font-headline text-4xl md:text-6xl text-on-background leading-tight">
-              IMPERFEITA, REAL E PODEROSA
-              <br />
-              <span className="italic text-primary">– Seu poder é ser você</span>
-            </h2>
-          </motion.div>
+            Ciclo Atual 2025
+          </span>
 
-          <motion.div
-            className="text-right"
-            custom={0.14}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={VP}
+          <h2
+            id="cycle-heading"
+            className="font-headline text-5xl md:text-7xl text-on-background leading-[1.02] tracking-tight"
           >
-            <p className="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-2">
-              Tema em Destaque
-            </p>
-            <p className="font-headline text-xl italic max-w-xs">
-              Resiliência em Ação – Como transformar o peso da vida em força
-            </p>
-          </motion.div>
-        </div>
+            IMPERFEITA, REAL E PODEROSA
+          </h2>
 
-        {/* ── Content grid ───────────────────────── */}
-        <div className="grid md:grid-cols-2 gap-16 items-start">
+          <p className="font-headline italic text-2xl md:text-3xl text-primary mt-4">
+            – Seu poder é ser você
+          </p>
+
+          <div
+            aria-hidden="true"
+            className="mx-auto mt-10 h-px w-24"
+            style={{ background: 'rgba(141, 0, 50, 0.45)' }}
+          />
+        </motion.div>
+
+        {/* ── Corpo: grid 60/40 ───────────────────────────── */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-16 items-center">
+
+          {/* Coluna esquerda (60%) */}
           <motion.div
-            className="space-y-8"
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={VP}
-          >
-            <p className="font-body text-xl text-on-surface leading-relaxed">
-              Para mulheres únicas que merecem confiança e vivem com autodefesa. Um encontro que une
-              palestra e vivências práticas para o despertar da consciência e saúde.
-            </p>
-            <div className="flex gap-4 items-center p-6 bg-surface-container-low rounded-xl">
-              <span
-                aria-hidden="true"
-                className="material-symbols-outlined icon-fill text-4xl text-primary"
-              >
-                psychology
-              </span>
-              <div>
-                <h3 className="font-label font-semibold text-on-surface">Vivências Transformadoras</h3>
-                <p className="text-sm text-on-surface-variant mt-1">
-                  Práticas imersivas de autoconhecimento e conexão.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.figure
-            className="rounded-xl overflow-hidden"
-            style={{ boxShadow: 'var(--shadow-warm)' }}
+            className="md:col-span-3 flex flex-col justify-center"
             custom={0.1}
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={VP}
           >
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDS8L41d0NXt3DYp0mbaob5NKTeohTy3IArEF5naWT1MaC1iL3SNrYWA3OvHj5hRo-G6zZZzZiul2eldxB-lEHGkogeLhF-BwBvC9fLNiawDMurAvWgIi6ygWT2igkpBg6xocuPUN4dydFjSro7Xaab2CWXg63jwZMXm8phQy9fS7bKq0rAOJVFUt48XC9Od7pI9vVr2Yrwg4Hg0toka_U7xh_hPTwPocHcSF7LXdTwHhwwM13zqNOozC-pz8lSn-VqLLibgFtmHFkm"
-              alt="Grupo de mulheres diversas sentadas em círculo em conversa significativa num estúdio luminoso"
-              className="w-full h-80 object-cover"
-              loading="lazy"
-              width={600}
-              height={320}
-            />
-          </motion.figure>
+            <p className="font-body text-xl md:text-2xl text-on-surface leading-relaxed">
+              Um encontro que transforma. Palestra + vivências práticas para despertar
+              o que há de mais poderoso em você.
+            </p>
+
+            {/* 3 cards em coluna — layout de feature list */}
+            <div className="flex flex-col mt-12" style={{ gap: '16px' }}>
+              {pillars.map((p, i) => (
+                <motion.div
+                  key={p.title}
+                  custom={0.18 + i * 0.08}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={VP}
+                  className="flex flex-row items-center gap-4"
+                  style={{
+                    background: 'rgba(141, 0, 50, 0.08)',
+                    border: '1px solid rgba(141, 0, 50, 0.20)',
+                    borderRadius: '12px',
+                    padding: '16px',
+                    minHeight: '80px',
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="flex-shrink-0 flex items-center justify-center material-symbols-outlined icon-fill text-primary"
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      fontSize: '28px',
+                    }}
+                  >
+                    {p.icon}
+                  </span>
+                  <div className="flex flex-col">
+                    <h3 className="font-label font-bold text-on-surface text-base leading-snug">
+                      {p.title}
+                    </h3>
+                    <p className="font-body text-sm text-on-surface-variant leading-snug">
+                      {p.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Coluna direita (40%) */}
+          <motion.div
+            className="md:col-span-2 space-y-6"
+            custom={0.2}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VP}
+          >
+            {/* Tema em destaque — canto superior direito */}
+            <div className="text-right">
+              <p className="font-label text-[0.7rem] uppercase tracking-[0.3em] text-on-surface-variant mb-2">
+                Tema em Destaque
+              </p>
+              <p className="font-headline italic text-lg md:text-xl text-primary leading-snug max-w-xs ml-auto">
+                Resiliência em Ação – Como transformar o peso da vida em força
+              </p>
+            </div>
+
+            {/* Imagem do evento */}
+            <figure
+              className="group overflow-hidden"
+              style={{
+                borderRadius: '16px',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
+              }}
+            >
+              <img
+                src={cicloAtualImg}
+                alt="Foto real do evento UNNA Conexão Mulher — Ciclo Atual"
+                loading="lazy"
+                className="transition-[transform,filter] duration-[400ms] ease-out group-hover:scale-[1.03] group-hover:brightness-105"
+                style={{
+                  width: '100%',
+                  height: '480px',
+                  objectFit: 'cover',
+                  objectPosition: 'center top',
+                  display: 'block',
+                  cursor: 'pointer',
+                }}
+              />
+            </figure>
+          </motion.div>
         </div>
       </div>
     </section>
