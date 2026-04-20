@@ -15,7 +15,7 @@ const SPEAKERS = [
   {
     name: 'Ana Paula Nogueira',
     role: 'Nutricionista Holística / Idealizadora',
-    bio:  'Especialista em saúde integrativa e equilíbrio feminino através da nutrição consciente.',
+    bio:  'Nutricionista holística com atuação voltada à saúde da mulher, integrando corpo, mente e emoções em uma abordagem de cuidado integral.',
     img:  'https://lh3.googleusercontent.com/aida-public/AB6AXuAVr0eAs79g30f2s7uII5_fBTEogcqwgIGmOjs6wD8tc2Xc_aakkocrtF6KEv0x3B83yoyFYAMX0sQd-XIzmx5Ryx663Rnz_iB54YqMf-EUJ20AGusiwv3_xLofajeayIErCTYbUSsC8lW2RooOQ810vpqpUsX7yElg6C4HgeuTIZvO_TwvoNbz7r_FVoPzYJVh0cTbk5jRCLfyTK1-aPXik-aLbqmP5HMeTr5jbrkyxsT37ZS0Zo3boR9DGz45aoA4XcK24AG3xzU3',
     alt:  'Foto profissional de Ana Paula Nogueira',
   },

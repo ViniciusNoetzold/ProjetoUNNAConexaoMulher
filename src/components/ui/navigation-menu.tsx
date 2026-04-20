@@ -5,10 +5,10 @@ import { cn } from "@/lib/utils"
 import { scrollTo } from "@/hooks/useLenis"
 
 const NAV_ITEMS = [
-  { label: "Sobre",         href: "#about" },
-  { label: "Encontros",     href: "#events" },
-  { label: "Especialistas", href: "#speakers" },
-  { label: "Participar",    href: "#cta" },
+  { label: "Essência",      href: "#essencia" },
+  { label: "Os Eventos",    href: "#pilares"  },
+  { label: "Edições 2026",  href: "#cidades"  },
+  { label: "Idealizadora",  href: "#idealizadora" },
   { label: "Galeria",       href: "/galeria", isPage: true },
 ]
 

@@ -75,7 +75,7 @@ export default function HeroUnna() {
             {...fadeY(LEFT_DELAYS[2])}
             className="font-body text-lg md:text-xl italic leading-snug text-white/75 max-w-sm"
           >
-            Ideias florescem. Marcas crescem. Mulheres brilham.
+            Conexão que transforma. Mulheres que se fortalecem.
           </motion.p>
 
           {/* CTAs */}

@@ -9,13 +9,17 @@ import HeroUnna from './components/blocks/HeroUnna'
 import ReserveModal from './components/ReserveModal'
 
 // Below-fold sections split into separate chunks
-const Cycle              = lazy(() => import('./components/Cycle'))
-const ScrollExpandHero   = lazy(() => import('./components/ui/scroll-expansion-hero'))
-const Events             = lazy(() => import('./components/Events'))
-const Speakers           = lazy(() => import('./components/Speakers'))
-const Cta                = lazy(() => import('./components/Cta'))
-const Footer             = lazy(() => import('./components/Footer'))
-const Galeria            = lazy(() => import('./pages/Galeria'))
+const Essencia        = lazy(() => import('./components/Essencia'))
+const Cycle           = lazy(() => import('./components/Cycle'))
+const ScrollExpandHero = lazy(() => import('./components/ui/scroll-expansion-hero'))
+const Pilares         = lazy(() => import('./components/Pilares'))
+const Cidades         = lazy(() => import('./components/Cidades'))
+const Speakers        = lazy(() => import('./components/Speakers'))
+const Idealizadora    = lazy(() => import('./components/Idealizadora'))
+const Parceiros       = lazy(() => import('./components/Parceiros'))
+const Cta             = lazy(() => import('./components/Cta'))
+const Footer          = lazy(() => import('./components/Footer'))
+const Galeria         = lazy(() => import('./pages/Galeria'))
 
 const WA_URL = 'https://wa.me/5555996880252?text=Olá!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conexão%20Mulher.'
 
@@ -29,10 +33,16 @@ function HomePage({ onReserve }) {
   return (
     <main id="main-content" tabIndex={-1}>
       <HeroUnna />
+
       <Suspense fallback={<div style={{ minHeight: '200vh' }} />}>
+
+        {/* ── Nossa Essência — propósito e significado do UNNA ── */}
+        <Essencia />
+
+        {/* ── Ciclo Atual — tema da temporada ── */}
         <Cycle />
 
-        {/* ── ScrollExpandMedia — após "IMPERFEITA, REAL E PODEROSA" ── */}
+        {/* ── ScrollExpandMedia — transição cinematográfica ── */}
         <ScrollExpandHero
           mediaType="image"
           mediaSrc={HERO_MEDIA_SRC}
@@ -72,9 +82,24 @@ function HomePage({ onReserve }) {
           </div>
         </ScrollExpandHero>
 
-        <Events onReserve={onReserve} />
+        {/* ── Pilares — o que acontece nos encontros ── */}
+        <Pilares />
+
+        {/* ── Cidades — próximas edições 2026 ── */}
+        <Cidades />
+
+        {/* ── Especialistas ── */}
         <Speakers />
+
+        {/* ── Idealizadora — Ana Paula Nogueira ── */}
+        <Idealizadora />
+
+        {/* ── Parceiros ── */}
+        <Parceiros />
+
+        {/* ── CTA com scroll paralax ── */}
         <Cta />
+
         <Footer />
       </Suspense>
     </main>
