@@ -255,10 +255,23 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#1a0008]/75 via-[#1a0008]/15 to-transparent" />
 
+                    {/* Blur overlay — eventos futuros (não Não-Me-Toque) */}
+                    {!selected.proximo && (
+                      <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        backdropFilter: 'blur(12px)',
+                        WebkitBackdropFilter: 'blur(12px)',
+                        backgroundColor: 'rgba(60, 0, 30, 0.45)',
+                        zIndex: 1,
+                      }} />
+                    )}
+
                     {/* Meta over image */}
                     <motion.div
                       layoutId={`card-meta-${selected.id}`}
                       className="absolute bottom-4 left-6 right-6"
+                      style={{ zIndex: 2 }}
                     >
                       <p className="font-label text-[10px] font-semibold uppercase tracking-widest text-[#f4b8ce]/90 mb-1">
                         {selected.category}
@@ -272,10 +285,12 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
                           <MapPin className="w-3 h-3" />
                           {selected.location}
                         </span>
-                        <span className="flex items-center gap-1.5">
-                          <Calendar className="w-3 h-3" />
-                          {selected.dateLabel}
-                        </span>
+                        {selected.proximo && (
+                          <span className="flex items-center gap-1.5">
+                            <Calendar className="w-3 h-3" />
+                            {selected.dateLabel}
+                          </span>
+                        )}
                       </div>
                     </motion.div>
                   </motion.div>

@@ -20,21 +20,19 @@ const Cta             = lazy(() => import('./components/Cta'))
 const Footer          = lazy(() => import('./components/Footer'))
 const Galeria         = lazy(() => import('./pages/Galeria'))
 
-// ── Imagem para NossosEncontros ───────────────────────────────────────────
-const HERO_MEDIA_SRC = 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1280&auto=format&fit=crop&q=80'
 
 function HomePage({ onReserve }) {
   const location = useLocation()
 
   useEffect(() => {
-    const target = location.state?.scrollTo
-    if (!target) return
+    if (!location.hash) return
+    const id = location.hash.slice(1)
     const timer = setTimeout(() => {
-      const el = document.querySelector(target)
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 200)
+      const el = document.getElementById(id)
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }, 100)
     return () => clearTimeout(timer)
-  }, [location.state])
+  }, [location.hash])
 
   return (
     <main id="main-content" tabIndex={-1}>
@@ -49,10 +47,7 @@ function HomePage({ onReserve }) {
         <Cycle />
 
         {/* ── NossosEncontros — parallax + revelação progressiva ── */}
-        <ScrollExpandHero
-          mediaSrc={HERO_MEDIA_SRC}
-          title="Encontros que Transformam"
-        />
+        <ScrollExpandHero />
 
         {/* ── Pilares — o que acontece nos encontros ── */}
         <Pilares />

@@ -66,6 +66,22 @@ export default function Pilares() {
         }}
       />
 
+      {/* Diagonal rain lines animation */}
+      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} style={{
+            position: 'absolute',
+            top: '-100%',
+            left: `${i * 14}%`,
+            width: '1px',
+            height: '60%',
+            background: 'linear-gradient(to bottom, transparent, rgba(249,196,212,0.25), transparent)',
+            animation: 'slideDown 8s ease-in-out infinite',
+            animationDelay: `${i * 0.9}s`,
+          }} />
+        ))}
+      </div>
+
       <div className="relative z-10 max-w-7xl mx-auto space-y-20">
 
         {/* Header */}

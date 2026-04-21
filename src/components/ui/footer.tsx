@@ -1,4 +1,5 @@
 import { scrollTo } from '@/hooks/useLenis'
+import mezzoldLogo from '../../assets/mezzold.jpeg'
 
 // ── Nav links — espelha a navbar ───────────────────────────────────────────
 const NAV_LINKS = [
@@ -138,6 +139,49 @@ export default function FooterSection() {
         >
           © {new Date().getFullYear()} UNNA – Conexão Mulher. Todos os direitos reservados.
         </p>
+
+        {/* ── Crédito Mezzold ── */}
+        <div style={{
+          borderTop: '1px solid rgba(255,255,255,0.06)',
+          marginTop: '24px',
+          paddingTop: '20px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '12px',
+        }}>
+          <span style={{
+            fontSize: '0.8rem',
+            letterSpacing: '0.12em',
+            color: 'rgba(255,255,255,0.45)',
+            textTransform: 'uppercase',
+          }}>
+            Desenvolvido por
+          </span>
+          <a
+            href="https://www.mezzoldstudio.com.br/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <div style={{ height: '52px', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
+              <img
+                src={mezzoldLogo}
+                alt="Mezzold Studio"
+                style={{
+                  height: '88px',
+                  width: 'auto',
+                  display: 'block',
+                  mixBlendMode: 'lighten',
+                  opacity: 0.85,
+                  transition: 'opacity 0.2s ease',
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '0.85' }}
+              />
+            </div>
+          </a>
+        </div>
       </div>
     </footer>
   )

@@ -70,6 +70,28 @@ export default function Parceiros() {
         }}
       />
 
+      {/* Diamond spin animation */}
+      {[
+        { top: '5%',  left: '2%',  size: 20, dur: 12, delay: 0   },
+        { top: '10%', left: '94%', size: 14, dur: 9,  delay: 1.5 },
+        { top: '50%', left: '1%',  size: 16, dur: 15, delay: 3   },
+        { top: '45%', left: '96%', size: 20, dur: 11, delay: 0.8 },
+        { top: '85%', left: '3%',  size: 14, dur: 13, delay: 2   },
+        { top: '88%', left: '93%', size: 18, dur: 10, delay: 1   },
+      ].map((d, i) => (
+        <div key={i} aria-hidden="true" style={{
+          position: 'absolute',
+          top: d.top, left: d.left,
+          width: d.size, height: d.size,
+          border: '1px solid rgba(249,196,212,0.4)',
+          pointerEvents: 'none',
+          zIndex: 0,
+          animation: `diamondSpin ${d.dur}s linear infinite`,
+          animationDelay: `${d.delay}s`,
+          transform: 'rotate(45deg)',
+        }} />
+      ))}
+
       <div className="relative z-10 max-w-5xl mx-auto space-y-10">
 
         {/* ── Header ── */}

@@ -136,27 +136,67 @@ export default function Galeria({ onReserve }) {
         </div>
       </section>
 
-      {/* ── Intro label ───────────────────────────────────── */}
-      <motion.div
-        className="py-16 px-6 text-center"
-        custom={0}
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={VP}
-      >
-        <span className="font-label text-[10px] uppercase tracking-[0.3em] text-[#8d0032] font-bold">
-          Role para ampliar
-        </span>
-        <p className="font-headline text-2xl md:text-3xl italic text-[#3d0a1e]/70 mt-3 leading-snug">
-          A energia dos nossos encontros, em imagens
-        </p>
-      </motion.div>
+      {/* ── Seção 1 — fundo branco: intro + zoom parallax ───── */}
+      {/* overflow: hidden removido — quebraria position:sticky do ZoomParallax */}
+      <section style={{ position: 'relative' }}>
+        {/* Decorativo inline — sem altura própria, sem quebrar layout */}
+        <div aria-hidden="true" style={{
+          position: 'absolute', inset: 0,
+          zIndex: 0, pointerEvents: 'none',
+          overflow: 'hidden',
+        }}>
+          <div style={{
+            position: 'absolute', top: 0, left: 0,
+            width: '200px', height: '200px',
+            background: 'radial-gradient(circle, rgba(249,196,212,0.3) 0%, transparent 70%)',
+            borderRadius: '50%',
+            transform: 'translate(-30%, -30%)',
+          }} />
+          <div style={{
+            position: 'absolute', bottom: 0, right: 0,
+            width: '200px', height: '200px',
+            background: 'radial-gradient(circle, rgba(249,196,212,0.25) 0%, transparent 70%)',
+            borderRadius: '50%',
+            transform: 'translate(30%, 30%)',
+          }} />
+          <div style={{
+            position: 'absolute', top: '50%', left: 0,
+            width: '120px', height: '120px',
+            background: 'radial-gradient(circle, rgba(249,196,212,0.2) 0%, transparent 70%)',
+            borderRadius: '50%',
+            transform: 'translateY(-50%)',
+          }} />
+          <div style={{
+            position: 'absolute', top: '30%', right: 0,
+            width: '150px', height: '150px',
+            background: 'radial-gradient(circle, rgba(249,196,212,0.2) 0%, transparent 70%)',
+            borderRadius: '50%',
+          }} />
+        </div>
 
-      {/* ── Zoom Parallax ─────────────────────────────────── */}
-      <ZoomParallax images={GALLERY_IMAGES} />
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          {/* ── Intro label ─────────────────────────────────── */}
+          <motion.div
+            className="py-16 px-6 text-center"
+            custom={0}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={VP}
+          >
+            <span className="font-label text-[10px] uppercase tracking-[0.3em] text-[#8d0032] font-bold">
+              Role para ampliar
+            </span>
+            <p className="font-headline text-2xl md:text-3xl italic text-[#3d0a1e]/70 mt-3 leading-snug">
+              A energia dos nossos encontros, em imagens
+            </p>
+          </motion.div>
 
-      {/* ── Image Gallery ─────────────────────────────────── */}
+          <ZoomParallax images={GALLERY_IMAGES} />
+        </div>
+      </section>
+
+      {/* ── Seção 2 — fundo escuro: Encontros que ficam na memória */}
       {/* 7 imagens únicas de EncontrosMemoria — layout 4+3 (fila|grade)
           Fila (slice 0-3): 30, 28, 31, 29  — sem repetição
           Grade (slice -3): 34, 33, 32       — destaques */}
@@ -166,7 +206,7 @@ export default function Galeria({ onReserve }) {
           { src: memCelebracao28, title: 'Juntas Brilhamos',               city: 'Sarandi / RS'             },
           { src: memConexao31,    title: 'Negócio com Propósito',          city: 'Passo Fundo / RS'         },
           { src: memMemoria29,    title: 'Encontro que Fica na Memória',   city: 'Rio Grande do Sul / RS'   },
-          { src: memDestaque34,   title: 'Encontro UNNA – Não-Me-Toque',  city: 'Não-Me-Toque / RS'       },
+          { src: memDestaque34,   title: 'Bastidores – Não-Me-Toque',      city: 'Não-Me-Toque / RS'       },
           { src: memDestaque33,   title: 'Palco de Transformação',         city: 'Panambi / RS'             },
           { src: memDestaque32,   title: 'Mulheres que Inspiram',          city: 'Palmeira das Missões / RS'},
         ]}

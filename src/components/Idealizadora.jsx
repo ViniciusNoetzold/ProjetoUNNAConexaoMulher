@@ -58,6 +58,27 @@ export default function Idealizadora() {
         }}
       />
 
+      {/* Star pulse dots animation */}
+      {[
+        [8,3],[15,92],[25,6],[35,89],[42,4],[55,94],
+        [60,7],[70,88],[78,5],[85,91],[90,2],[95,93],
+      ].map(([top, left], i) => (
+        <div key={i} aria-hidden="true" style={{
+          position: 'absolute',
+          top: `${top}%`,
+          left: `${left}%`,
+          width: i % 3 === 0 ? '6px' : '4px',
+          height: i % 3 === 0 ? '6px' : '4px',
+          borderRadius: '50%',
+          background: '#f9c4d4',
+          pointerEvents: 'none',
+          zIndex: 0,
+          animation: 'starPulse ease-in-out infinite',
+          animationDuration: `${3 + (i % 4)}s`,
+          animationDelay: `${i * 0.4}s`,
+        }} />
+      ))}
+
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 

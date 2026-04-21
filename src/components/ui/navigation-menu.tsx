@@ -2,60 +2,44 @@ import * as React from "react"
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Menu, X } from "lucide-react"
-import { cn } from "@/lib/utils"
 import { scrollTo } from "@/hooks/useLenis"
 
 // ── Constants ────────────────────────────────────────────────────────────────
 const WA_HREF =
   "https://wa.me/5555996880252?text=Ol%C3%A1!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conex%C3%A3o%20Mulher."
 
-const NAV_ITEMS = [
-  { label: "Essência",     href: "#essencia"      },
-  { label: "Os Eventos",   href: "#events"        },
-  { label: "Idealizadora", href: "#idealizadora"  },
-  { label: "Galeria",      href: "/galeria", isPage: true },
+const NAV_LINKS = [
+  { label: "Essência",     href: "#essencia"     },
+  { label: "Os Eventos",   href: "#events"       },
+  { label: "Idealizadora", href: "#idealizadora" },
 ]
 
 const EXPAND_SCROLL_THRESHOLD = 80
 
-// ── Desktop pill variants ─────────────────────────────────────────────────────
-const containerVariants = {
+// ── Dark glass pill style ────────────────────────────────────────────────────
+const SEP_STYLE: React.CSSProperties = {
+  width: "1px",
+  height: "18px",
+  background: "rgba(255,255,255,0.15)",
+  flexShrink: 0,
+  margin: "0 20px",
+}
+
+// ── Desktop pill variants (width only — no per-item stagger) ─────────────────
+const pillVariants = {
   expanded: {
-    y: 0, opacity: 1, width: "auto",
-    transition: {
-      y:       { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const },
-      opacity: { duration: 0.3 },
-      width:   { type: "spring" as const, damping: 20, stiffness: 300 },
-      staggerChildren: 0.06, delayChildren: 0.15,
-    },
+    opacity: 1, y: 0, scale: 1, width: "auto",
+    transition: { type: "spring" as const, damping: 22, stiffness: 280 },
   },
   collapsed: {
-    y: 0, opacity: 1, width: "3rem",
-    transition: {
-      type: "spring" as const, damping: 20, stiffness: 300,
-      when: "afterChildren", staggerChildren: 0.04, staggerDirection: -1,
-    },
+    opacity: 1, y: 0, scale: 1, width: "3rem",
+    transition: { type: "spring" as const, damping: 22, stiffness: 280 },
   },
-}
-
-const linksWrapperVariants = {
-  expanded:  { transition: { staggerChildren: 0.05, delayChildren: 0 } },
-  collapsed: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
-}
-
-const logoVariants = {
-  expanded:  { opacity: 1, x: 0,   transition: { type: "spring" as const, damping: 15 } },
-  collapsed: { opacity: 0, x: -20, transition: { duration: 0.2 } },
-}
-
-const itemVariants = {
-  expanded:  { opacity: 1, x: 0,   scale: 1,    transition: { type: "spring" as const, damping: 15 } },
-  collapsed: { opacity: 0, x: -16, scale: 0.95, transition: { duration: 0.18 } },
 }
 
 const collapsedIconVariants = {
   expanded:  { opacity: 0, scale: 0.7, transition: { duration: 0.15 } },
-  collapsed: { opacity: 1, scale: 1,   transition: { type: "spring" as const, damping: 15, stiffness: 300, delay: 0.12 } },
+  collapsed: { opacity: 1, scale: 1,   transition: { type: "spring" as const, damping: 15, stiffness: 300, delay: 0.1 } },
 }
 
 // ── Mobile drawer variants ────────────────────────────────────────────────────
@@ -67,8 +51,8 @@ const drawerVariants = {
 // ── Component ─────────────────────────────────────────────────────────────────
 export function AnimatedNavFramer() {
   const [isExpanded, setExpanded]   = React.useState(true)
-  const [scrolled,   setScrolled]   = React.useState(false)
   const [mobileOpen, setMobileOpen] = React.useState(false)
+  const [isScrolled, setScrolled]   = React.useState(false)
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -77,19 +61,15 @@ export function AnimatedNavFramer() {
   const lastScrollY      = React.useRef(0)
   const scrollOnCollapse = React.useRef(0)
 
-  // Close mobile menu on route change
   React.useEffect(() => { setMobileOpen(false) }, [location.pathname])
 
-  // Lock body scroll when mobile menu is open
   React.useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : ""
     return () => { document.body.style.overflow = "" }
   }, [mobileOpen])
 
-  // Desktop pill collapse / expand on scroll
   useMotionValueEvent(scrollY, "change", (latest) => {
     const prev = lastScrollY.current
-    setScrolled(latest > 30)
 
     if (isExpanded && latest > prev && latest > 150) {
       setExpanded(false)
@@ -102,19 +82,18 @@ export function AnimatedNavFramer() {
       setExpanded(true)
     }
 
+    setScrolled(latest > 20)
     lastScrollY.current = latest
   })
 
-  // Navigate to a hash section — works from any page
   function navigateToSection(href: string) {
     if (location.pathname === "/") {
       scrollTo(href, { offset: -80 })
     } else {
-      navigate("/", { state: { scrollTo: href } })
+      navigate("/" + href)
     }
   }
 
-  // Desktop click handler
   function handleDesktopLinkClick(e: React.MouseEvent<HTMLAnchorElement>, href: string) {
     if (!isExpanded) return
     if (!href.startsWith("#")) return
@@ -127,12 +106,28 @@ export function AnimatedNavFramer() {
     if (!isExpanded) { e.preventDefault(); setExpanded(true) }
   }
 
-  // Mobile click handler (closes menu + navigates)
   function handleMobileItemClick(e: React.MouseEvent<HTMLAnchorElement>, href: string, isPage?: boolean) {
-    setMobileOpen(false)
-    if (isPage) return
     e.preventDefault()
+    setMobileOpen(false)
+    if (isPage) {
+      if (href === "/galeria" && location.pathname === "/galeria") {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      } else {
+        navigate(href)
+      }
+      return
+    }
     navigateToSection(href)
+  }
+
+  function handleGaleriaClick(e: React.MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    if (location.pathname === "/galeria") {
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    } else {
+      navigate("/galeria")
+    }
   }
 
   const isGaleriaActive = location.pathname === "/galeria"
@@ -140,129 +135,167 @@ export function AnimatedNavFramer() {
   return (
     <>
       {/* ── Desktop floating pill (md+) ────────────────────────────────────── */}
-      <div className="fixed top-7 left-1/2 -translate-x-1/2 z-50 hidden md:block">
+      <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden md:block">
         <motion.nav
           aria-label="Navegação principal"
-          initial={{ y: -20, opacity: 0 }}
+          initial={{ opacity: 0, y: -20, scale: 0.95 }}
           animate={isExpanded ? "expanded" : "collapsed"}
-          variants={containerVariants}
-          whileHover={!isExpanded ? { scale: 1.08 } : {}}
+          variants={pillVariants}
+          whileHover={!isExpanded ? { scale: 1.06 } : {}}
           whileTap={!isExpanded  ? { scale: 0.94 } : {}}
           onClick={handleWrapperClick}
-          className={cn(
-            "flex items-center overflow-hidden rounded-full h-12",
-            "border border-white/40 transition-shadow duration-300",
-            scrolled
-              ? "shadow-[0_8px_32px_rgba(141,0,50,0.18),0_2px_8px_rgba(0,0,0,0.10),0_1px_0_rgba(255,255,255,0.6)_inset]"
-              : "shadow-[0_8px_32px_rgba(141,0,50,0.10),0_1px_0_rgba(255,255,255,0.6)_inset]",
-            !isExpanded && "cursor-pointer justify-center"
-          )}
+          className="flex items-center overflow-hidden rounded-full h-11"
           style={{
-            background: scrolled
-              ? "rgba(255, 252, 253, 0.88)"
-              : "rgba(255, 252, 253, 0.55)",
-            backdropFilter: "blur(18px) saturate(160%)",
-            WebkitBackdropFilter: "blur(18px) saturate(160%)",
-            transition: "background 0.35s ease",
+            background: isScrolled ? "rgba(26, 0, 16, 0.92)" : "rgba(26, 0, 16, 0.75)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow: isScrolled
+              ? "0 6px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06)"
+              : "0 4px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)",
+            transition: "background 300ms ease, box-shadow 300ms ease",
+            cursor: !isExpanded ? "pointer" : "default",
           }}
         >
-          {/* Logo */}
+          {/* UNNA logotipo */}
           <motion.a
             href="/"
-            variants={logoVariants}
+            animate={{ opacity: isExpanded ? 1 : 0 }}
+            transition={{ duration: 0.15 }}
             onClick={(e) => {
               e.preventDefault()
               e.stopPropagation()
               if (location.pathname !== "/") navigate("/")
               else window.scrollTo({ top: 0, behavior: "smooth" })
             }}
-            className="flex-shrink-0 pl-5 pr-1 font-headline font-black italic text-[#3d0a1e] text-[13px] tracking-tight whitespace-nowrap hover:text-[#8d0032] transition-colors duration-200"
+            style={{
+              fontWeight: 800,
+              fontStyle: "italic",
+              color: "#e8cfc4",
+              fontSize: "1rem",
+              letterSpacing: "-0.01em",
+              paddingLeft: "20px",
+              paddingRight: "4px",
+              flexShrink: 0,
+              whiteSpace: "nowrap",
+              textDecoration: "none",
+              transition: "opacity 0.2s ease",
+              pointerEvents: isExpanded ? "auto" : "none",
+            }}
             aria-label="UNNA Conexão Mulher — início"
           >
             UNNA
           </motion.a>
 
-          {/* Separator */}
+          {/* Separador 1 */}
           <motion.span
-            variants={itemVariants}
-            className="w-px h-4 bg-[#3d0a1e]/15 mx-1 flex-shrink-0"
             aria-hidden="true"
+            animate={{ opacity: isExpanded ? 1 : 0 }}
+            transition={{ duration: 0.15 }}
+            style={SEP_STYLE}
           />
 
-          {/* Links */}
+          {/* Links principais */}
           <motion.div
-            variants={linksWrapperVariants}
-            className={cn("flex items-center gap-0.5 pr-2", !isExpanded && "pointer-events-none")}
+            animate={{ opacity: isExpanded ? 1 : 0 }}
+            transition={{ duration: 0.15 }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "28px",
+              pointerEvents: isExpanded ? "auto" : "none",
+              whiteSpace: "nowrap",
+            }}
           >
-            {NAV_ITEMS.map((item) =>
-              item.isPage ? (
-                /* Galeria — differentiated item */
-                <motion.a
-                  key={item.href}
-                  href={item.href}
-                  variants={itemVariants}
-                  onClick={(e) => handleDesktopLinkClick(e, item.href)}
-                  className={cn(
-                    "relative flex flex-col items-center px-3 py-1 whitespace-nowrap group",
-                    "text-[10.5px] font-bold italic uppercase tracking-[0.08em] transition-colors duration-200",
-                    isGaleriaActive
-                      ? "text-[#8d0032]"
-                      : "text-[#8d0032]/65 hover:text-[#8d0032]"
-                  )}
-                >
-                  {/* Pulse dot */}
-                  <motion.span
-                    className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#8d0032]"
-                    animate={{ scale: [1, 1.7, 1], opacity: [0.45, 1, 0.45] }}
-                    transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-                    aria-hidden="true"
-                  />
-                  <span className="relative">
-                    {item.label}
-                    <span
-                      className="absolute -bottom-0.5 left-0 right-0 h-px rounded-full"
-                      style={{ background: "linear-gradient(90deg, transparent, #8d0032 40%, #8d0032 60%, transparent)" }}
-                      aria-hidden="true"
-                    />
-                  </span>
-                  <span
-                    className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse at center, rgba(141,0,50,0.10) 0%, transparent 70%)" }}
-                    aria-hidden="true"
-                  />
-                </motion.a>
-              ) : (
-                /* Regular nav link */
-                <motion.a
-                  key={item.href}
-                  href={item.href}
-                  variants={itemVariants}
-                  onClick={(e) => handleDesktopLinkClick(e, item.href)}
-                  className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#3d0a1e]/60 hover:text-[#8d0032] transition-colors duration-200 px-3 py-1 whitespace-nowrap"
-                >
-                  {item.label}
-                </motion.a>
-              )
-            )}
+            {NAV_LINKS.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => handleDesktopLinkClick(e, item.href)}
+                style={{
+                  fontSize: "0.72rem",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "rgba(232,207,196,0.7)",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  transition: "color 0.2s ease",
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(232,207,196,1)" }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(232,207,196,0.7)" }}
+              >
+                {item.label}
+              </a>
+            ))}
           </motion.div>
 
-          {/* CTA → WhatsApp */}
+          {/* Separador 2 */}
+          <motion.span
+            aria-hidden="true"
+            animate={{ opacity: isExpanded ? 1 : 0 }}
+            transition={{ duration: 0.15 }}
+            style={SEP_STYLE}
+          />
+
+          {/* GALERIA */}
+          <motion.a
+            href="/galeria"
+            animate={{ opacity: isExpanded ? 1 : 0 }}
+            transition={{ duration: 0.15 }}
+            onClick={handleGaleriaClick}
+            style={{
+              fontSize: "0.72rem",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              fontStyle: "italic",
+              fontWeight: 600,
+              color: "#f9c4d4",
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+              pointerEvents: isExpanded ? "auto" : "none",
+              transition: "color 0.2s ease",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#ffffff" }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#f9c4d4" }}
+          >
+            Galeria
+          </motion.a>
+
+          {/* Separador 3 */}
+          <motion.span
+            aria-hidden="true"
+            animate={{ opacity: isExpanded ? 1 : 0 }}
+            transition={{ duration: 0.15 }}
+            style={SEP_STYLE}
+          />
+
+          {/* CTA — Quero Participar */}
           <motion.a
             href={WA_HREF}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Garantir minha vaga via WhatsApp (abre em nova aba)"
-            variants={itemVariants}
-            whileHover={isExpanded ? { scale: 1.03, boxShadow: "0 6px 20px rgba(141,0,50,0.42)" } : {}}
+            animate={{ opacity: isExpanded ? 1 : 0 }}
+            transition={{ duration: 0.15 }}
+            whileHover={isExpanded ? { scale: 1.02, filter: "brightness(1.2)" } : {}}
             whileTap={isExpanded   ? { scale: 0.97 } : {}}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className={cn(
-              "flex-shrink-0 mr-2 px-5 py-1.5 rounded-full",
-              "text-[11px] font-bold uppercase tracking-widest whitespace-nowrap",
-              "bg-[#8d0032] text-white",
-              !isExpanded && "pointer-events-none"
-            )}
-            style={{ boxShadow: "0 4px 14px rgba(141,0,50,0.28)" }}
+            style={{
+              fontSize: "0.7rem",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              fontWeight: 700,
+              color: "#f9c4d4",
+              textDecoration: "none",
+              background: "linear-gradient(135deg, #8d0032, #5c0a28)",
+              borderRadius: "999px",
+              padding: "8px 20px",
+              border: "1px solid rgba(249,196,212,0.2)",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08), 0 2px 8px rgba(0,0,0,0.3)",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+              marginRight: "6px",
+              pointerEvents: isExpanded ? "auto" : "none",
+            }}
           >
             Quero Participar
           </motion.a>
@@ -273,7 +306,7 @@ export function AnimatedNavFramer() {
               variants={collapsedIconVariants}
               animate={isExpanded ? "expanded" : "collapsed"}
             >
-              <Menu className="h-5 w-5 text-[#3d0a1e]" />
+              <Menu className="h-5 w-5 text-[#e8cfc4]" />
             </motion.div>
           </div>
         </motion.nav>
@@ -288,9 +321,7 @@ export function AnimatedNavFramer() {
             background: "rgba(255, 252, 253, 0.88)",
             backdropFilter: "blur(18px) saturate(160%)",
             WebkitBackdropFilter: "blur(18px) saturate(160%)",
-            boxShadow: scrolled
-              ? "0 4px 20px rgba(141,0,50,0.18)"
-              : "0 4px 16px rgba(141,0,50,0.10)",
+            boxShadow: "0 4px 16px rgba(141,0,50,0.12)",
           }}
           whileTap={{ scale: 0.92 }}
           aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
@@ -327,7 +358,6 @@ export function AnimatedNavFramer() {
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               key="mobile-backdrop"
               className="fixed inset-0 z-[50] bg-[#0d0608]/55 md:hidden"
@@ -340,7 +370,6 @@ export function AnimatedNavFramer() {
               aria-hidden="true"
             />
 
-            {/* Drawer */}
             <motion.nav
               id="mobile-nav"
               key="mobile-drawer"
@@ -372,34 +401,28 @@ export function AnimatedNavFramer() {
                 >
                   UNNA
                 </a>
-                <span
-                  className="font-label text-[9px] uppercase tracking-[0.28em] text-[#8d0032]/60"
-                >
+                <span className="font-label text-[9px] uppercase tracking-[0.28em] text-[#8d0032]/60">
                   Conexão Mulher
                 </span>
               </div>
 
               {/* Links */}
               <div className="flex-1 flex flex-col gap-0.5 px-5 py-6">
-                {NAV_ITEMS.map((item, i) => (
+                {[...NAV_LINKS, { label: "Galeria", href: "/galeria", isPage: true }].map((item, i) => (
                   <motion.a
                     key={item.href}
                     href={item.href}
-                    onClick={(e) => handleMobileItemClick(e, item.href, item.isPage)}
+                    onClick={(e) => handleMobileItemClick(e, item.href, (item as { isPage?: boolean }).isPage)}
                     initial={{ opacity: 0, x: 24 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.06 + i * 0.06, duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                    className={cn(
-                      "flex items-center gap-2 px-4 py-3.5 rounded-xl font-label text-sm font-semibold uppercase tracking-[0.08em] transition-colors duration-200",
-                      item.isPage
-                        ? "italic font-bold text-[#8d0032] bg-[rgba(141,0,50,0.06)] hover:bg-[rgba(141,0,50,0.10)]"
-                        : "text-[#3d0a1e]/70 hover:text-[#8d0032] hover:bg-[rgba(141,0,50,0.04)]"
-                    )}
+                    className={
+                      (item as { isPage?: boolean }).isPage
+                        ? "flex items-center gap-2 px-4 py-3.5 rounded-xl font-label text-sm italic font-bold uppercase tracking-[0.08em] text-[#8d0032] bg-[rgba(141,0,50,0.06)] hover:bg-[rgba(141,0,50,0.10)] transition-colors duration-200"
+                        : "flex items-center gap-2 px-4 py-3.5 rounded-xl font-label text-sm font-semibold uppercase tracking-[0.08em] text-[#3d0a1e]/70 hover:text-[#8d0032] hover:bg-[rgba(141,0,50,0.04)] transition-colors duration-200"
+                    }
                   >
                     {item.label}
-                    {item.isPage && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#8d0032] flex-shrink-0" aria-hidden="true" />
-                    )}
                   </motion.a>
                 ))}
               </div>

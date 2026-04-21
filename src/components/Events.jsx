@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { NewsCards } from './ui/news-cards'
 
-import foto35 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/35.jpg'
 import foto36 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/36.jpg'
 import foto37 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/37.jpg'
 import foto38 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/38.jpg'
@@ -34,22 +33,6 @@ const UNNA_EVENTS = [
       'Uma noite de conexão genuína entre mulheres que constroem, inspiram e transformam o Rio Grande do Sul. Em Não-Me-Toque, reunimos líderes locais, empreendedoras e profissionais para um encontro que vai além do networking.',
       'Prepare-se para palestras provocadoras, rodadas de conexão guiada e momentos que ficam. O Balão Mágico recebe com exclusividade essa edição especial do UNNA.',
       'Vagas limitadas. Venha como você é, saia diferente do que chegou.',
-    ],
-  },
-  {
-    id: 'cruz-alta',
-    title: 'UNNA Conexão Mulher – Cruz Alta',
-    category: 'Networking & Propósito',
-    subcategory: 'Cruz Alta / RS',
-    dateLabel: '23 de Abril de 2025',
-    badge: '23 ABR',
-    time: '19h30',
-    location: 'Espaço Garden',
-    image: foto35,
-    content: [
-      'Cruz Alta recebe a força do UNNA numa noite criada para celebrar a mulher que lidera com propósito. O Espaço Garden transforma-se em palco de histórias reais e conexões que duram.',
-      'Curadoria especial de palestrantes da região, espaço para troca livre e a energia coletiva de mulheres que sabem o que querem. Este é o ambiente que você precisava encontrar.',
-      'Reserve seu convite — as últimas edições esgotaram em menos de 48 horas.',
     ],
   },
   {

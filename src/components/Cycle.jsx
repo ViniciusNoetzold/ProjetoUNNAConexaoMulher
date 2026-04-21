@@ -47,6 +47,22 @@ export default function Cycle() {
         }}
       />
 
+      {/* Ripple circles animation */}
+      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+        {[0, 1, 2].map(i => (
+          <div key={i} style={{
+            position: 'absolute',
+            top: '50%', left: '20%',
+            width: '300px', height: '300px',
+            borderRadius: '50%',
+            border: '1px solid rgba(249,196,212,0.3)',
+            transform: 'translate(-50%,-50%)',
+            animation: 'ripple 6s ease-out infinite',
+            animationDelay: `${i * 2}s`,
+          }} />
+        ))}
+      </div>
+
       <div className="relative z-10 max-w-7xl mx-auto">
 
         {/* ── Topo: badge + título + subtítulo + separador ─── */}
