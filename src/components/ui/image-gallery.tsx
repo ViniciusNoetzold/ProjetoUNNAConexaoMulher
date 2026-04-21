@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-const WA_NUMBER = '5555996880252'
-
 interface GalleryImage {
   src: string
   title: string
@@ -45,9 +43,9 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
         className="flex items-stretch gap-2 w-full max-w-6xl"
         style={{ height: '480px' }}
       >
-        {images.map((img, idx) => (
+        {images.slice(0, images.length - 3).map((img, idx) => (
           <div
-            key={idx}
+            key={img.title}
             className="relative rounded-xl overflow-hidden cursor-pointer"
             style={{
               flexGrow: hoveredIdx === idx ? 4 : 1,
@@ -95,9 +93,9 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
 
       {/* ── Grade secundária — 3 colunas ─────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-6xl mt-4">
-        {images.slice(0, 3).map((img, idx) => (
+        {images.slice(-3).map((img) => (
           <div
-            key={idx}
+            key={img.title}
             className="relative group rounded-xl overflow-hidden"
             style={{ height: '280px' }}
           >
@@ -127,25 +125,6 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
         ))}
       </div>
 
-      {/* ── CTA ──────────────────────────────────────────── */}
-      <div className="mt-16 text-center">
-        <p className="text-base mb-6" style={{ color: 'rgba(245,230,234,0.7)' }}>
-          Quer fazer parte do próximo encontro?
-        </p>
-        <a
-          href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Olá! Vi a galeria do UNNA e quero garantir minha vaga no próximo encontro!')}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block px-10 py-4 rounded-full text-base font-semibold transition-all duration-300 hover:scale-105"
-          style={{
-            backgroundColor: '#8d0032',
-            color: '#f5e6ea',
-            boxShadow: '0 0 30px rgba(141,0,50,0.4)',
-          }}
-        >
-          💬 Garantir minha vaga via WhatsApp
-        </a>
-      </div>
     </section>
   )
 }

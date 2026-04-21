@@ -1,6 +1,12 @@
 import { motion } from 'framer-motion'
 import { NewsCards } from './ui/news-cards'
 
+import foto35 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/35.jpg'
+import foto36 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/36.jpg'
+import foto37 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/37.jpg'
+import foto38 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/38.jpg'
+import foto39 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/39.jpg'
+
 const VP = { once: true, margin: '-40px' }
 
 const fadeUp = {
@@ -15,6 +21,7 @@ const fadeUp = {
 const UNNA_EVENTS = [
   {
     id: 'nao-me-toque',
+    proximo: true,
     title: 'UNNA Conexão Mulher – Não-Me-Toque',
     category: 'Networking & Propósito',
     subcategory: 'Não-Me-Toque / RS',
@@ -38,7 +45,7 @@ const UNNA_EVENTS = [
     badge: '23 ABR',
     time: '19h30',
     location: 'Espaço Garden',
-    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&auto=format&fit=crop&q=80',
+    image: foto35,
     content: [
       'Cruz Alta recebe a força do UNNA numa noite criada para celebrar a mulher que lidera com propósito. O Espaço Garden transforma-se em palco de histórias reais e conexões que duram.',
       'Curadoria especial de palestrantes da região, espaço para troca livre e a energia coletiva de mulheres que sabem o que querem. Este é o ambiente que você precisava encontrar.',
@@ -54,7 +61,7 @@ const UNNA_EVENTS = [
     badge: '06 MAI',
     time: '19h00',
     location: 'Salão Steffen',
-    image: 'https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=800&auto=format&fit=crop&q=80',
+    image: foto36,
     content: [
       'Panambi entra no circuito UNNA com uma edição que promete ser referência na região. Mulheres do agronegócio, do comércio e da saúde se encontram num ambiente desenhado para conversas que transformam.',
       'O Salão Steffen recebe mesas temáticas, mentoria rápida com especialistas convidadas e uma programação musical ao vivo para fechar a noite com estilo.',
@@ -69,7 +76,7 @@ const UNNA_EVENTS = [
     badge: '13 MAI',
     time: '19h30',
     location: 'Espaço Mirante',
-    image: 'https://images.unsplash.com/photo-1519671282429-b8f1f2c9a3a6?w=800&auto=format&fit=crop&q=80',
+    image: foto37,
     content: [
       'Das Missões para o mundo — Palmeira das Missões recebe o UNNA com uma visão ampliada do que é possível quando mulheres se unem. O Espaço Mirante oferece o cenário perfeito para este encontro.',
       'Rodadas de conexão, painel de líderes regionais e um espaço de escuta ativa para quem está num momento de transição ou crescimento profissional.',
@@ -84,7 +91,7 @@ const UNNA_EVENTS = [
     badge: '20 MAI',
     time: '19h00',
     location: 'Villa Carvalho Eventos',
-    image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&auto=format&fit=crop&q=80',
+    image: foto38,
     content: [
       'Sarandi recebe sua primeira edição UNNA numa noite de pura conexão. A Villa Carvalho Eventos abre suas portas para mulheres que querem mais — mais propósito, mais rede, mais impacto.',
       'Uma programação pensada para quem está começando e para quem já chegou longe. Porque no UNNA, todas têm algo a oferecer e muito a receber.',
@@ -99,7 +106,7 @@ const UNNA_EVENTS = [
     badge: '03 JUN',
     time: '19h30',
     location: 'Gran Marquise Hall',
-    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&auto=format&fit=crop&q=80',
+    image: foto39,
     content: [
       'A maior edição do circuito 2025 acontece em Passo Fundo. O Gran Marquise Hall recebe centenas de mulheres numa noite que será marco no movimento feminino gaúcho.',
       'Keynotes nacionais, espaço de exposição para marcas lideradas por mulheres, sessões de conexão e um jantar especial para encerrar com a potência que só o UNNA sabe criar.',
@@ -108,7 +115,7 @@ const UNNA_EVENTS = [
   },
 ]
 
-export default function Events({ onReserve }) {
+export default function Events() {
   return (
     <section id="events" aria-labelledby="events-heading" className="py-24 px-6 md:px-12 bg-white relative overflow-hidden">
       {/* Soft Pink Glow background */}
@@ -146,7 +153,7 @@ export default function Events({ onReserve }) {
           whileInView="visible"
           viewport={VP}
         >
-          <NewsCards cards={UNNA_EVENTS} onReserve={onReserve} />
+          <NewsCards cards={UNNA_EVENTS} />
         </motion.div>
 
         <motion.div

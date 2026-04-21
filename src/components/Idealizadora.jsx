@@ -1,4 +1,11 @@
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+import anaPaula1 from '../../Unna Conexão Mulher Fotos/AnaPaulaPictures/7.jpg'
+import anaPaula2 from '../../Unna Conexão Mulher Fotos/AnaPaulaPictures/8.jpg'
+import anaPaula3 from '../../Unna Conexão Mulher Fotos/AnaPaulaPictures/9.jpg'
+
+const FOTOS = [anaPaula1, anaPaula2, anaPaula3]
 
 const VP = { once: true, margin: '-40px' }
 
@@ -10,9 +17,6 @@ const fadeUp = {
     transition: { duration: 0.68, delay, ease: [0.22, 1, 0.36, 1] },
   }),
 }
-
-const ANA_IMG =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuAVr0eAs79g30f2s7uII5_fBTEogcqwgIGmOjs6wD8tc2Xc_aakkocrtF6KEv0x3B83yoyFYAMX0sQd-XIzmx5Ryx663Rnz_iB54YqMf-EUJ20AGusiwv3_xLofajeayIErCTYbUSsC8lW2RooOQ810vpqpUsX7yElg6C4HgeuTIZvO_TwvoNbz7r_FVoPzYJVh0cTbk5jRCLfyTK1-aPXik-aLbqmP5HMeTr5jbrkyxsT37ZS0Zo3boR9DGz45aoA4XcK24AG3xzU3'
 
 function InstagramIcon() {
   return (
@@ -29,11 +33,20 @@ function InstagramIcon() {
 }
 
 export default function Idealizadora() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % FOTOS.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <section
       id="idealizadora"
       aria-labelledby="idealizadora-heading"
-      className="py-32 px-6 md:px-12 bg-white relative overflow-hidden"
+      className="pt-32 pb-16 px-6 md:px-12 bg-white relative overflow-hidden"
     >
       {/* Soft pink glow */}
       <div
@@ -58,18 +71,26 @@ export default function Idealizadora() {
             viewport={VP}
           >
             <motion.figure
-              className="group overflow-hidden rounded-2xl"
+              className="overflow-hidden rounded-2xl"
               style={{ boxShadow: '0 24px 72px rgba(141,0,50,0.16)' }}
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <img
-                src={ANA_IMG}
-                alt="Foto profissional de Ana Paula Nogueira, nutricionista holística e idealizadora do UNNA"
-                className="w-full object-cover object-top"
-                style={{ height: '560px', filter: 'grayscale(0.15)' }}
-                loading="lazy"
-              />
+              <div className="relative w-full" style={{ height: '560px' }}>
+                <AnimatePresence>
+                  <motion.img
+                    key={currentIndex}
+                    src={FOTOS[currentIndex]}
+                    alt="Foto de Ana Paula Nogueira, nutricionista holística e idealizadora do UNNA"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.8, ease: 'easeInOut' }}
+                    className="absolute inset-0 w-full h-full object-cover object-top"
+                    style={{ filter: 'grayscale(0.15)' }}
+                  />
+                </AnimatePresence>
+              </div>
             </motion.figure>
 
             {/* Decorative dot */}

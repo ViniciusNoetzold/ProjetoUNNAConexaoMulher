@@ -11,7 +11,8 @@
       "Bash(rtk find:*)",
       "Bash(npm i:*)",
       "Bash(rtk wc:*)",
-      "Bash(rtk git:*)"
+      "Bash(rtk git:*)",
+      "Bash(rtk grep:*)"
     ]
   }
 }

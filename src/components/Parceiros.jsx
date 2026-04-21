@@ -12,19 +12,54 @@ const fadeUp = {
 }
 
 const PARCEIROS = [
-  { nome: 'Festo Eventos',    papel: 'Organização de Eventos'    },
-  { nome: 'Morgane Gheller',  papel: 'Cerimonialista'            },
-  { nome: 'Cleiton Pinheiro', papel: 'Fotografia e Filmagem'     },
-  { nome: 'Muller Filmes',    papel: 'Produção Audiovisual'      },
-  { nome: 'Maria Laux',       papel: 'Massoterapeuta'            },
+  { nome: 'Festo Eventos',    papel: 'Organização de Eventos' },
+  { nome: 'Morgane Gheller',  papel: 'Cerimonialista'         },
+  { nome: 'Cleiton Pinheiro', papel: 'Fotografia e Filmagem'  },
+  { nome: 'Muller Filmes',    papel: 'Produção Audiovisual'   },
+  { nome: 'Maria Laux',       papel: 'Massoterapeuta'         },
 ]
 
+function ParceiroCard({ nome, papel, delay }) {
+  return (
+    <motion.div
+      variants={fadeUp}
+      custom={delay}
+      initial="hidden"
+      whileInView="visible"
+      viewport={VP}
+      whileHover={{ y: -2, boxShadow: '0 6px 24px rgba(0,0,0,0.10)' }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+      className="flex flex-col items-center text-center"
+      style={{
+        padding: '36px 40px',
+        border: '1px solid #f0e8ec',
+        borderRadius: '12px',
+        background: 'white',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+      }}
+    >
+      <p style={{ fontSize: '1.1rem', fontWeight: 600, color: '#1a0a12', lineHeight: 1.3 }}>
+        {nome}
+      </p>
+      <p
+        className="font-label uppercase"
+        style={{ fontSize: '0.72rem', letterSpacing: '0.1em', color: '#8d0032', marginTop: '6px' }}
+      >
+        {papel}
+      </p>
+    </motion.div>
+  )
+}
+
 export default function Parceiros() {
+  const row1 = PARCEIROS.slice(0, 3)
+  const row2 = PARCEIROS.slice(3)
+
   return (
     <section
       id="parceiros"
       aria-labelledby="parceiros-heading"
-      className="py-24 px-6 md:px-12 bg-white relative overflow-hidden"
+      className="pt-20 pb-24 px-6 md:px-12 bg-white relative overflow-hidden"
     >
       <div
         aria-hidden="true"
@@ -35,9 +70,9 @@ export default function Parceiros() {
         }}
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto space-y-14">
+      <div className="relative z-10 max-w-5xl mx-auto space-y-10">
 
-        {/* Header */}
+        {/* ── Header ── */}
         <motion.div
           className="text-center space-y-4"
           variants={fadeUp}
@@ -66,32 +101,33 @@ export default function Parceiros() {
           </h2>
         </motion.div>
 
-        {/* Partners grid with wine-line separators */}
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px"
-          style={{ background: 'rgba(141,0,50,0.12)' }}
-        >
-          {PARCEIROS.map((p, i) => (
-            <motion.div
-              key={p.nome}
-              variants={fadeUp}
-              custom={0.08 + i * 0.08}
-              initial="hidden"
-              whileInView="visible"
-              viewport={VP}
-              className="bg-white px-8 py-7 flex flex-col gap-1.5 group hover:bg-[rgba(141,0,50,0.03)] transition-colors duration-200"
-            >
-              <p className="font-headline text-xl text-on-background group-hover:text-primary transition-colors duration-200 leading-snug">
-                {p.nome}
-              </p>
-              <p className="font-label text-xs uppercase tracking-widest text-on-surface-variant">
-                {p.papel}
-              </p>
-            </motion.div>
-          ))}
+        {/* ── Cards ── */}
+        <div style={{ maxWidth: '860px', margin: '48px auto 0' }}>
 
-          {/* Filler cells to complete the last lg row (5 items → 6th cell) */}
-          <div className="bg-white hidden lg:block" aria-hidden="true" />
+          {/* Linha 1 — 3 cards */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '32px',
+            }}
+          >
+            {row1.map((p, i) => (
+              <ParceiroCard key={p.nome} nome={p.nome} papel={p.papel} delay={0.08 + i * 0.08} />
+            ))}
+          </div>
+
+          {/* Linha 2 — 2 cards centralizados (≈ 2/3 do grid) */}
+          {row2.length > 0 && (
+            <div
+              className="mt-6 mx-auto"
+              style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '32px', maxWidth: '573px' }}
+            >
+              {row2.map((p, i) => (
+                <ParceiroCard key={p.nome} nome={p.nome} papel={p.papel} delay={0.08 + (row1.length + i) * 0.08} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

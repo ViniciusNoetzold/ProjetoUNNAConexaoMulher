@@ -224,7 +224,7 @@ export default function ReserveModal({ data, onClose }) {
               >
                 🌸
               </motion.span>
-              <h4 id="modal-title" className="font-headline text-2xl text-on-background">
+              <h4 id="modal-title-success" className="font-headline text-2xl text-on-background">
                 Interesse registrado!
               </h4>
               <p className="font-body italic text-on-surface-variant">

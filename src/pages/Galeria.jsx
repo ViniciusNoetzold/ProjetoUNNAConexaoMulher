@@ -12,6 +12,14 @@ import galeria20 from '../../Unna Conexão Mulher Fotos/Seção1Galeria/20.jpg'
 import galeria23 from '../../Unna Conexão Mulher Fotos/Seção1Galeria/23.jpg'
 import galeria27 from '../../Unna Conexão Mulher Fotos/Seção1Galeria/27.jpg'
 
+import memDestaque34   from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/34.jpg'
+import memDestaque33   from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/33.jpg'
+import memDestaque32   from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/32.jpg'
+import memMomento30    from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/30.jpg'
+import memCelebracao28 from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/28.jpg'
+import memConexao31    from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/31.jpg'
+import memMemoria29    from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/29.jpg'
+
 const WA_NUMBER = '5555996880252'
 
 const VP = { once: true, margin: '-40px' }
@@ -24,8 +32,8 @@ const fadeUp = {
   }),
 }
 
-// ── 7 imagens reais — 20.jpg no slot central (index 0) ────
-// ZoomParallax: o primeiro item é a imagem de destaque central.
+// ── 7 imagens — galeria20 no slot central (index 0) ────
+// ZoomParallax suporta exatamente 7 slots (índices 0-6 têm posicionamento fixo)
 const GALLERY_IMAGES = [
   { src: galeria20, alt: 'Destaque do evento UNNA Conexão Mulher' },
   { src: galeria1,  alt: 'Momento do evento UNNA Conexão Mulher' },
@@ -149,38 +157,18 @@ export default function Galeria({ onReserve }) {
       <ZoomParallax images={GALLERY_IMAGES} />
 
       {/* ── Image Gallery ─────────────────────────────────── */}
+      {/* 7 imagens únicas de EncontrosMemoria — layout 4+3 (fila|grade)
+          Fila (slice 0-3): 30, 28, 31, 29  — sem repetição
+          Grade (slice -3): 34, 33, 32       — destaques */}
       <ImageGallery
         images={[
-          {
-            src: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=80',
-            title: 'Encontro UNNA – Não-Me-Toque',
-            city: 'Não-Me-Toque / RS',
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&auto=format&fit=crop&q=80',
-            title: 'Conexão & Propósito',
-            city: 'Cruz Alta / RS',
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&auto=format&fit=crop&q=80',
-            title: 'Palco de Transformação',
-            city: 'Panambi / RS',
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&auto=format&fit=crop&q=80',
-            title: 'Mulheres que Inspiram',
-            city: 'Palmeira das Missões / RS',
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&auto=format&fit=crop&q=80',
-            title: 'Juntas Brilhamos',
-            city: 'Sarandi / RS',
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&auto=format&fit=crop&q=80',
-            title: 'Negócio com Propósito',
-            city: 'Passo Fundo / RS',
-          },
+          { src: memMomento30,    title: 'Conexão & Propósito',            city: 'Cruz Alta / RS'           },
+          { src: memCelebracao28, title: 'Juntas Brilhamos',               city: 'Sarandi / RS'             },
+          { src: memConexao31,    title: 'Negócio com Propósito',          city: 'Passo Fundo / RS'         },
+          { src: memMemoria29,    title: 'Encontro que Fica na Memória',   city: 'Rio Grande do Sul / RS'   },
+          { src: memDestaque34,   title: 'Encontro UNNA – Não-Me-Toque',  city: 'Não-Me-Toque / RS'       },
+          { src: memDestaque33,   title: 'Palco de Transformação',         city: 'Panambi / RS'             },
+          { src: memDestaque32,   title: 'Mulheres que Inspiram',          city: 'Palmeira das Missões / RS'},
         ]}
       />
 

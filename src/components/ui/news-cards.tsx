@@ -1,6 +1,6 @@
 import { motion, AnimatePresence, useReducedMotion, LayoutGroup } from "framer-motion"
-import { useState, useEffect } from "react"
-import { Heart, X, MapPin, Clock, Calendar } from "lucide-react"
+import { useState, useEffect, Fragment } from "react"
+import { X, MapPin, Clock, Calendar } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 // ── Types ────────────────────────────────────────────────
@@ -16,12 +16,12 @@ export interface EventNewsCard {
   image: string
   gradientColors?: [string, string]
   content?: string[]
+  proximo?: boolean
 }
 
 interface NewsCardsProps {
   cards: EventNewsCard[]
   enableAnimations?: boolean
-  onReserve?: (data: { event: string; date: string }) => void
 }
 
 // ── Animation variants ───────────────────────────────────
@@ -50,21 +50,14 @@ const imageVariants = {
 }
 
 // ── Component ────────────────────────────────────────────
-export function NewsCards({ cards, enableAnimations = true, onReserve }: NewsCardsProps) {
-  const [isLoaded, setIsLoaded]       = useState(false)
-  const [selected, setSelected]       = useState<EventNewsCard | null>(null)
-  const [saved, setSaved]             = useState<Set<string>>(new Set())
-  const shouldReduceMotion            = useReducedMotion()
-  const shouldAnimate                 = enableAnimations && !shouldReduceMotion
+const WA_NAO_ME_TOQUE =
+  "https://wa.me/5555996880252?text=Ol%C3%A1!%20Tenho%20interesse%20em%20participar%20do%20UNNA%20Conex%C3%A3o%20Mulher%20%E2%80%93%20N%C3%A3o-Me-Toque.%20Poderia%20me%20passar%20mais%20informa%C3%A7%C3%B5es%3F"
 
-  const toggleSave = (id: string, e: React.MouseEvent) => {
-    e.stopPropagation()
-    setSaved(prev => {
-      const next = new Set(prev)
-      next.has(id) ? next.delete(id) : next.add(id)
-      return next
-    })
-  }
+export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
+  const [isLoaded, setIsLoaded]  = useState(false)
+  const [selected, setSelected]  = useState<EventNewsCard | null>(null)
+  const shouldReduceMotion       = useReducedMotion()
+  const shouldAnimate            = enableAnimations && !shouldReduceMotion
 
   useEffect(() => {
     const t = setTimeout(() => setIsLoaded(true), shouldAnimate ? 100 : 0)
@@ -97,9 +90,15 @@ export function NewsCards({ cards, enableAnimations = true, onReserve }: NewsCar
                 layoutId={`card-${card.id}`}
                 className={cn(
                   "rounded-2xl overflow-hidden cursor-pointer group",
-                  "bg-white border border-[#e1bec1]/50",
+                  card.proximo
+                    ? "bg-white border-2 border-[#8d0032]"
+                    : "bg-white border border-[#e1bec1]/50",
                 )}
-                style={{ boxShadow: "0 4px 24px rgba(141,0,50,0.07), 0 1px 4px rgba(141,0,50,0.04)" }}
+                style={{
+                  boxShadow: card.proximo
+                    ? "0 4px 28px rgba(139,26,74,0.22), 0 1px 6px rgba(139,26,74,0.14)"
+                    : "0 4px 24px rgba(141,0,50,0.07), 0 1px 4px rgba(141,0,50,0.04)",
+                }}
                 variants={shouldAnimate ? cardVariants : {}}
                 whileHover={shouldAnimate ? {
                   y: -6, scale: 1.01,
@@ -108,6 +107,27 @@ export function NewsCards({ cards, enableAnimations = true, onReserve }: NewsCar
                 } : {}}
                 onClick={() => setSelected(card)}
               >
+                {/* Próximo Evento banner */}
+                {card.proximo && (
+                  <motion.div
+                    className="bg-[#8d0032] text-white font-label text-[9px] font-bold uppercase tracking-[0.25em] py-1.5 flex items-center justify-center gap-2"
+                    animate={{ opacity: [0.82, 1, 0.82] }}
+                    transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <motion.span
+                      className="w-1.5 h-1.5 rounded-full bg-[#f4b8ce] inline-block"
+                      animate={{ scale: [1, 1.6, 1], opacity: [0.45, 1, 0.45] }}
+                      transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                    Próximo Evento
+                    <motion.span
+                      className="w-1.5 h-1.5 rounded-full bg-[#f4b8ce] inline-block"
+                      animate={{ scale: [1, 1.6, 1], opacity: [0.45, 1, 0.45] }}
+                      transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+                    />
+                  </motion.div>
+                )}
+
                 {/* Image */}
                 <motion.div
                   layoutId={`card-image-${card.id}`}
@@ -126,31 +146,31 @@ export function NewsCards({ cards, enableAnimations = true, onReserve }: NewsCar
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1a0008]/70 via-[#1a0008]/10 to-transparent" />
 
-                  {/* Date badge */}
-                  <div className="absolute top-3 left-3 bg-[#8d0032] text-white font-label text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
-                    {card.badge}
-                  </div>
+                  {/* Blur overlay — cards secundários apenas */}
+                  {!card.proximo && (
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      backdropFilter: 'blur(3px)',
+                      WebkitBackdropFilter: 'blur(3px)',
+                      backgroundColor: 'rgba(60, 0, 30, 0.35)',
+                      borderRadius: 'inherit',
+                      zIndex: 1,
+                    }} />
+                  )}
 
-                  {/* Save button */}
-                  <motion.button
-                    className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
-                    onClick={(e) => toggleSave(card.id, e)}
-                    whileHover={{ scale: 1.12 }}
-                    whileTap={{ scale: 0.9 }}
-                    aria-label={saved.has(card.id) ? "Remover dos salvos" : "Salvar evento"}
-                  >
-                    <Heart
-                      className={cn(
-                        "w-4 h-4 transition-colors",
-                        saved.has(card.id) ? "fill-[#f4b8ce] text-[#f4b8ce]" : "text-white/90"
-                      )}
-                    />
-                  </motion.button>
+                  {/* Date badge — only on proximo card */}
+                  {card.proximo && (
+                    <div className="absolute top-3 left-3 bg-[#8d0032] text-white font-label text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                      {card.badge}
+                    </div>
+                  )}
 
                   {/* Bottom meta */}
                   <motion.div
                     layoutId={`card-meta-${card.id}`}
                     className="absolute bottom-3 left-3 right-3"
+                    style={{ zIndex: 2 }}
                   >
                     <p className="font-label text-[10px] font-semibold uppercase tracking-widest text-[#f4b8ce]/90 mb-0.5">
                       {card.category}
@@ -175,10 +195,12 @@ export function NewsCards({ cards, enableAnimations = true, onReserve }: NewsCar
                       <MapPin className="w-3 h-3" />
                       {card.subcategory}
                     </span>
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
-                      {card.dateLabel}
-                    </span>
+                    {card.proximo && (
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {card.dateLabel}
+                      </span>
+                    )}
                   </div>
                 </motion.div>
               </motion.article>
@@ -189,7 +211,7 @@ export function NewsCards({ cards, enableAnimations = true, onReserve }: NewsCar
         {/* ── Expanded modal ────────────────────────────── */}
         <AnimatePresence>
           {selected && (
-            <>
+            <Fragment key={selected.id}>
               {/* Backdrop */}
               <motion.div
                 className="fixed inset-0 bg-[#1a0008]/60 backdrop-blur-sm z-40"
@@ -286,32 +308,35 @@ export function NewsCards({ cards, enableAnimations = true, onReserve }: NewsCar
                       ))}
                     </motion.div>
 
-                    {/* CTA */}
-                    {onReserve && (
+                    {/* CTA — apenas no próximo evento, link direto WA */}
+                    {selected.proximo && (
                       <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4, duration: 0.4 }}
                         className="pt-2"
                       >
-                        <motion.button
-                          onClick={() => {
-                            onReserve({ event: selected.subcategory, date: selected.dateLabel })
-                            setSelected(null)
-                          }}
-                          className="w-full md:w-auto px-10 py-4 bg-[#8d0032] text-white font-label font-bold text-sm uppercase tracking-widest rounded-full hover:brightness-110 transition-all"
+                        <motion.a
+                          href={WA_NAO_ME_TOQUE}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Garantir minha vaga via WhatsApp (abre em nova aba)"
+                          className="inline-flex items-center gap-3 w-full md:w-auto px-10 py-4 bg-[#8d0032] text-white font-label font-bold text-sm uppercase tracking-widest rounded-full hover:brightness-110 transition-all"
                           style={{ boxShadow: "0 12px 32px rgba(141,0,50,0.28)" }}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.97 }}
                         >
-                          Reservar meu convite
-                        </motion.button>
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 flex-shrink-0" aria-hidden="true">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                          </svg>
+                          Garantir minha vaga via WhatsApp
+                        </motion.a>
                       </motion.div>
                     )}
                   </div>
                 </div>
               </motion.div>
-            </>
+            </Fragment>
           )}
         </AnimatePresence>
       </LayoutGroup>

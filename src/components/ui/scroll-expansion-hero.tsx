@@ -1,197 +1,219 @@
 /**
- * ScrollExpandMedia — reescrito com position:sticky + useScroll nativo.
+ * NossosEncontros — "Cortina que Revela"
  *
- * Abordagem anterior (wheel hijack + preventDefault) conflitava com o
- * layout da página. Esta versão usa scroll 100% nativo:
- *  - Container de 300vh cria espaço de scroll sem travar nada
- *  - position:sticky mantém o painel fixo enquanto o usuário rola
- *  - useScroll do framer-motion lê scrollYProgress do container
- *  - Zero conflito com Lenis, overflow-hidden vizinhos ou qualquer coisa
- *
- * Adaptações vs. original fornecido:
- *  - Removido 'use client' (React + Vite, não Next.js)
- *  - Removidos pauseLenis / resumeLenis (não são mais necessários)
- *  - Cor #f9a8d4 → #f4b8ce (paleta rosa UNNA estabelecida)
- *  - Overlay escuro usa #1a0008 (vinho UNNA) em vez de preto puro
+ * Seção 200vh com sticky container. A cena começa escura (overlay sólido) e
+ * se abre conforme o usuário scrolla, revelando a imagem com zoom suave e
+ * o conteúdo em layers progressivos. Compatível com Lenis.
  */
 
-import { useEffect, useRef, useState, ReactNode } from 'react'
+import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
-interface ScrollExpandMediaProps {
-  mediaType?: 'video' | 'image'
+interface NossosEncontrosProps {
   mediaSrc: string
-  posterSrc?: string
-  bgImageSrc: string
   title?: string
-  date?: string
-  scrollToExpand?: string
-  textBlend?: boolean
-  children?: ReactNode
 }
 
-export default function ScrollExpandMedia({
-  mediaType = 'video',
-  mediaSrc,
-  posterSrc,
-  bgImageSrc,
-  title,
-  date,
-  scrollToExpand,
-  textBlend,
-  children,
-}: ScrollExpandMediaProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [isMobile, setIsMobile] = useState(false)
+const PILLS = ['CONEXÃO REAL', 'MULHERES TRANSFORMADAS', 'EXPERIÊNCIA ÚNICA'] as const
 
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768)
-    check()
-    window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
-  }, [])
+export default function NossosEncontros({ mediaSrc }: NossosEncontrosProps) {
+  const sectionRef = useRef<HTMLElement>(null)
 
-  // Scroll 100% nativo — framer-motion lê scrollYProgress do container
+  // Progresso: 0 = seção começa a pinnar, 1 = saiu da tela
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: sectionRef,
     offset: ['start start', 'end start'],
   })
 
-  const mediaWidth   = useTransform(scrollYProgress, [0, 0.5], [isMobile ? '280px' : '320px', '98vw'])
-  const mediaHeight  = useTransform(scrollYProgress, [0, 0.5], [isMobile ? '380px' : '420px', '92vh'])
-  const bgOpacity    = useTransform(scrollYProgress, [0, 0.4], [1, 0])
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.6, 0.1])
-  const titleX1      = useTransform(scrollYProgress, [0, 0.5], ['0vw', isMobile ? '-45vw' : '-40vw'])
-  const titleX2      = useTransform(scrollYProgress, [0, 0.5], ['0vw', isMobile ? '45vw'  : '40vw'])
-  const dateX        = useTransform(scrollYProgress, [0, 0.5], ['0vw', isMobile ? '-45vw' : '-40vw'])
-  const expandX      = useTransform(scrollYProgress, [0, 0.5], ['0vw', isMobile ? '45vw'  : '40vw'])
-  const contentOpacity = useTransform(scrollYProgress, [0.45, 0.65], [0, 1])
+  // ── Imagem — zoom out suave + fade in ────────────────────────────────────
+  const imageScale   = useTransform(scrollYProgress, [0, 0.5],  [1.12, 1.0])
+  const imageOpacity = useTransform(scrollYProgress, [0, 0.3],  [0.25, 0.9])
 
-  const firstWord   = title?.split(' ')[0] ?? ''
-  const restOfTitle = title?.split(' ').slice(1).join(' ') ?? ''
+  // ── Overlay gradiente — começa sólido, abre para translúcido ─────────────
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0.55])
+
+  // ── Linha rose que cresce da esquerda ─────────────────────────────────────
+  const lineScale = useTransform(scrollYProgress, [0.1, 0.5], [0, 1])
+
+  // ── Conteúdo central (título) ─────────────────────────────────────────────
+  const contentOpacity = useTransform(scrollYProgress, [0.2, 0.6], [0, 1])
+  const contentY       = useTransform(scrollYProgress, [0.2, 0.6], [60, 0])
+
+  // ── Badge ─────────────────────────────────────────────────────────────────
+  const badgeOpacity = useTransform(scrollYProgress, [0.3, 0.6], [0, 1])
+
+  // ── Subtítulo ─────────────────────────────────────────────────────────────
+  const subtitleOpacity = useTransform(scrollYProgress, [0.4, 0.7], [0, 1])
+
+  // ── Pills — stagger horizontal ────────────────────────────────────────────
+  const pill0Opacity = useTransform(scrollYProgress, [0.50, 0.80], [0, 1])
+  const pill0X       = useTransform(scrollYProgress, [0.50, 0.80], [-28, 0])
+  const pill1Opacity = useTransform(scrollYProgress, [0.55, 0.82], [0, 1])
+  const pill1X       = useTransform(scrollYProgress, [0.55, 0.82], [0, 0])
+  const pill2Opacity = useTransform(scrollYProgress, [0.60, 0.85], [0, 1])
+  const pill2X       = useTransform(scrollYProgress, [0.60, 0.85], [28, 0])
+
+  const pillMotion = [
+    { opacity: pill0Opacity, x: pill0X },
+    { opacity: pill1Opacity, x: pill1X },
+    { opacity: pill2Opacity, x: pill2X },
+  ]
+
+  // ── Texto lateral decorativo ──────────────────────────────────────────────
+  const sideTextOpacity = useTransform(scrollYProgress, [0, 1], [0, 0.15])
 
   return (
-    // 300vh de altura cria o espaço de scroll sem travar a página
-    <div ref={containerRef} style={{ height: '300vh', position: 'relative' }}>
-
-      {/* Sticky: painel fica fixo na viewport enquanto se rola os 300vh */}
+    <section
+      ref={sectionRef}
+      style={{ height: '200vh', position: 'relative' }}
+    >
+      {/* Sticky container — permanece fixo enquanto a seção scrolla */}
       <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
 
-        {/* ── Background (desbota conforme expansão) ── */}
+        {/* ── CAMADA 1 — Imagem com zoom lento ─────────────────────────── */}
         <motion.div
-          style={{ opacity: bgOpacity }}
-          className="absolute inset-0 z-0"
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{ scale: imageScale, opacity: imageOpacity, zIndex: 0 }}
         >
           <img
-            src={bgImageSrc}
+            src={mediaSrc}
             alt=""
-            aria-hidden="true"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-[#1a0008]/30" />
         </motion.div>
 
-        {/* ── Conteúdo centralizado ── */}
-        <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
+        {/* ── CAMADA 2 — Overlay gradiente vinho que se abre ───────────── */}
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            zIndex: 1,
+            opacity: overlayOpacity,
+            background: 'linear-gradient(135deg, #3D0A1E 0%, #1a0010 50%, #3D0A1E 100%)',
+          }}
+        />
 
-          {/* Mídia expansível */}
-          <motion.div
+        {/* ── CAMADA 3 — Linha rose que cresce da esquerda ─────────────── */}
+        <motion.div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: 0,
+            width: '100%',
+            height: '1px',
+            backgroundColor: '#8d0032',
+            scaleX: lineScale,
+            transformOrigin: 'left',
+            zIndex: 2,
+          }}
+        />
+
+        {/* ── CAMADA 4 — Conteúdo central ──────────────────────────────── */}
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
+          style={{ zIndex: 3 }}
+        >
+          {/* Badge */}
+          <motion.span
+            className="inline-block font-label font-bold rounded-full mb-6"
             style={{
-              width: mediaWidth,
-              height: mediaHeight,
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              x: '-50%',
-              y: '-50%',
-              borderRadius: '12px',
-              boxShadow: '0px 0px 50px rgba(0,0,0,0.3)',
-              overflow: 'hidden',
+              opacity: badgeOpacity,
+              fontSize: '0.65rem',
+              letterSpacing: '0.35em',
+              textTransform: 'uppercase' as const,
+              padding: '8px 20px',
+              backgroundColor: 'rgba(141, 0, 50, 0.2)',
+              border: '1px solid rgba(255,255,255,0.3)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              color: 'rgba(255,255,255,0.85)',
             }}
           >
-            {mediaType === 'image' ? (
-              <div className="relative w-full h-full">
-                <img
-                  src={mediaSrc}
-                  alt={title ?? 'Evento UNNA'}
-                  className="w-full h-full object-cover"
-                />
-                <motion.div
-                  style={{ opacity: overlayOpacity }}
-                  className="absolute inset-0 bg-[#1a0008]/50"
-                />
-              </div>
-            ) : (
-              <div className="relative w-full h-full">
-                <video
-                  src={mediaSrc}
-                  poster={posterSrc}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-                <motion.div
-                  style={{ opacity: overlayOpacity }}
-                  className="absolute inset-0 bg-[#1a0008]/30"
-                />
-              </div>
-            )}
-          </motion.div>
+            Os Encontros
+          </motion.span>
 
-          {/* Título que se abre para os lados */}
-          <div
-            className={[
-              'relative z-10 flex flex-col items-center gap-4 w-full pointer-events-none',
-              textBlend ? 'mix-blend-difference' : '',
-            ].join(' ')}
+          {/* Título */}
+          <motion.h2
+            className="font-headline text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4"
+            style={{ opacity: contentOpacity, y: contentY }}
           >
-            <motion.h2
-              style={{ x: titleX1 }}
-              className="font-headline text-4xl md:text-5xl lg:text-6xl font-bold italic"
-              css={{ color: '#f4b8ce' }}
-            >
-              <span style={{ color: '#f4b8ce' }}>{firstWord}</span>
-            </motion.h2>
-            <motion.h2
-              style={{ x: titleX2 }}
-              className="font-headline text-4xl md:text-5xl lg:text-6xl font-bold text-center"
-            >
-              <span style={{ color: '#f4b8ce' }}>{restOfTitle}</span>
-            </motion.h2>
-          </div>
+            Nossos Encontros
+          </motion.h2>
 
-          {/* Data + instrução de scroll */}
-          <div className="absolute bottom-12 flex flex-col items-center gap-2 z-10 pointer-events-none">
-            {date && (
-              <motion.p
-                style={{ x: dateX }}
-                className="font-label text-lg font-semibold uppercase tracking-widest"
+          {/* Subtítulo */}
+          <motion.p
+            className="font-body text-lg md:text-xl leading-relaxed max-w-2xl mb-10"
+            style={{
+              opacity: subtitleOpacity,
+              color: 'rgba(255,255,255,0.70)',
+            }}
+          >
+            Cada encontro UNNA é um espaço onde mulheres se conectam, compartilham
+            histórias e saem transformadas. Um palco onde ideias florescem e marcas
+            ganham propósito.
+          </motion.p>
+
+          {/* Pills stagger horizontal */}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {PILLS.map((label, i) => (
+              <motion.span
+                key={label}
+                style={{
+                  opacity: pillMotion[i].opacity,
+                  x: pillMotion[i].x,
+                  display: 'inline-block',
+                  fontSize: '0.72rem',
+                  fontWeight: 600,
+                  textTransform: 'uppercase' as const,
+                  letterSpacing: '0.12em',
+                  color: 'white',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  backgroundColor: 'rgba(141, 0, 50, 0.2)',
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
+                  borderRadius: '999px',
+                  padding: '8px 20px',
+                }}
               >
-                <span style={{ color: '#f4b8ce' }}>{date}</span>
-              </motion.p>
-            )}
-            {scrollToExpand && (
-              <motion.p
-                style={{ x: expandX }}
-                className="font-label text-xs uppercase tracking-[0.2em]"
-              >
-                <span style={{ color: '#f4b8ce' }}>{scrollToExpand}</span>
-              </motion.p>
-            )}
+                {label}
+              </motion.span>
+            ))}
           </div>
         </div>
 
-        {/* Conteúdo filho — aparece após a expansão completa */}
+        {/* ── CAMADA 5 — "UNNA" decorativo lateral ─────────────────────── */}
         <motion.div
-          style={{ opacity: contentOpacity }}
-          className="absolute inset-0 z-20 flex items-center justify-center px-8 py-20"
-          aria-hidden={false}
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            left: '-20px',
+            top: '50%',
+            opacity: sideTextOpacity,
+            zIndex: 2,
+            pointerEvents: 'none',
+            userSelect: 'none' as const,
+          }}
         >
-          {children}
+          <span
+            style={{
+              display: 'block',
+              transform: 'rotate(-90deg) translateX(-50%)',
+              transformOrigin: 'left center',
+              fontSize: '8rem',
+              fontWeight: 900,
+              color: 'rgba(141, 0, 50, 1)',
+              letterSpacing: '0.3em',
+              whiteSpace: 'nowrap',
+              fontFamily: 'var(--font-headline, serif)',
+            }}
+          >
+            UNNA
+          </span>
         </motion.div>
+
       </div>
-    </div>
+    </section>
   )
 }
