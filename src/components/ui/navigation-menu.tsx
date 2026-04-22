@@ -3,10 +3,7 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-
 import { useLocation, useNavigate } from "react-router-dom"
 import { Menu, X } from "lucide-react"
 import { scrollTo } from "@/hooks/useLenis"
-
-// ── Constants ────────────────────────────────────────────────────────────────
-const WA_HREF =
-  "https://wa.me/5555996880252?text=Ol%C3%A1!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conex%C3%A3o%20Mulher."
+import { WA_VAGA_URL as WA_HREF } from "@/constants/links"
 
 const NAV_LINKS = [
   { label: "Essência",     href: "#essencia"     },
@@ -44,8 +41,8 @@ const collapsedIconVariants = {
 
 // ── Mobile drawer variants ────────────────────────────────────────────────────
 const drawerVariants = {
-  hidden:  { x: "100%", transition: { type: "spring" as const, damping: 30, stiffness: 250 } },
-  visible: { x: 0,      transition: { type: "spring" as const, damping: 28, stiffness: 220 } },
+  hidden:  { x: "100%", opacity: 0, transition: { type: "spring" as const, damping: 30, stiffness: 250 } },
+  visible: { x: 0,      opacity: 1, transition: { type: "spring" as const, damping: 28, stiffness: 220 } },
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -62,6 +59,12 @@ export function AnimatedNavFramer() {
   const scrollOnCollapse = React.useRef(0)
 
   React.useEffect(() => { setMobileOpen(false) }, [location.pathname])
+
+  React.useEffect(() => {
+    const handler = () => setMobileOpen(false)
+    window.addEventListener('closeNavMenu', handler)
+    return () => window.removeEventListener('closeNavMenu', handler)
+  }, [])
 
   React.useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : ""
@@ -312,47 +315,37 @@ export function AnimatedNavFramer() {
         </motion.nav>
       </div>
 
-      {/* ── Mobile hamburger button (< md) ────────────────────────────────── */}
-      <div className="fixed top-5 right-5 z-[60] md:hidden">
-        <motion.button
-          onClick={() => setMobileOpen((v) => !v)}
-          className="w-11 h-11 flex items-center justify-center rounded-full border border-white/40"
-          style={{
-            background: "rgba(255, 252, 253, 0.88)",
-            backdropFilter: "blur(18px) saturate(160%)",
-            WebkitBackdropFilter: "blur(18px) saturate(160%)",
-            boxShadow: "0 4px 16px rgba(141,0,50,0.12)",
-          }}
-          whileTap={{ scale: 0.92 }}
-          aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-nav"
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            {mobileOpen ? (
-              <motion.span
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.16 }}
-              >
-                <X className="w-5 h-5 text-[#3d0a1e]" />
-              </motion.span>
-            ) : (
-              <motion.span
-                key="open"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.16 }}
-              >
-                <Menu className="w-5 h-5 text-[#3d0a1e]" />
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </motion.button>
-      </div>
+      {/* ── Mobile hamburger button (< md) — só visível quando drawer fechado ── */}
+      <AnimatePresence>
+        {!mobileOpen && (
+          <motion.div
+            key="hamburger-btn"
+            className="fixed top-5 right-5 z-[60] md:hidden"
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.85 }}
+            transition={{ duration: 0.15 }}
+          >
+            <motion.button
+              type="button"
+              onClick={() => setMobileOpen(true)}
+              className="w-11 h-11 flex items-center justify-center rounded-full border border-white/40"
+              style={{
+                background: "rgba(255, 252, 253, 0.88)",
+                backdropFilter: "blur(18px) saturate(160%)",
+                WebkitBackdropFilter: "blur(18px) saturate(160%)",
+                boxShadow: "0 4px 16px rgba(141,0,50,0.12)",
+              }}
+              whileTap={{ scale: 0.92 }}
+              aria-label="Abrir menu"
+              aria-expanded={false}
+              aria-controls="mobile-nav"
+            >
+              <Menu className="w-5 h-5 text-[#3d0a1e]" />
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── Mobile drawer + backdrop ───────────────────────────────────────── */}
       <AnimatePresence>
@@ -388,7 +381,8 @@ export function AnimatedNavFramer() {
               exit="hidden"
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-7 pt-8 pb-6 border-b border-[#f0e8ec]">
+              <div className="flex items-center justify-between px-6 pt-5 pb-5 border-b border-[#f0e8ec]">
+                {/* Logo + slogan empilhados */}
                 <a
                   href="/"
                   onClick={(e) => {
@@ -397,13 +391,25 @@ export function AnimatedNavFramer() {
                     if (location.pathname !== "/") navigate("/")
                     else window.scrollTo({ top: 0, behavior: "smooth" })
                   }}
-                  className="font-headline font-black italic text-[#3d0a1e] text-xl tracking-tight hover:text-[#8d0032] transition-colors duration-200"
+                  className="flex flex-col gap-0.5 group"
                 >
-                  UNNA
+                  <span className="font-headline font-black italic text-[#3d0a1e] text-xl tracking-tight group-hover:text-[#8d0032] transition-colors duration-200">
+                    UNNA
+                  </span>
+                  <span className="font-label text-[9px] uppercase tracking-[0.28em] text-[#8d0032]/70">
+                    Conexão Mulher
+                  </span>
                 </a>
-                <span className="font-label text-[9px] uppercase tracking-[0.28em] text-[#8d0032]/60">
-                  Conexão Mulher
-                </span>
+
+                {/* Botão X — dentro do header, sem sobreposição */}
+                <button
+                  type="button"
+                  onClick={() => setMobileOpen(false)}
+                  aria-label="Fechar menu"
+                  className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full border border-[#8d0032]/20 bg-[#8d0032]/5 hover:bg-[#8d0032]/10 transition-colors duration-200"
+                >
+                  <X className="w-[18px] h-[18px] text-[#3d0a1e]" />
+                </button>
               </div>
 
               {/* Links */}

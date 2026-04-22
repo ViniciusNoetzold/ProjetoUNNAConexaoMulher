@@ -13,7 +13,8 @@
       "Bash(rtk wc:*)",
       "Bash(rtk git:*)",
       "Bash(rtk grep:*)",
-      "Bash(npm audit:*)"
+      "Bash(npm audit:*)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/lenis/package.json'\\).version\\)\")"
     ]
   }
 }

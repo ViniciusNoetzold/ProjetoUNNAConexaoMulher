@@ -193,15 +193,8 @@ export default function Cycle() {
                 src={cicloAtualImg}
                 alt="Foto real do evento UNNA Conexão Mulher — Ciclo Atual"
                 loading="lazy"
-                className="transition-[transform,filter] duration-[400ms] ease-out group-hover:scale-[1.03] group-hover:brightness-105"
-                className="h-[260px] sm:h-[380px] md:h-[480px]"
-                style={{
-                  width: '100%',
-                  objectFit: 'cover',
-                  objectPosition: 'center top',
-                  display: 'block',
-                  cursor: 'pointer',
-                }}
+                className="h-[260px] sm:h-[380px] md:h-[480px] w-full object-cover object-top transition-[transform,filter] duration-[400ms] ease-out group-hover:scale-[1.03] group-hover:brightness-105"
+                style={{ display: 'block', cursor: 'pointer' }}
               />
             </figure>
           </motion.div>

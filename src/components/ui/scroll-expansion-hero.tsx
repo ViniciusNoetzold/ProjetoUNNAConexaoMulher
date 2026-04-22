@@ -128,7 +128,7 @@ export default function NossosEncontros() {
 
       <section
         ref={sectionRef}
-        className="h-[200vh] md:h-[300vh] relative"
+        className="h-[180vh] md:h-[220vh] lg:h-[300vh] relative"
       >
         {/* Sticky container — permanece fixo enquanto a seção scrolla */}
         <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>

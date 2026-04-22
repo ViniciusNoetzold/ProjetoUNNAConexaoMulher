@@ -52,6 +52,7 @@ export function LuminaSlider() {
       let autoSlideTimer: any = null;
       let progressAnimation: any = null;
       let sliderEnabled = false;
+      let contentTimeout: ReturnType<typeof setTimeout> | null = null;
 
       const SLIDE_DURATION = () => SLIDER_CONFIG.settings.autoSlideSpeed;
       const PROGRESS_UPDATE_INTERVAL = 50;
@@ -140,7 +141,8 @@ export function LuminaSlider() {
         gsap.to(titleEl.children, { y: -20, opacity: 0, duration: 0.5, stagger: 0.02, ease: 'power2.in' });
         gsap.to(descEl, { y: -10, opacity: 0, duration: 0.4, ease: 'power2.in' });
 
-        setTimeout(() => {
+        if (contentTimeout) clearTimeout(contentTimeout);
+        contentTimeout = setTimeout(() => {
           titleEl.innerHTML = splitText(slides[idx].title);
           descEl.textContent = slides[idx].description;
           gsap.set(titleEl.children, { opacity: 0, y: 20 });
@@ -327,7 +329,7 @@ export function LuminaSlider() {
 
         for (const s of slides) {
           try { slideTextures.push(await loadImageTexture(s.media)); }
-          catch { console.warn('Texture failed:', s.media); }
+          catch { if (import.meta.env.DEV) console.warn('Texture failed:', s.media); }
         }
 
         if (slideTextures.length >= 2) {
@@ -379,6 +381,7 @@ export function LuminaSlider() {
       return () => {
         stopAutoSlideTimer();
         sliderEnabled = false;
+        if (contentTimeout) clearTimeout(contentTimeout);
         cancelRaf?.();
         window.removeEventListener('resize', onResize);
         document.removeEventListener('visibilitychange', onVisibilityChange);
@@ -397,7 +400,7 @@ export function LuminaSlider() {
         await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', 'gsap');
         await loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', 'THREE');
       } catch (e) {
-        console.error('Script load failed:', e);
+        if (import.meta.env.DEV) console.error('Script load failed:', e);
         return;
       }
       if (!mounted) return;

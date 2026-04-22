@@ -4,6 +4,9 @@ export default {
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      screens: {
+        xs: '320px',
+      },
       colors: {
         /* ── Shadcn CSS-variable tokens ─────────────────── */
         background:           'var(--background)',

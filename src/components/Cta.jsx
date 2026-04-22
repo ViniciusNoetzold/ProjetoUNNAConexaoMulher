@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
-
-const WA_HREF = 'https://wa.me/5555996880252?text=Ol%C3%A1!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conex%C3%A3o%20Mulher.'
+import { WA_VAGA_URL as WA_HREF } from '../constants/links'
 
 const VP = { once: true, margin: '-80px' }
 
@@ -68,7 +67,7 @@ export default function Cta() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Garantir minha vaga via WhatsApp (abre em nova aba)"
-            className="flex w-full sm:w-auto items-center justify-center gap-3 font-label font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full text-white"
+            className="flex w-full max-w-xs sm:max-w-none sm:w-auto mx-auto items-center justify-center gap-3 font-label font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full text-white"
             style={{ backgroundColor: '#8d0032', boxShadow: '0 12px 32px rgba(141,0,50,0.30)' }}
             whileHover={{ scale: 1.03, filter: 'brightness(1.08)' }}
             whileTap={{ scale: 0.97 }}

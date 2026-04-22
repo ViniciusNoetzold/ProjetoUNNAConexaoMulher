@@ -72,6 +72,16 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
     return () => window.removeEventListener("keydown", handler)
   }, [selected])
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (selected) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [selected])
+
   return (
     <motion.div
       className="w-full"
@@ -105,7 +115,10 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
                   boxShadow: "0 16px 40px rgba(141,0,50,0.13), 0 4px 12px rgba(141,0,50,0.07)",
                   transition: { type: "spring", stiffness: 380, damping: 24 },
                 } : {}}
-                onClick={() => setSelected(card)}
+                onClick={() => {
+                  window.dispatchEvent(new CustomEvent('closeNavMenu'))
+                  setSelected(card)
+                }}
               >
                 {/* Próximo Evento banner */}
                 {card.proximo && (
@@ -214,7 +227,7 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
             <Fragment key={selected.id}>
               {/* Backdrop */}
               <motion.div
-                className="fixed inset-0 bg-[#1a0008]/60 backdrop-blur-sm z-40"
+                className="fixed inset-0 bg-[#1a0008]/60 backdrop-blur-sm z-[1100]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -224,12 +237,13 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
               {/* Expanded card */}
               <motion.div
                 layoutId={`card-${selected.id}`}
-                className="fixed inset-4 md:inset-8 lg:inset-12 xl:inset-16 rounded-2xl overflow-hidden z-50 flex flex-col"
+                className="fixed inset-4 md:inset-8 lg:inset-12 xl:inset-16 rounded-2xl overflow-hidden z-[1200] flex flex-col"
                 style={{ background: "#fff8f7", border: "1px solid rgba(225,190,193,0.5)" }}
               >
                 {/* Close button */}
                 <motion.button
-                  className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center border border-[#e1bec1]/60 hover:bg-white transition-colors"
+                  type="button"
+                  className="absolute top-4 left-4 md:left-auto md:right-4 z-10 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center border border-[#e1bec1]/60 hover:bg-white transition-colors"
                   initial={{ opacity: 0, scale: 0.6 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.6 }}

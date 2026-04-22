@@ -3,9 +3,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { LuminaSlider } from "@/components/ui/lumina-interactive-list"
 import { cn } from "@/lib/utils"
 import { scrollTo } from "@/hooks/useLenis"
-
-const WA_URL =
-  "https://wa.me/5555996880252?text=Ol%C3%A1!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conex%C3%A3o%20Mulher."
+import { WA_VAGA_URL as WA_URL } from "@/constants/links"
 
 // Staggered entrance timing for left column items
 const LEFT_DELAYS = [0.2, 0.38, 0.54, 0.7, 0.88]
@@ -23,7 +21,7 @@ export default function HeroUnna() {
     <section
       id="about"
       aria-labelledby="hero-heading"
-      className="relative min-h-screen w-full overflow-hidden bg-[#0a0a0a]"
+      className="relative min-h-[100svh] w-full overflow-hidden bg-[#0a0a0a]"
     >
       {/* ── Lumina WebGL slider (full-section background) ── */}
       <LuminaSlider />

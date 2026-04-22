@@ -1,8 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-
-// ⚠ Substitua pelo número real de WhatsApp
-const WA_NUMBER = '5555996880252'
+import { WA_NUMBER } from '../constants/links'
 
 function maskPhone(raw) {
   const d = raw.replace(/\D/g, '').slice(0, 11)
@@ -106,6 +104,7 @@ export default function ReserveModal({ data, onClose }) {
       >
         {/* Close button */}
         <button
+          type="button"
           ref={closeRef}
           aria-label="Fechar"
           onClick={onClose}
@@ -231,6 +230,7 @@ export default function ReserveModal({ data, onClose }) {
                 Entraremos em contato em breve pelo WhatsApp.
               </p>
               <motion.button
+                type="button"
                 onClick={onClose}
                 autoFocus
                 className="mt-2 bg-primary text-on-primary font-label font-bold py-3 px-8 rounded-xl uppercase tracking-widest"

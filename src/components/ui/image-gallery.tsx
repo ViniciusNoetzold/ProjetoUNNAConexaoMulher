@@ -15,6 +15,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
 
   return (
     <section
+      aria-labelledby="memoria-heading"
       className="w-full flex flex-col items-center py-20 px-4"
       style={{ backgroundColor: '#0d0608' }}
     >
@@ -27,6 +28,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
           Momentos Reais
         </p>
         <h2
+          id="memoria-heading"
           className="text-4xl md:text-5xl font-bold mb-4"
           style={{ color: '#f5e6ea', fontFamily: 'Georgia, serif', fontStyle: 'italic' }}
         >

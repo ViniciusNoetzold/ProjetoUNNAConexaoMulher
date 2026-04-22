@@ -127,7 +127,7 @@ export default function Parceiros() {
         <div style={{ maxWidth: '860px', margin: '48px auto 0' }}>
 
           {/* Linha 1 — 2 colunas no mobile, 3 no sm+ */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-8">
+          <div className="grid grid-cols-1 min-[480px]:grid-cols-2 sm:grid-cols-3 gap-4 md:gap-8">
             {row1.map((p, i) => (
               <ParceiroCard key={p.nome} nome={p.nome} papel={p.papel} delay={0.08 + i * 0.08} />
             ))}
@@ -135,7 +135,7 @@ export default function Parceiros() {
 
           {/* Linha 2 — 2 cards centralizados */}
           {row2.length > 0 && (
-            <div className="mt-4 md:mt-6 mx-auto grid grid-cols-2 gap-4 md:gap-8" style={{ maxWidth: '573px' }}>
+            <div className="mt-4 md:mt-6 mx-auto grid grid-cols-1 min-[480px]:grid-cols-2 gap-4 md:gap-8" style={{ maxWidth: '573px' }}>
               {row2.map((p, i) => (
                 <ParceiroCard key={p.nome} nome={p.nome} papel={p.papel} delay={0.08 + (row1.length + i) * 0.08} />
               ))}

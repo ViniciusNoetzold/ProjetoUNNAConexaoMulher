@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { ZoomParallax } from '../components/ui/zoom-parallax'
 import ImageGallery from '../components/ui/image-gallery'
 import Footer from '../components/Footer'
+import { WA_NUMBER } from '../constants/links'
 
 import galeria1  from '../../Unna Conexão Mulher Fotos/Seção1Galeria/1.jpg'
 import galeria2  from '../../Unna Conexão Mulher Fotos/Seção1Galeria/2.jpg'
@@ -19,8 +20,6 @@ import memDestaque32   from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/3
 import memCelebracao28 from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/28.jpg'
 import memConexao31    from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/31.jpg'
 import memMemoria29    from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/29.jpg'
-
-const WA_NUMBER = '5555996880252'
 
 const VP = { once: true, margin: '-40px' }
 const fadeUp = {
@@ -127,6 +126,7 @@ export default function Galeria({ onReserve }) {
             transition={{ delay: 0.38 }}
           >
             <button
+              type="button"
               onClick={() => navigate('/')}
               className="inline-flex items-center gap-2 font-label text-xs font-semibold uppercase tracking-[0.18em] text-white/50 hover:text-[#f4b8ce] transition-colors"
             >
@@ -134,11 +134,6 @@ export default function Galeria({ onReserve }) {
               Voltar ao site
             </button>
 
-            <span aria-hidden="true" className="w-px h-4 bg-white/20" />
-
-            <span className="font-label text-[10px] uppercase tracking-[0.2em] text-white/35">
-              Role para explorar
-            </span>
           </motion.div>
         </div>
       </section>
@@ -183,14 +178,14 @@ export default function Galeria({ onReserve }) {
 
         <div style={{ position: 'relative', zIndex: 1 }}>
           {isMobile ? (
-            /* ── MOBILE — grid estático animado ────────────── */
-            <div className="py-12 px-5">
+            /* ── MOBILE — grid editorial ────────────────────── */
+            <div className="py-12">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.5 }}
-                className="mb-8"
+                className="mb-6 px-4"
               >
                 <span className="font-label text-[10px] uppercase tracking-[0.3em] text-[#8d0032] font-bold block mb-3">
                   Momentos Reais
@@ -200,67 +195,92 @@ export default function Galeria({ onReserve }) {
                 </p>
               </motion.div>
 
-              {/* Foto 1 — portrait centralizada, 60% de largura */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.55 }}
-                style={{
-                  width: '60%',
-                  margin: '0 auto 10px',
-                  borderRadius: '12px',
-                  overflow: 'hidden',
-                }}
-              >
-                <img
-                  src={GALLERY_IMAGES[0].src}
-                  alt={GALLERY_IMAGES[0].alt}
-                  loading="lazy"
-                  style={{ width: '100%', height: 'auto', display: 'block' }}
-                />
-              </motion.div>
+              {/* Grid editorial — 3 colunas, alturas fixas */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridAutoRows: '120px',
+                gap: '6px',
+                padding: '0 16px',
+              }}>
 
-              {/* Fotos 2-4 — grid 2 colunas */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '8px' }}>
-                {GALLERY_IMAGES.slice(1, 4).map((img, i) => (
-                  <motion.div
-                    key={img.src}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-40px' }}
-                    transition={{ duration: 0.5, delay: i * 0.08 }}
-                    style={{ borderRadius: '10px', overflow: 'hidden' }}
-                  >
-                    <img
-                      src={img.src}
-                      alt={img.alt}
-                      loading="lazy"
-                      style={{ width: '100%', height: 'auto', display: 'block' }}
-                    />
-                  </motion.div>
-                ))}
-              </div>
+                {/* Foto 1 — destaque topo, largura total (2 linhas = 246px) */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.4, delay: 0 }}
+                  style={{ gridColumn: '1 / -1', gridRow: 'span 2', borderRadius: '12px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+                >
+                  <img src={GALLERY_IMAGES[0].src} alt={GALLERY_IMAGES[0].alt} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </motion.div>
 
-              {/* Fotos 5-7 — grid 3 colunas */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
-                {GALLERY_IMAGES.slice(4).map((img, i) => (
-                  <motion.div
-                    key={img.src}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-40px' }}
-                    transition={{ duration: 0.5, delay: i * 0.08 }}
-                    style={{ borderRadius: '8px', overflow: 'hidden' }}
-                  >
-                    <img
-                      src={img.src}
-                      alt={img.alt}
-                      loading="lazy"
-                      style={{ width: '100%', height: 'auto', display: 'block' }}
-                    />
-                  </motion.div>
-                ))}
+                {/* Foto 2 — 1/3 esquerda */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.4, delay: 0.06 }}
+                  style={{ gridColumn: 'span 1', gridRow: 'span 2', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+                >
+                  <img src={GALLERY_IMAGES[1].src} alt={GALLERY_IMAGES[1].alt} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </motion.div>
+
+                {/* Foto 3 — 2/3 direita */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.4, delay: 0.12 }}
+                  style={{ gridColumn: 'span 2', gridRow: 'span 2', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+                >
+                  <img src={GALLERY_IMAGES[2].src} alt={GALLERY_IMAGES[2].alt} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </motion.div>
+
+                {/* Foto 4 — 2/3 esquerda */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.4, delay: 0.18 }}
+                  style={{ gridColumn: 'span 2', gridRow: 'span 2', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+                >
+                  <img src={GALLERY_IMAGES[3].src} alt={GALLERY_IMAGES[3].alt} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </motion.div>
+
+                {/* Foto 5 — 1/3 direita */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.4, delay: 0.24 }}
+                  style={{ gridColumn: 'span 1', gridRow: 'span 2', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+                >
+                  <img src={GALLERY_IMAGES[4].src} alt={GALLERY_IMAGES[4].alt} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </motion.div>
+
+                {/* Foto 6 — 1/3 esquerda */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.4, delay: 0.30 }}
+                  style={{ gridColumn: 'span 1', gridRow: 'span 2', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+                >
+                  <img src={GALLERY_IMAGES[5].src} alt={GALLERY_IMAGES[5].alt} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </motion.div>
+
+                {/* Foto 7 — 2/3 direita */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: '-30px' }}
+                  transition={{ duration: 0.4, delay: 0.36 }}
+                  style={{ gridColumn: 'span 2', gridRow: 'span 2', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+                >
+                  <img src={GALLERY_IMAGES[6].src} alt={GALLERY_IMAGES[6].alt} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </motion.div>
+
               </div>
             </div>
           ) : (
@@ -274,9 +294,6 @@ export default function Galeria({ onReserve }) {
                 whileInView="visible"
                 viewport={VP}
               >
-                <span className="font-label text-[10px] uppercase tracking-[0.3em] text-[#8d0032] font-bold">
-                  Role para ampliar
-                </span>
                 <p className="font-headline text-2xl md:text-3xl italic text-[#3d0a1e]/70 mt-3 leading-snug">
                   A energia dos nossos encontros, em imagens
                 </p>
@@ -335,8 +352,9 @@ export default function Galeria({ onReserve }) {
           </p>
 
           <motion.button
+            type="button"
             onClick={handleWA}
-            className="flex w-full sm:w-auto justify-center items-center gap-3 bg-[#8d0032] text-white font-label font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full transition-all"
+            className="flex w-full max-w-xs sm:max-w-none sm:w-auto mx-auto justify-center items-center gap-3 bg-[#8d0032] text-white font-label font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full transition-all"
             style={{ boxShadow: '0 12px 32px rgba(141,0,50,0.35)' }}
             whileHover={{ scale: 1.03, filter: 'brightness(1.1)' }}
             whileTap={{ scale: 0.97 }}

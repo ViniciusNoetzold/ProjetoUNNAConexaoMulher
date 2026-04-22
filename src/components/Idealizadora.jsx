@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { INSTAGRAM_ANA_URL, SITE_ANA_URL } from '../constants/links'
 
 import anaPaula1 from '../../Unna Conexão Mulher Fotos/AnaPaulaPictures/7.jpg'
 import anaPaula2 from '../../Unna Conexão Mulher Fotos/AnaPaulaPictures/8.jpg'
@@ -178,7 +179,7 @@ export default function Idealizadora() {
             {/* Links */}
             <div className="flex flex-col sm:flex-row gap-5 pt-2">
               <motion.a
-                href="https://instagram.com/anapaulanogueiranutri"
+                href={INSTAGRAM_ANA_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram de Ana Paula Nogueira (abre em nova aba)"
@@ -193,7 +194,7 @@ export default function Idealizadora() {
               </motion.a>
 
               <motion.a
-                href="https://www.ananogueiranutri.com.br/"
+                href={SITE_ANA_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Site profissional de Ana Paula Nogueira (abre em nova aba)"
