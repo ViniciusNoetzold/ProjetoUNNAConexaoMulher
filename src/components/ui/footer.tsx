@@ -60,7 +60,7 @@ export default function FooterSection() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-4xl px-6">
+      <div className="relative z-10 mx-auto max-w-4xl px-5 md:px-6">
 
         {/* ── Brand ── */}
         <a

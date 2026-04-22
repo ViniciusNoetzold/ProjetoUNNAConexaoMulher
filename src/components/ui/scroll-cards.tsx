@@ -59,7 +59,7 @@ const Card: FC<iCardProps> = ({ title, description, color, textColor, src, i }) 
         {/* Conteúdo textual */}
         <div className="absolute bottom-0 left-0 right-0 z-10 px-10 py-9">
           <span
-            className="block font-headline font-black tracking-tight leading-none mb-3 text-5xl md:text-6xl"
+            className="block font-headline font-black tracking-tight leading-none mb-3 text-3xl sm:text-5xl md:text-6xl"
             style={{ color: textColor }}
           >
             {title}

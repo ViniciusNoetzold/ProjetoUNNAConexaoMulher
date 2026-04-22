@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { scrollTo } from "@/hooks/useLenis"
 
 const WA_URL =
-  "https://wa.me/5555996880252?text=Olá!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conexão%20Mulher."
+  "https://wa.me/5555996880252?text=Ol%C3%A1!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conex%C3%A3o%20Mulher."
 
 // Staggered entrance timing for left column items
 const LEFT_DELAYS = [0.2, 0.38, 0.54, 0.7, 0.88]
@@ -48,7 +48,7 @@ export default function HeroUnna() {
       />
 
       {/* ── UNNA brand overlay ──────────────────────────────── */}
-      <div className="relative z-[2] w-full max-w-7xl mx-auto px-6 md:px-12 min-h-screen flex flex-col justify-center pt-24 pb-44">
+      <div className="relative z-[2] w-full max-w-7xl mx-auto px-5 md:px-12 min-h-screen flex flex-col justify-center pt-24 pb-24 md:pb-44">
         <div className="w-full lg:w-[52%] space-y-7">
 
           {/* Eyebrow */}
@@ -63,7 +63,7 @@ export default function HeroUnna() {
           <motion.h1
             id="hero-heading"
             {...fadeY(LEFT_DELAYS[1])}
-            className="font-headline text-5xl md:text-6xl lg:text-[5.25rem] font-bold text-white leading-[0.93] tracking-tight"
+            className="font-headline text-[2.2rem] sm:text-4xl md:text-6xl lg:text-[5.25rem] font-bold text-white leading-[0.93] tracking-tight"
             style={{ textShadow: "0 4px 40px rgba(0,0,0,0.5)" }}
           >
             UNNA –<br />
@@ -73,7 +73,7 @@ export default function HeroUnna() {
           {/* Tagline */}
           <motion.p
             {...fadeY(LEFT_DELAYS[2])}
-            className="font-body text-lg md:text-xl italic leading-snug text-white/75 max-w-sm"
+            className="font-body text-base md:text-xl italic leading-snug text-white/75 max-w-sm"
           >
             Conexão que transforma. Mulheres que se fortalecem.
           </motion.p>
@@ -91,7 +91,7 @@ export default function HeroUnna() {
               aria-label="Garantir minha vaga via WhatsApp (abre em nova aba)"
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "font-semibold tracking-wide text-white",
+                "w-full sm:w-auto justify-center font-semibold tracking-wide text-white",
                 "backdrop-blur-md transition-all duration-300",
                 "bg-[rgba(141,0,50,0.20)] hover:bg-[rgba(141,0,50,0.35)]",
                 "border border-[rgba(141,0,50,0.40)]"
@@ -114,7 +114,7 @@ export default function HeroUnna() {
               onClick={(e: React.MouseEvent) => { e.preventDefault(); scrollTo("#events") }}
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "font-semibold text-white",
+                "w-full sm:w-auto justify-center font-semibold text-white",
                 "backdrop-blur-md transition-all duration-300",
                 "bg-white/10 hover:bg-white/[0.18]",
                 "border border-white/25 hover:border-white/40"

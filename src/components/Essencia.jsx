@@ -16,7 +16,7 @@ export default function Essencia() {
     <section
       id="essencia"
       aria-labelledby="essencia-heading"
-      className="py-32 px-6 md:px-12 relative overflow-hidden"
+      className="py-20 md:py-32 px-5 md:px-12 relative overflow-hidden"
       style={{ background: '#0f0005' }}
     >
       {/* Ambient glow */}
@@ -30,7 +30,7 @@ export default function Essencia() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-28 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-28 items-start">
 
           {/* Left: heading */}
           <motion.div
@@ -50,7 +50,7 @@ export default function Essencia() {
 
             <h2
               id="essencia-heading"
-              className="font-headline text-5xl md:text-6xl lg:text-7xl text-white leading-[1.02] tracking-tight"
+              className="font-headline text-4xl md:text-6xl lg:text-7xl text-white leading-[1.02] tracking-tight"
             >
               O que é o<br />
               <span className="italic text-[#f4b8ce]">UNNA?</span>

@@ -343,7 +343,31 @@
 /* Hide nav items on very small screens */
 @media (max-width: 640px) {
   .lumina-nav { display: none; }
-  .lumina-caption { max-width: calc(100% - 3rem); }
+  .lumina-caption {
+    max-width: calc(100% - 3rem);
+    bottom: 5rem;
+    left: 1.25rem;
+  }
+  .lumina-slide-title {
+    font-size: 1rem;
+  }
+  .lumina-slide-desc {
+    font-size: 0.72rem;
+  }
+}
+
+/* ── ImageGallery — mobile: coluna única em vez de fila expansível ── */
+@media (max-width: 767px) {
+  .image-gallery-row {
+    flex-direction: column;
+    height: auto !important;
+  }
+  .image-gallery-row > div {
+    flex-basis: auto !important;
+    flex-grow: 1 !important;
+    flex-shrink: 0 !important;
+    height: 200px !important;
+  }
 }
 
 /* Reduced motion */

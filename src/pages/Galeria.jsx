@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { ZoomParallax } from '../components/ui/zoom-parallax'
@@ -15,7 +16,6 @@ import galeria27 from '../../Unna Conexão Mulher Fotos/Seção1Galeria/27.jpg'
 import memDestaque34   from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/34.jpg'
 import memDestaque33   from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/33.jpg'
 import memDestaque32   from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/32.jpg'
-import memMomento30    from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/30.jpg'
 import memCelebracao28 from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/28.jpg'
 import memConexao31    from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/31.jpg'
 import memMemoria29    from '../../Unna Conexão Mulher Fotos/EncontrosMemoria/29.jpg'
@@ -47,6 +47,13 @@ const GALLERY_IMAGES = [
 export default function Galeria({ onReserve }) {
   const navigate = useNavigate()
 
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768)
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   function handleWA() {
     const msg = encodeURIComponent('Olá! Vi a galeria do UNNA Conexão Mulher e quero garantir minha vaga no próximo evento!')
     window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank', 'noopener,noreferrer')
@@ -58,7 +65,7 @@ export default function Galeria({ onReserve }) {
       {/* ── Hero ──────────────────────────────────────────── */}
       <section
         aria-labelledby="galeria-heading"
-        className="relative overflow-hidden pt-32 pb-24 px-6 md:px-12"
+        className="relative overflow-hidden pt-24 pb-16 px-5 md:px-12 md:pt-32 md:pb-24"
         style={{ background: 'linear-gradient(160deg, #1a0008 0%, #3d0a1e 55%, #6b1535 100%)' }}
       >
         {/* Orb top-right */}
@@ -92,7 +99,7 @@ export default function Galeria({ onReserve }) {
 
           <motion.h1
             id="galeria-heading"
-            className="font-headline text-5xl md:text-7xl text-white leading-tight"
+            className="font-headline text-3xl sm:text-5xl md:text-7xl text-white leading-tight"
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.72, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
@@ -104,7 +111,7 @@ export default function Galeria({ onReserve }) {
           </motion.h1>
 
           <motion.p
-            className="font-body text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed"
+            className="font-body text-base md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.68, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
@@ -175,24 +182,109 @@ export default function Galeria({ onReserve }) {
         </div>
 
         <div style={{ position: 'relative', zIndex: 1 }}>
-          {/* ── Intro label ─────────────────────────────────── */}
-          <motion.div
-            className="py-16 px-6 text-center"
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={VP}
-          >
-            <span className="font-label text-[10px] uppercase tracking-[0.3em] text-[#8d0032] font-bold">
-              Role para ampliar
-            </span>
-            <p className="font-headline text-2xl md:text-3xl italic text-[#3d0a1e]/70 mt-3 leading-snug">
-              A energia dos nossos encontros, em imagens
-            </p>
-          </motion.div>
+          {isMobile ? (
+            /* ── MOBILE — grid estático animado ────────────── */
+            <div className="py-12 px-5">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.5 }}
+                className="mb-8"
+              >
+                <span className="font-label text-[10px] uppercase tracking-[0.3em] text-[#8d0032] font-bold block mb-3">
+                  Momentos Reais
+                </span>
+                <p className="font-headline text-2xl italic text-[#3d0a1e]/70 leading-snug">
+                  A energia dos nossos encontros, em imagens
+                </p>
+              </motion.div>
 
-          <ZoomParallax images={GALLERY_IMAGES} />
+              {/* Foto 1 — portrait centralizada, 60% de largura */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.55 }}
+                style={{
+                  width: '60%',
+                  margin: '0 auto 10px',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                }}
+              >
+                <img
+                  src={GALLERY_IMAGES[0].src}
+                  alt={GALLERY_IMAGES[0].alt}
+                  loading="lazy"
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                />
+              </motion.div>
+
+              {/* Fotos 2-4 — grid 2 colunas */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '8px' }}>
+                {GALLERY_IMAGES.slice(1, 4).map((img, i) => (
+                  <motion.div
+                    key={img.src}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{ duration: 0.5, delay: i * 0.08 }}
+                    style={{ borderRadius: '10px', overflow: 'hidden' }}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      loading="lazy"
+                      style={{ width: '100%', height: 'auto', display: 'block' }}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Fotos 5-7 — grid 3 colunas */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px' }}>
+                {GALLERY_IMAGES.slice(4).map((img, i) => (
+                  <motion.div
+                    key={img.src}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{ duration: 0.5, delay: i * 0.08 }}
+                    style={{ borderRadius: '8px', overflow: 'hidden' }}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      loading="lazy"
+                      style={{ width: '100%', height: 'auto', display: 'block' }}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            /* ── DESKTOP — ZoomParallax inalterado ──────────── */
+            <>
+              <motion.div
+                className="py-12 px-5 text-center"
+                custom={0}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={VP}
+              >
+                <span className="font-label text-[10px] uppercase tracking-[0.3em] text-[#8d0032] font-bold">
+                  Role para ampliar
+                </span>
+                <p className="font-headline text-2xl md:text-3xl italic text-[#3d0a1e]/70 mt-3 leading-snug">
+                  A energia dos nossos encontros, em imagens
+                </p>
+              </motion.div>
+
+              <ZoomParallax images={GALLERY_IMAGES} />
+            </>
+          )}
         </div>
       </section>
 
@@ -202,7 +294,6 @@ export default function Galeria({ onReserve }) {
           Grade (slice -3): 34, 33, 32       — destaques */}
       <ImageGallery
         images={[
-          { src: memMomento30,    title: 'Conexão & Propósito',            city: 'Cruz Alta / RS'           },
           { src: memCelebracao28, title: 'Juntas Brilhamos',               city: 'Sarandi / RS'             },
           { src: memConexao31,    title: 'Negócio com Propósito',          city: 'Passo Fundo / RS'         },
           { src: memMemoria29,    title: 'Encontro que Fica na Memória',   city: 'Rio Grande do Sul / RS'   },
@@ -215,7 +306,7 @@ export default function Galeria({ onReserve }) {
       {/* ── CTA ─────────────────────────────────────────── */}
       <section
         aria-labelledby="galeria-cta-heading"
-        className="py-24 px-6 md:px-12"
+        className="py-16 md:py-24 px-5 md:px-12"
         style={{ background: 'linear-gradient(160deg, #1a0008 0%, #3d0a1e 100%)' }}
       >
         <motion.div
@@ -232,7 +323,7 @@ export default function Galeria({ onReserve }) {
 
           <h2
             id="galeria-cta-heading"
-            className="font-headline text-3xl md:text-5xl text-white leading-tight"
+            className="font-headline text-2xl sm:text-3xl md:text-5xl text-white leading-tight"
           >
             Sua foto pode estar{' '}
             <em className="not-italic" style={{ color: '#f4b8ce' }}>aqui</em>.
@@ -245,7 +336,7 @@ export default function Galeria({ onReserve }) {
 
           <motion.button
             onClick={handleWA}
-            className="inline-flex items-center gap-3 bg-[#8d0032] text-white font-label font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full transition-all"
+            className="flex w-full sm:w-auto justify-center items-center gap-3 bg-[#8d0032] text-white font-label font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full transition-all"
             style={{ boxShadow: '0 12px 32px rgba(141,0,50,0.35)' }}
             whileHover={{ scale: 1.03, filter: 'brightness(1.1)' }}
             whileTap={{ scale: 0.97 }}

@@ -128,7 +128,7 @@ export default function NossosEncontros() {
 
       <section
         ref={sectionRef}
-        style={{ height: '300vh', position: 'relative' }}
+        className="h-[200vh] md:h-[300vh] relative"
       >
         {/* Sticky container — permanece fixo enquanto a seção scrolla */}
         <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
@@ -220,7 +220,7 @@ export default function NossosEncontros() {
 
             {/* Título */}
             <motion.h2
-              className="font-headline text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4"
+              className="font-headline text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4"
               style={{ opacity: contentOpacity, y: contentY }}
             >
               Nossos Encontros
@@ -228,7 +228,7 @@ export default function NossosEncontros() {
 
             {/* Subtítulo */}
             <motion.p
-              className="font-body text-lg md:text-xl leading-relaxed max-w-2xl mb-10"
+              className="font-body text-base md:text-xl leading-relaxed max-w-2xl mb-6 md:mb-10 px-2 md:px-0"
               style={{
                 opacity: subtitleOpacity,
                 color: 'rgba(255,255,255,0.70)',
@@ -270,6 +270,7 @@ export default function NossosEncontros() {
           {/* ── CAMADA 5 — "UNNA" decorativo lateral ─────────────────────── */}
           <motion.div
             aria-hidden="true"
+            className="hidden md:block"
             style={{
               position: 'absolute',
               left: '-20px',

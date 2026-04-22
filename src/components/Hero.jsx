@@ -12,7 +12,7 @@ import heroBg6 from '../../Unna Conexão Mulher Fotos/HeroFotos/24.jpg'
 const heroSlides = [heroBg1, heroBg2, heroBg3, heroBg4, heroBg5, heroBg6]
 
 // ⚠ Substitua pelo número real de WhatsApp
-const WA_VAGA = 'https://wa.me/5555996880252?text=Olá!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conexão%20Mulher.'
+const WA_VAGA = 'https://wa.me/5555996880252?text=Ol%C3%A1!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conex%C3%A3o%20Mulher.'
 
 const stagger = {
   hidden: {},

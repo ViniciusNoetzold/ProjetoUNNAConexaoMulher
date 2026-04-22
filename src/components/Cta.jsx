@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-const WA_HREF = 'https://wa.me/5555996880252?text=Olá!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conexão%20Mulher.'
+const WA_HREF = 'https://wa.me/5555996880252?text=Ol%C3%A1!%20Quero%20garantir%20minha%20vaga%20no%20UNNA%20Conex%C3%A3o%20Mulher.'
 
 const VP = { once: true, margin: '-80px' }
 
@@ -9,20 +9,20 @@ const PHRASES = [
     text:    'Você não precisa chegar pronta.',
     align:   'left',
     xFrom:   -30,
-    style:   { fontStyle: 'italic', fontSize: '1.4rem', color: '#8d0032', fontWeight: 400 },
+    style:   { fontStyle: 'italic', fontSize: 'clamp(1rem, 4vw, 1.4rem)', color: '#8d0032', fontWeight: 400 },
   },
   {
     text:    'Só precisa chegar.',
     align:   'right',
     xFrom:   30,
-    style:   { fontWeight: 700, fontSize: '2rem', color: '#3D0A1E' },
+    style:   { fontWeight: 700, fontSize: 'clamp(1.3rem, 5.5vw, 2rem)', color: '#3D0A1E' },
   },
   {
     text:    'O resto, a UNNA cuida.',
     align:   'center',
     xFrom:   0,
     style:   {
-      fontSize: '1.2rem',
+      fontSize: 'clamp(0.85rem, 3.5vw, 1.2rem)',
       letterSpacing: '0.15em',
       textTransform: 'uppercase',
       color: '#8d0032',
@@ -40,12 +40,12 @@ export default function Cta() {
       className="py-20"
       style={{ backgroundColor: '#fdf5f7' }}
     >
-      <div className="max-w-3xl mx-auto px-6 space-y-12">
+      <div className="max-w-3xl mx-auto px-5 space-y-10 md:space-y-12">
 
         {/* ── Título ──────────────────────────────────────────── */}
         <motion.h2
           id="cta-heading"
-          className="font-headline text-3xl md:text-5xl text-center leading-tight"
+          className="font-headline text-2xl sm:text-3xl md:text-5xl text-center leading-tight"
           style={{ color: '#3D0A1E' }}
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +57,7 @@ export default function Cta() {
 
         {/* ── CTA WhatsApp ─────────────────────────────────────── */}
         <motion.div
-          className="flex justify-center"
+          className="flex justify-center sm:flex-none"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -68,7 +68,7 @@ export default function Cta() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Garantir minha vaga via WhatsApp (abre em nova aba)"
-            className="inline-flex items-center gap-3 font-label font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full text-white"
+            className="flex w-full sm:w-auto items-center justify-center gap-3 font-label font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full text-white"
             style={{ backgroundColor: '#8d0032', boxShadow: '0 12px 32px rgba(141,0,50,0.30)' }}
             whileHover={{ scale: 1.03, filter: 'brightness(1.08)' }}
             whileTap={{ scale: 0.97 }}

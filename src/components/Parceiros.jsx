@@ -31,7 +31,7 @@ function ParceiroCard({ nome, papel, delay }) {
       transition={{ duration: 0.2, ease: 'easeOut' }}
       className="flex flex-col items-center text-center"
       style={{
-        padding: '36px 40px',
+        padding: '20px 16px',
         border: '1px solid #f0e8ec',
         borderRadius: '12px',
         background: 'white',
@@ -59,7 +59,7 @@ export default function Parceiros() {
     <section
       id="parceiros"
       aria-labelledby="parceiros-heading"
-      className="pt-20 pb-24 px-6 md:px-12 bg-white relative overflow-hidden"
+      className="pt-16 pb-20 px-5 md:px-12 md:pt-20 md:pb-24 bg-white relative overflow-hidden"
     >
       <div
         aria-hidden="true"
@@ -116,7 +116,7 @@ export default function Parceiros() {
 
           <h2
             id="parceiros-heading"
-            className="font-headline text-4xl md:text-5xl text-on-background"
+            className="font-headline text-2xl sm:text-4xl md:text-5xl text-on-background"
           >
             Quem Torna<br />
             <span className="italic text-primary">Tudo Possível</span>
@@ -126,25 +126,16 @@ export default function Parceiros() {
         {/* ── Cards ── */}
         <div style={{ maxWidth: '860px', margin: '48px auto 0' }}>
 
-          {/* Linha 1 — 3 cards */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: '32px',
-            }}
-          >
+          {/* Linha 1 — 2 colunas no mobile, 3 no sm+ */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-8">
             {row1.map((p, i) => (
               <ParceiroCard key={p.nome} nome={p.nome} papel={p.papel} delay={0.08 + i * 0.08} />
             ))}
           </div>
 
-          {/* Linha 2 — 2 cards centralizados (≈ 2/3 do grid) */}
+          {/* Linha 2 — 2 cards centralizados */}
           {row2.length > 0 && (
-            <div
-              className="mt-6 mx-auto"
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '32px', maxWidth: '573px' }}
-            >
+            <div className="mt-4 md:mt-6 mx-auto grid grid-cols-2 gap-4 md:gap-8" style={{ maxWidth: '573px' }}>
               {row2.map((p, i) => (
                 <ParceiroCard key={p.nome} nome={p.nome} papel={p.papel} delay={0.08 + (row1.length + i) * 0.08} />
               ))}

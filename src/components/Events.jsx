@@ -100,7 +100,7 @@ const UNNA_EVENTS = [
 
 export default function Events() {
   return (
-    <section id="events" aria-labelledby="events-heading" className="py-24 px-6 md:px-12 bg-white relative overflow-hidden">
+    <section id="events" aria-labelledby="events-heading" className="py-16 md:py-24 px-5 md:px-12 bg-white relative overflow-hidden">
       {/* Soft Pink Glow background */}
       <div
         aria-hidden="true"
@@ -111,7 +111,7 @@ export default function Events() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto space-y-16">
+      <div className="relative z-10 max-w-7xl mx-auto space-y-10 md:space-y-16">
 
         <motion.div
           className="text-center space-y-4"
@@ -121,7 +121,7 @@ export default function Events() {
           whileInView="visible"
           viewport={VP}
         >
-          <h2 id="events-heading" className="font-headline text-4xl md:text-5xl text-on-background">
+          <h2 id="events-heading" className="font-headline text-2xl sm:text-4xl md:text-5xl text-on-background">
             Próximos Encontros
           </h2>
           <p className="font-label text-xs text-on-surface/60 uppercase tracking-[0.2em]">
@@ -140,7 +140,7 @@ export default function Events() {
         </motion.div>
 
         <motion.div
-          className="p-10 md:p-12 bg-surface-container rounded-2xl text-center space-y-5"
+          className="p-6 sm:p-10 md:p-12 bg-surface-container rounded-2xl text-center space-y-5"
           style={{ boxShadow: 'var(--shadow-warm)' }}
           custom={0.2}
           variants={fadeUp}
@@ -151,7 +151,7 @@ export default function Events() {
           <span className="font-label text-xs uppercase tracking-widest text-primary font-bold">
             Em breve nas cidades
           </span>
-          <p className="font-headline text-2xl md:text-3xl italic text-on-surface/80 leading-relaxed max-w-4xl mx-auto">
+          <p className="font-headline text-xl md:text-3xl italic text-on-surface/80 leading-relaxed max-w-4xl mx-auto">
             Rondinha, Constantina e mais cidades em confirmação
           </p>
         </motion.div>

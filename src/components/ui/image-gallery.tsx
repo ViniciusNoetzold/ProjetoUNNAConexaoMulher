@@ -40,7 +40,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
 
       {/* ── Fila expansível — hover expande a imagem ─────── */}
       <div
-        className="flex items-stretch gap-2 w-full max-w-6xl"
+        className="image-gallery-row flex items-stretch gap-2 w-full max-w-6xl"
         style={{ height: '480px' }}
       >
         {images.slice(0, images.length - 3).map((img, idx) => (

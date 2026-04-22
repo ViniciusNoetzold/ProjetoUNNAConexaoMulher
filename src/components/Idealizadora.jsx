@@ -46,7 +46,7 @@ export default function Idealizadora() {
     <section
       id="idealizadora"
       aria-labelledby="idealizadora-heading"
-      className="pt-32 pb-16 px-6 md:px-12 bg-white relative overflow-hidden"
+      className="pt-20 pb-12 px-5 md:px-12 md:pt-32 md:pb-16 bg-white relative overflow-hidden"
     >
       {/* Soft pink glow */}
       <div
@@ -80,7 +80,7 @@ export default function Idealizadora() {
       ))}
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-24 items-center">
 
           {/* Left: image */}
           <motion.div
@@ -97,7 +97,7 @@ export default function Idealizadora() {
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="relative w-full" style={{ height: '560px' }}>
+              <div className="relative w-full h-[320px] sm:h-[420px] md:h-[560px]">
                 <AnimatePresence>
                   <motion.img
                     key={currentIndex}
@@ -145,7 +145,7 @@ export default function Idealizadora() {
 
               <h2
                 id="idealizadora-heading"
-                className="font-headline text-5xl md:text-6xl text-on-background leading-[1.05]"
+                className="font-headline text-4xl md:text-6xl text-on-background leading-[1.05]"
               >
                 Ana Paula<br />
                 <span className="italic text-primary">Nogueira</span>

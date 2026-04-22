@@ -54,7 +54,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
   const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9]
 
   return (
-    <div ref={container} className="relative h-[300vh]">
+    <div ref={container} className="relative h-[150vh] md:h-[300vh]">
       <div className="sticky top-0 h-screen overflow-hidden">
         {/* ── Background animations ─────────────────────────── */}
         <div aria-hidden="true" style={{

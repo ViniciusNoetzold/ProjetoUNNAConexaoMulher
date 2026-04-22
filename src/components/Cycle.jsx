@@ -36,7 +36,7 @@ export default function Cycle() {
     <section
       id="cycle"
       aria-labelledby="cycle-heading"
-      className="py-32 px-6 md:px-12 bg-white relative overflow-hidden"
+      className="py-20 md:py-32 px-5 md:px-12 bg-white relative overflow-hidden"
     >
       {/* Soft Glow Background */}
       <div
@@ -48,7 +48,7 @@ export default function Cycle() {
       />
 
       {/* Ripple circles animation */}
-      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
         {[0, 1, 2].map(i => (
           <div key={i} style={{
             position: 'absolute',
@@ -86,7 +86,7 @@ export default function Cycle() {
 
           <h2
             id="cycle-heading"
-            className="font-headline text-5xl md:text-7xl text-on-background leading-[1.02] tracking-tight"
+            className="font-headline text-[2rem] sm:text-5xl md:text-7xl text-on-background leading-[1.02] tracking-tight"
           >
             IMPERFEITA, REAL E PODEROSA
           </h2>
@@ -172,11 +172,11 @@ export default function Cycle() {
             viewport={VP}
           >
             {/* Tema em destaque — canto superior direito */}
-            <div className="text-right">
+            <div className="text-left md:text-right">
               <p className="font-label text-[0.7rem] uppercase tracking-[0.3em] text-on-surface-variant mb-2">
                 Tema em Destaque
               </p>
-              <p className="font-headline italic text-lg md:text-xl text-primary leading-snug max-w-xs ml-auto">
+              <p className="font-headline italic text-lg md:text-xl text-primary leading-snug max-w-xs md:ml-auto">
                 Resiliência em Ação – Como transformar o peso da vida em força
               </p>
             </div>
@@ -194,9 +194,9 @@ export default function Cycle() {
                 alt="Foto real do evento UNNA Conexão Mulher — Ciclo Atual"
                 loading="lazy"
                 className="transition-[transform,filter] duration-[400ms] ease-out group-hover:scale-[1.03] group-hover:brightness-105"
+                className="h-[260px] sm:h-[380px] md:h-[480px]"
                 style={{
                   width: '100%',
-                  height: '480px',
                   objectFit: 'cover',
                   objectPosition: 'center top',
                   display: 'block',

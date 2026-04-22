@@ -54,7 +54,7 @@ export default function Pilares() {
     <section
       id="pilares"
       aria-labelledby="pilares-heading"
-      className="py-32 px-6 md:px-12 bg-white relative overflow-hidden"
+      className="py-20 md:py-32 px-5 md:px-12 bg-white relative overflow-hidden"
     >
       {/* Soft glow */}
       <div
@@ -69,7 +69,7 @@ export default function Pilares() {
       {/* Diagonal rain lines animation */}
       <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }}>
         {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} style={{
+          <div key={i} className={i >= 3 ? 'hidden sm:block' : undefined} style={{
             position: 'absolute',
             top: '-100%',
             left: `${i * 14}%`,
@@ -82,7 +82,7 @@ export default function Pilares() {
         ))}
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto space-y-20">
+      <div className="relative z-10 max-w-7xl mx-auto space-y-12 md:space-y-20">
 
         {/* Header */}
         <motion.div
@@ -106,7 +106,7 @@ export default function Pilares() {
 
           <h2
             id="pilares-heading"
-            className="font-headline text-5xl md:text-6xl text-on-background leading-[1.05]"
+            className="font-headline text-[2rem] sm:text-5xl md:text-6xl text-on-background leading-[1.05]"
           >
             O Que Acontece<br />
             <span className="italic text-primary">nos Encontros</span>
