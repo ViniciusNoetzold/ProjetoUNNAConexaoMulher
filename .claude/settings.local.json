@@ -12,7 +12,8 @@
       "Bash(npm i:*)",
       "Bash(rtk wc:*)",
       "Bash(rtk git:*)",
-      "Bash(rtk grep:*)"
+      "Bash(rtk grep:*)",
+      "Bash(npm audit:*)"
     ]
   }
 }
