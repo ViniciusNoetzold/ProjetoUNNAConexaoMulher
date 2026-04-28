@@ -37,35 +37,36 @@ const PARTICLES: Array<{ top: string; left: string; duration: string; delay: str
 export default function NossosEncontros() {
   const sectionRef = useRef<HTMLElement>(null)
 
-  // Progresso: 0 = seção começa a pinnar, 1 = saiu da tela (300vh)
+  // Progresso: 0 = seção entra pela base do viewport, 1 = seção sai pelo topo
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start start', 'end start'],
+    offset: ['start end', 'end start'],
   })
 
   // ── Overlay — começa sólido, abre para translúcido ───────────────────────
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.28], [1, 0.55])
+  // Range [0.15, 0.30]: O overlay começa a abrir enquanto a seção ainda está subindo na tela.
+  const overlayOpacity = useTransform(scrollYProgress, [0.15, 0.30], [1, 0.55])
 
   // ── Linha rose que cresce da esquerda ────────────────────────────────────
-  const lineScale = useTransform(scrollYProgress, [0.07, 0.35], [0, 1])
+  const lineScale = useTransform(scrollYProgress, [0.15, 0.35], [0, 1])
 
   // ── Conteúdo central ─────────────────────────────────────────────────────
-  const contentOpacity = useTransform(scrollYProgress, [0.14, 0.42], [0, 1])
-  const contentY       = useTransform(scrollYProgress, [0.14, 0.42], [60, 0])
+  const contentOpacity = useTransform(scrollYProgress, [0.20, 0.35], [0, 1])
+  const contentY       = useTransform(scrollYProgress, [0.20, 0.35], [60, 0])
 
   // ── Badge ─────────────────────────────────────────────────────────────────
-  const badgeOpacity = useTransform(scrollYProgress, [0.21, 0.42], [0, 1])
+  const badgeOpacity = useTransform(scrollYProgress, [0.22, 0.35], [0, 1])
 
   // ── Subtítulo ─────────────────────────────────────────────────────────────
-  const subtitleOpacity = useTransform(scrollYProgress, [0.28, 0.49], [0, 1])
+  const subtitleOpacity = useTransform(scrollYProgress, [0.26, 0.40], [0, 1])
 
   // ── Pills — stagger horizontal ────────────────────────────────────────────
-  const pill0Opacity = useTransform(scrollYProgress, [0.35, 0.56], [0, 1])
-  const pill0X       = useTransform(scrollYProgress, [0.35, 0.56], [-28, 0])
-  const pill1Opacity = useTransform(scrollYProgress, [0.38, 0.57], [0, 1])
-  const pill1X       = useTransform(scrollYProgress, [0.38, 0.57], [0, 0])
-  const pill2Opacity = useTransform(scrollYProgress, [0.42, 0.60], [0, 1])
-  const pill2X       = useTransform(scrollYProgress, [0.42, 0.60], [28, 0])
+  const pill0Opacity = useTransform(scrollYProgress, [0.28, 0.42], [0, 1])
+  const pill0X       = useTransform(scrollYProgress, [0.28, 0.42], [-28, 0])
+  const pill1Opacity = useTransform(scrollYProgress, [0.30, 0.44], [0, 1])
+  const pill1X       = useTransform(scrollYProgress, [0.30, 0.44], [0, 0])
+  const pill2Opacity = useTransform(scrollYProgress, [0.32, 0.46], [0, 1])
+  const pill2X       = useTransform(scrollYProgress, [0.32, 0.46], [28, 0])
 
   const pillMotion = [
     { opacity: pill0Opacity, x: pill0X },
@@ -74,7 +75,7 @@ export default function NossosEncontros() {
   ]
 
   // ── Texto lateral decorativo ──────────────────────────────────────────────
-  const sideTextOpacity = useTransform(scrollYProgress, [0, 0.70], [0, 0.15])
+  const sideTextOpacity = useTransform(scrollYProgress, [0.15, 0.45], [0, 0.15])
 
   return (
     <>
@@ -128,10 +129,10 @@ export default function NossosEncontros() {
 
       <section
         ref={sectionRef}
-        className="h-[180vh] md:h-[220vh] lg:h-[300vh] relative"
+        className="h-[180vh] md:h-[200vh] lg:h-[240vh] relative"
       >
         {/* Sticky container — permanece fixo enquanto a seção scrolla */}
-        <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden' }}>
+        <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', background: '#1a0010' }}>
 
           {/* ── CAMADA 1 — Aurora Vinho: background generativo ───────────── */}
           <div

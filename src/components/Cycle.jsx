@@ -11,7 +11,7 @@ const fadeUp = {
   }),
 }
 
-const VP = { once: true, margin: '-40px' }
+const VP = { once: true, margin: '100px' }
 
 const pillars = [
   {
@@ -36,7 +36,7 @@ export default function Cycle() {
     <section
       id="cycle"
       aria-labelledby="cycle-heading"
-      className="py-20 md:py-32 px-5 md:px-12 bg-white relative overflow-hidden"
+      className="pt-20 pb-6 md:pt-32 md:pb-8 px-5 md:px-12 bg-white relative overflow-hidden"
     >
       {/* Soft Glow Background */}
       <div

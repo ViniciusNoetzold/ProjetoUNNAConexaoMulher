@@ -12,7 +12,6 @@ import ReserveModal from './components/ReserveModal'
 const Essencia        = lazy(() => import('./components/Essencia'))
 const Cycle           = lazy(() => import('./components/Cycle'))
 const ScrollExpandHero = lazy(() => import('./components/ui/scroll-expansion-hero'))
-const Pilares         = lazy(() => import('./components/Pilares'))
 const Idealizadora    = lazy(() => import('./components/Idealizadora'))
 const Parceiros       = lazy(() => import('./components/Parceiros'))
 const Events          = lazy(() => import('./components/Events'))
@@ -49,8 +48,7 @@ function HomePage({ onReserve }) {
         {/* ── NossosEncontros — parallax + revelação progressiva ── */}
         <ScrollExpandHero />
 
-        {/* ── Pilares — o que acontece nos encontros ── */}
-        <Pilares />
+
 
         {/* ── Próximos Eventos — circuito 2025 ── */}
         <Events />
