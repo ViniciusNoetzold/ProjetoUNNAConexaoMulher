@@ -106,7 +106,7 @@ export default function Events() {
       aria-labelledby="events-heading"
       className="pt-14 pb-16 md:pt-20 md:pb-24 px-5 md:px-12 relative overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #fdf5f7 0%, #fff8fb 34%, #ffffff 100%)',
+        background: 'linear-gradient(180deg, #fdf5f7 0%, #fff4f8 30%, #fffafc 64%, #ffffff 100%)',
       }}
     >
       {/* Soft Pink Glow background */}
@@ -114,8 +114,8 @@ export default function Events() {
         aria-hidden="true"
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          backgroundImage: 'radial-gradient(circle at center top, rgba(251,182,206,0.7), transparent 58%)',
-          opacity: 0.38,
+          backgroundImage: 'radial-gradient(ellipse 68% 42% at center top, rgba(251,182,206,0.34), transparent 68%)',
+          opacity: 0.34,
         }}
       />
 

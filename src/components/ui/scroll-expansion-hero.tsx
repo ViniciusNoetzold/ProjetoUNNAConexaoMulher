@@ -180,11 +180,11 @@ export default function NossosEncontros() {
               position: 'absolute',
               left: 0,
               right: 0,
-              bottom: '-1px',
-              height: 'clamp(120px, 22vh, 220px)',
+              bottom: '-2px',
+              height: 'clamp(340px, 48vh, 540px)',
               zIndex: 2,
               pointerEvents: 'none',
-              background: 'linear-gradient(180deg, rgba(253,245,247,0) 0%, rgba(253,245,247,0.58) 68%, #fdf5f7 100%)',
+              background: 'linear-gradient(180deg, rgba(77,0,30,0) 0%, rgba(84,0,32,0.24) 18%, rgba(102,17,48,0.58) 36%, rgba(140,57,86,0.78) 54%, rgba(196,133,156,0.9) 72%, rgba(242,225,232,0.98) 90%, #fdf5f7 100%)',
             }}
           />
 
