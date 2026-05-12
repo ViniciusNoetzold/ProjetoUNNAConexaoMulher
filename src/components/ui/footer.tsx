@@ -1,5 +1,5 @@
 import { scrollTo } from '@/hooks/useLenis'
-import mezzoldLogo from '../../assets/mezzold.jpeg'
+import FooterCredit from '@/components/FooterCredit'
 import { WA_FOOTER_URL, INSTAGRAM_URL } from '@/constants/links'
 
 // ── Nav links — espelha a navbar ───────────────────────────────────────────
@@ -48,8 +48,10 @@ export default function FooterSection() {
   return (
     <footer
       role="contentinfo"
-      className="relative overflow-hidden py-16"
-      style={{ backgroundColor: '#0d0608' }}
+      className="relative overflow-hidden py-12 md:py-14"
+      style={{
+        background: 'linear-gradient(180deg, #090507 0%, #13080f 55%, #1a0b14 100%)',
+      }}
     >
       {/* Ambient glow */}
       <div
@@ -57,7 +59,7 @@ export default function FooterSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 80% 55% at 50% 110%, rgba(141,0,50,0.22) 0%, transparent 70%)',
+            'radial-gradient(circle at center bottom, rgba(255,120,170,0.08), transparent 42%), radial-gradient(ellipse 76% 48% at 50% 112%, rgba(141,0,50,0.16) 0%, transparent 72%)',
         }}
       />
 
@@ -67,17 +69,17 @@ export default function FooterSection() {
         <a
           href="/"
           aria-label="UNNA Conexão Mulher — início"
-          className="mx-auto mb-8 block w-fit text-center group"
+          className="mx-auto mb-7 block w-fit text-center group"
         >
           <span
             className="font-headline font-black italic text-2xl tracking-tight transition-colors duration-200 group-hover:text-[#c2637a]"
-            style={{ color: 'rgba(255,255,255,0.90)' }}
+            style={{ color: 'rgba(255,255,255,0.94)' }}
           >
             UNNA
           </span>
           <span
             className="block font-label text-[10px] uppercase tracking-[0.28em] mt-0.5 transition-colors duration-200"
-            style={{ color: 'rgba(255,255,255,0.32)' }}
+            style={{ color: 'rgba(255,255,255,0.46)' }}
           >
             Conexão Mulher
           </span>
@@ -86,13 +88,13 @@ export default function FooterSection() {
         {/* ── Divisor ── */}
         <div
           aria-hidden="true"
-          className="mx-auto mb-8 h-px w-16 rounded-full"
-          style={{ background: 'linear-gradient(90deg, transparent, rgba(194,99,122,0.45), transparent)' }}
+          className="mx-auto mb-7 h-px w-16 rounded-full"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(194,99,122,0.58), transparent)' }}
         />
 
         {/* ── Nav links ── */}
         <nav aria-label="Links do rodapé">
-          <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 mb-10">
+          <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 mb-8">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
@@ -104,9 +106,9 @@ export default function FooterSection() {
                     ? 'italic font-bold'
                     : 'font-semibold',
                 ].join(' ')}
-                style={{ color: 'rgba(255,255,255,0.42)' }}
+                style={{ color: 'rgba(255,255,255,0.58)' }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = '#c2637a' }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.42)' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.58)' }}
               >
                 {link.title}
               </a>
@@ -115,7 +117,7 @@ export default function FooterSection() {
         </nav>
 
         {/* ── Social icons ── */}
-        <div className="flex justify-center gap-6 mb-10">
+        <div className="flex justify-center gap-6 mb-8">
           {SOCIAL_LINKS.map((s) => (
             <a
               key={s.label}
@@ -124,9 +126,9 @@ export default function FooterSection() {
               onClick={s.noNewTab ? (e: React.MouseEvent) => e.preventDefault() : undefined}
               aria-label={s.noNewTab ? s.label : `${s.label} (abre em nova aba)`}
               className="transition-all duration-200 ease-out hover:scale-[1.15]"
-              style={{ color: 'rgba(255,255,255,0.6)' }}
+              style={{ color: 'rgba(255,255,255,0.7)' }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,1)' }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.6)' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.7)' }}
             >
               {s.icon}
             </a>
@@ -136,53 +138,12 @@ export default function FooterSection() {
         {/* ── Copyright ── */}
         <p
           className="text-center font-label text-[10px] uppercase tracking-[0.22em]"
-          style={{ color: 'rgba(255,255,255,0.18)' }}
+          style={{ color: 'rgba(255,255,255,0.34)' }}
         >
           © {new Date().getFullYear()} UNNA – Conexão Mulher. Todos os direitos reservados.
         </p>
 
-        {/* ── Crédito Mezzold ── */}
-        <div style={{
-          borderTop: '1px solid rgba(255,255,255,0.06)',
-          marginTop: '24px',
-          paddingTop: '20px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '12px',
-        }}>
-          <span style={{
-            fontSize: '0.8rem',
-            letterSpacing: '0.12em',
-            color: 'rgba(255,255,255,0.45)',
-            textTransform: 'uppercase',
-          }}>
-            Desenvolvido por
-          </span>
-          <a
-            href="https://www.mezzoldstudio.com.br/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: 'flex', alignItems: 'center' }}
-          >
-            <div style={{ height: '52px', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
-              <img
-                src={mezzoldLogo}
-                alt="Mezzold Studio"
-                style={{
-                  height: '88px',
-                  width: 'auto',
-                  display: 'block',
-                  mixBlendMode: 'lighten',
-                  opacity: 0.85,
-                  transition: 'opacity 0.2s ease',
-                }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1' }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '0.85' }}
-              />
-            </div>
-          </a>
-        </div>
+        <FooterCredit />
       </div>
     </footer>
   )

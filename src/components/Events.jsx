@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion'
 import { NewsCards } from './ui/news-cards'
 
-import foto36 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/36.jpg'
-import foto37 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/37.jpg'
-import foto38 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/38.jpg'
-import foto39 from '../../Unna Conexão Mulher Fotos/FotosQueSobraram/39.jpg'
+import foto19 from '../../Unna Conexão Mulher Fotos/Encontros/19.jpg'
+import foto26 from '../../Unna Conexão Mulher Fotos/Encontros/26.jpg'
+import foto14 from '../../Unna Conexão Mulher Fotos/Encontros/14.jpg'
+import foto22 from '../../Unna Conexão Mulher Fotos/Encontros/22.jpg'
+import foto13 from '../../Unna Conexão Mulher Fotos/Encontros/13.jpg'
 
 const VP = { once: true, margin: '-40px' }
 
@@ -28,7 +29,7 @@ const UNNA_EVENTS = [
     badge: '13 MAI',
     time: '19h30',
     location: 'Balão Mágico',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=80',
+    image: foto19,
     content: [
       'Uma noite de conexão genuína entre mulheres que constroem, inspiram e transformam o Rio Grande do Sul. Em Não-Me-Toque, reunimos líderes locais, empreendedoras e profissionais para um encontro que vai além do networking.',
       'Prepare-se para palestras provocadoras, rodadas de conexão guiada e momentos que ficam. O Balão Mágico recebe com exclusividade essa edição especial do UNNA.',
@@ -44,7 +45,7 @@ const UNNA_EVENTS = [
     badge: '06 MAI',
     time: '19h00',
     location: 'Salão Steffen',
-    image: foto36,
+    image: foto26,
     content: [
       'Panambi entra no circuito UNNA com uma edição que promete ser referência na região. Mulheres do agronegócio, do comércio e da saúde se encontram num ambiente desenhado para conversas que transformam.',
       'O Salão Steffen recebe mesas temáticas, mentoria rápida com especialistas convidadas e uma programação musical ao vivo para fechar a noite com estilo.',
@@ -59,7 +60,7 @@ const UNNA_EVENTS = [
     badge: '13 MAI',
     time: '19h30',
     location: 'Espaço Mirante',
-    image: foto37,
+    image: foto14,
     content: [
       'Das Missões para o mundo — Palmeira das Missões recebe o UNNA com uma visão ampliada do que é possível quando mulheres se unem. O Espaço Mirante oferece o cenário perfeito para este encontro.',
       'Rodadas de conexão, painel de líderes regionais e um espaço de escuta ativa para quem está num momento de transição ou crescimento profissional.',
@@ -74,7 +75,7 @@ const UNNA_EVENTS = [
     badge: '20 MAI',
     time: '19h00',
     location: 'Villa Carvalho Eventos',
-    image: foto38,
+    image: foto22,
     content: [
       'Sarandi recebe sua primeira edição UNNA numa noite de pura conexão. A Villa Carvalho Eventos abre suas portas para mulheres que querem mais — mais propósito, mais rede, mais impacto.',
       'Uma programação pensada para quem está começando e para quem já chegou longe. Porque no UNNA, todas têm algo a oferecer e muito a receber.',
@@ -89,7 +90,7 @@ const UNNA_EVENTS = [
     badge: '03 JUN',
     time: '19h30',
     location: 'Gran Marquise Hall',
-    image: foto39,
+    image: foto13,
     content: [
       'A maior edição do circuito 2025 acontece em Passo Fundo. O Gran Marquise Hall recebe centenas de mulheres numa noite que será marco no movimento feminino gaúcho.',
       'Keynotes nacionais, espaço de exposição para marcas lideradas por mulheres, sessões de conexão e um jantar especial para encerrar com a potência que só o UNNA sabe criar.',
@@ -100,14 +101,21 @@ const UNNA_EVENTS = [
 
 export default function Events() {
   return (
-    <section id="events" aria-labelledby="events-heading" className="py-16 md:py-24 px-5 md:px-12 bg-white relative overflow-hidden">
+    <section
+      id="events"
+      aria-labelledby="events-heading"
+      className="pt-14 pb-16 md:pt-20 md:pb-24 px-5 md:px-12 relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, #fdf5f7 0%, #fff8fb 34%, #ffffff 100%)',
+      }}
+    >
       {/* Soft Pink Glow background */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-0 pointer-events-none"
         style={{
-          backgroundImage: 'radial-gradient(circle at center, #fbb6ce, transparent)',
-          opacity: 0.45,
+          backgroundImage: 'radial-gradient(circle at center top, rgba(251,182,206,0.7), transparent 58%)',
+          opacity: 0.38,
         }}
       />
 

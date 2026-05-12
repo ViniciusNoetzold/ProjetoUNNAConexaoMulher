@@ -34,10 +34,10 @@ const containerVariants = {
 }
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 28, scale: 0.96, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 24, scale: 0.98 },
   visible: {
-    opacity: 1, y: 0, scale: 1, filter: "blur(0px)",
-    transition: { type: "spring", stiffness: 280, damping: 26, mass: 0.8 },
+    opacity: 1, y: 0, scale: 1,
+    transition: { type: "spring", stiffness: 260, damping: 28, mass: 0.8 },
   },
 }
 
@@ -164,9 +164,7 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
                     <div style={{
                       position: 'absolute',
                       inset: 0,
-                      backdropFilter: 'blur(3px)',
-                      WebkitBackdropFilter: 'blur(3px)',
-                      backgroundColor: 'rgba(60, 0, 30, 0.35)',
+                      backgroundColor: 'rgba(60, 0, 30, 0.42)',
                       borderRadius: 'inherit',
                       zIndex: 1,
                     }} />

@@ -1,9 +1,8 @@
 /**
  * NossosEncontros — "Cortina que Revela" com Aurora Vinho
  *
- * Seção 300vh com sticky container. Background generativo em CSS (orbs +
- * partículas). A cena começa escura (overlay sólido) e se abre conforme
- * o usuário scrolla. Conteúdo totalmente visível a partir de ~70% do scroll.
+ * Seção de passagem fluida. Background generativo em CSS (orbs + partículas).
+ * A cena começa escura (overlay sólido) e se abre conforme o usuário scrolla.
  * Compatível com Lenis.
  */
 
@@ -46,9 +45,6 @@ export default function NossosEncontros() {
   // ── Overlay — começa sólido, abre para translúcido ───────────────────────
   // Range [0.15, 0.30]: O overlay começa a abrir enquanto a seção ainda está subindo na tela.
   const overlayOpacity = useTransform(scrollYProgress, [0.15, 0.30], [1, 0.55])
-
-  // ── Linha rose que cresce da esquerda ────────────────────────────────────
-  const lineScale = useTransform(scrollYProgress, [0.15, 0.35], [0, 1])
 
   // ── Conteúdo central ─────────────────────────────────────────────────────
   const contentOpacity = useTransform(scrollYProgress, [0.20, 0.35], [0, 1])
@@ -129,10 +125,9 @@ export default function NossosEncontros() {
 
       <section
         ref={sectionRef}
-        className="h-[180vh] md:h-[200vh] lg:h-[240vh] relative"
+        className="relative min-h-[88svh] md:min-h-[92svh] overflow-hidden"
       >
-        {/* Sticky container — permanece fixo enquanto a seção scrolla */}
-        <div style={{ position: 'sticky', top: 0, height: '100vh', overflow: 'hidden', background: '#1a0010' }}>
+        <div className="relative min-h-[88svh] md:min-h-[92svh] overflow-hidden" style={{ background: '#1a0010' }}>
 
           {/* ── CAMADA 1 — Aurora Vinho: background generativo ───────────── */}
           <div
@@ -179,23 +174,21 @@ export default function NossosEncontros() {
             }}
           />
 
-          {/* ── CAMADA 3 — Linha rose que cresce da esquerda ─────────────── */}
-          <motion.div
+          <div
             aria-hidden="true"
             style={{
               position: 'absolute',
-              top: '50%',
               left: 0,
-              width: '100%',
-              height: '1px',
-              backgroundColor: '#8d0032',
-              scaleX: lineScale,
-              transformOrigin: 'left',
+              right: 0,
+              bottom: '-1px',
+              height: 'clamp(120px, 22vh, 220px)',
               zIndex: 2,
+              pointerEvents: 'none',
+              background: 'linear-gradient(180deg, rgba(253,245,247,0) 0%, rgba(253,245,247,0.58) 68%, #fdf5f7 100%)',
             }}
           />
 
-          {/* ── CAMADA 4 — Conteúdo central ──────────────────────────────── */}
+          {/* ── CAMADA 3 — Conteúdo central ──────────────────────────────── */}
           <div
             className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
             style={{ zIndex: 3 }}
@@ -268,7 +261,7 @@ export default function NossosEncontros() {
             </div>
           </div>
 
-          {/* ── CAMADA 5 — "UNNA" decorativo lateral ─────────────────────── */}
+          {/* ── CAMADA 4 — "UNNA" decorativo lateral ─────────────────────── */}
           <motion.div
             aria-hidden="true"
             className="hidden md:block"

@@ -36,7 +36,7 @@ export default function Cta() {
     <section
       id="cta"
       aria-labelledby="cta-heading"
-      className="py-20"
+      className="py-20 overflow-hidden"
       style={{ backgroundColor: '#fdf5f7' }}
     >
       <div className="max-w-3xl mx-auto px-5 space-y-10 md:space-y-12">
