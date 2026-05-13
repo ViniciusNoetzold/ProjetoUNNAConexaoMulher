@@ -33,6 +33,8 @@ const PARTICLES: Array<{ top: string; left: string; duration: string; delay: str
   { top: '50%', left: '60%', duration: '2.7s', delay: '0.5s' },
 ]
 
+const EVENTS_SECTION_TOP = '#fdf5f7'
+
 export default function NossosEncontros() {
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -181,10 +183,10 @@ export default function NossosEncontros() {
               left: 0,
               right: 0,
               bottom: '-2px',
-              height: 'clamp(340px, 48vh, 540px)',
+              height: 'clamp(420px, 58vh, 680px)',
               zIndex: 2,
               pointerEvents: 'none',
-              background: 'linear-gradient(180deg, rgba(77,0,30,0) 0%, rgba(84,0,32,0.24) 18%, rgba(102,17,48,0.58) 36%, rgba(140,57,86,0.78) 54%, rgba(196,133,156,0.9) 72%, rgba(242,225,232,0.98) 90%, #fdf5f7 100%)',
+              background: `linear-gradient(180deg, rgba(77,0,30,0) 0%, rgba(84,0,32,0.18) 16%, rgba(102,17,48,0.46) 34%, rgba(150,73,103,0.68) 52%, rgba(205,154,174,0.86) 70%, rgba(242,225,232,0.98) 86%, ${EVENTS_SECTION_TOP} 96%, ${EVENTS_SECTION_TOP} 100%)`,
             }}
           />
 
