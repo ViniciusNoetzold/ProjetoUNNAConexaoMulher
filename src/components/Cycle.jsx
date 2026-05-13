@@ -81,7 +81,7 @@ export default function Cycle() {
               border: '1px solid rgba(141, 0, 50, 0.20)',
             }}
           >
-            Ciclo Atual 2025
+            Ciclo Atual
           </span>
 
           <h2

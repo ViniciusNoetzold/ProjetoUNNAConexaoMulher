@@ -50,7 +50,7 @@ function HomePage({ onReserve }) {
 
 
 
-        {/* ── Próximos Eventos — circuito 2025 ── */}
+        {/* ── Próximos Eventos — circuito UNNA ── */}
         <Events />
 
         {/* ── Idealizadora — Ana Paula Nogueira ── */}

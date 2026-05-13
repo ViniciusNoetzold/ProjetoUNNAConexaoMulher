@@ -23,6 +23,15 @@ export default function HeroUnna() {
       aria-labelledby="hero-heading"
       className="relative min-h-[100svh] w-full overflow-hidden bg-[#0a0a0a]"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "linear-gradient(90deg, rgba(10, 10, 10, 0.92) 0%, rgba(42, 7, 27, 0.78) 42%, rgba(95, 5, 45, 0.44) 100%), url('/HeroFotos/3.jpg')",
+        }}
+      />
+
       {/* ── Lumina WebGL slider (full-section background) ── */}
       <LuminaSlider />
 

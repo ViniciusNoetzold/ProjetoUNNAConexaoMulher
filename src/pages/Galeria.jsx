@@ -59,7 +59,7 @@ export default function Galeria({ onReserve }) {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-white">
 
       {/* ── Hero ──────────────────────────────────────────── */}
       <section
@@ -93,12 +93,12 @@ export default function Galeria({ onReserve }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            Circuito 2025 · Rio Grande do Sul
+            Circuito UNNA · Rio Grande do Sul
           </motion.span>
 
           <motion.h1
             id="galeria-heading"
-            className="font-headline text-3xl sm:text-5xl md:text-7xl text-white leading-tight"
+            className="font-headline text-2xl sm:text-5xl md:text-7xl text-white leading-tight"
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.72, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
@@ -374,6 +374,6 @@ export default function Galeria({ onReserve }) {
       </section>
 
       <Footer />
-    </div>
+    </main>
   )
 }

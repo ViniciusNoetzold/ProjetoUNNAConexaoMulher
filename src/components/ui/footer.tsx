@@ -5,8 +5,7 @@ import { WA_FOOTER_URL, INSTAGRAM_URL } from '@/constants/links'
 // ── Nav links — espelha a navbar ───────────────────────────────────────────
 const NAV_LINKS = [
   { title: 'Nossa Essência', href: '#essencia'     },
-  { title: 'Os Eventos',     href: '#pilares'       },
-  { title: 'Edições 2026',   href: '#cidades'       },
+  { title: 'Os Eventos',     href: '#events'        },
   { title: 'Idealizadora',   href: '#idealizadora'  },
   { title: 'Galeria',        href: '/galeria', isPage: true },
 ]

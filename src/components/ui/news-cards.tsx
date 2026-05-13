@@ -10,7 +10,7 @@ export interface EventNewsCard {
   title: string
   category: string
   subcategory: string       // city
-  dateLabel: string         // "22 de Abril de 2025"
+  dateLabel: string
   badge: string             // "22 ABR"
   time: string              // "19h30"
   location: string          // venue name
