@@ -14,6 +14,15 @@ export function resumeLenis() {
   _lenis?.start()
 }
 
+/** Restore Lenis and native scroll to the same position before resuming. */
+export function restoreLenisScroll(y) {
+  window.scrollTo(0, y)
+  if (_lenis) {
+    _lenis.scrollTo(y, { immediate: true, force: true })
+  }
+  window.scrollTo(0, y)
+}
+
 /**
  * Scroll to a target via Lenis (falls back to native if not initialised yet).
  * @param {string|HTMLElement} target  CSS selector or element

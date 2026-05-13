@@ -2,6 +2,7 @@ import { motion, AnimatePresence, useReducedMotion, LayoutGroup } from "framer-m
 import { useState, useEffect, Fragment } from "react"
 import { X, MapPin, Clock, Calendar } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { pauseLenis, restoreLenisScroll, resumeLenis } from "@/hooks/useLenis"
 
 // ── Types ────────────────────────────────────────────────
 export interface EventNewsCard {
@@ -72,14 +73,39 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
     return () => window.removeEventListener("keydown", handler)
   }, [selected])
 
-  // Lock body scroll when modal is open
+  // Lock page scroll while the expanded card owns the wheel/touch gestures.
   useEffect(() => {
-    if (selected) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
+    if (!selected) return
+
+    const scrollY = window.scrollY
+    const previousHtmlOverflow = document.documentElement.style.overflow
+    const previousBodyOverflow = document.body.style.overflow
+    const previousBodyPosition = document.body.style.position
+    const previousBodyTop = document.body.style.top
+    const previousBodyLeft = document.body.style.left
+    const previousBodyRight = document.body.style.right
+    const previousBodyWidth = document.body.style.width
+
+    pauseLenis()
+    document.documentElement.style.overflow = "hidden"
+    document.body.style.overflow = "hidden"
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.left = "0"
+    document.body.style.right = "0"
+    document.body.style.width = "100%"
+
+    return () => {
+      document.documentElement.style.overflow = previousHtmlOverflow
+      document.body.style.overflow = previousBodyOverflow
+      document.body.style.position = previousBodyPosition
+      document.body.style.top = previousBodyTop
+      document.body.style.left = previousBodyLeft
+      document.body.style.right = previousBodyRight
+      document.body.style.width = previousBodyWidth
+      restoreLenisScroll(scrollY)
+      resumeLenis()
     }
-    return () => { document.body.style.overflow = '' }
   }, [selected])
 
   return (
@@ -236,7 +262,13 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
               <motion.div
                 layoutId={`card-${selected.id}`}
                 className="fixed inset-4 md:inset-8 lg:inset-12 xl:inset-16 rounded-2xl overflow-hidden z-[1200] flex flex-col"
-                style={{ background: "#fff8f7", border: "1px solid rgba(225,190,193,0.5)" }}
+                style={{
+                  background: "#fff8f7",
+                  border: "1px solid rgba(225,190,193,0.5)",
+                  overscrollBehavior: "contain",
+                }}
+                onWheel={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
               >
                 {/* Close button */}
                 <motion.button
@@ -254,7 +286,13 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
                   <X className="w-4 h-4 text-[#3d0a1e]" />
                 </motion.button>
 
-                <div className="flex-1 overflow-y-auto">
+                <div
+                  className="flex-1 overflow-y-auto"
+                  style={{
+                    overscrollBehaviorY: "contain",
+                    WebkitOverflowScrolling: "touch",
+                  }}
+                >
                   {/* Hero image */}
                   <motion.div
                     layoutId={`card-image-${selected.id}`}
