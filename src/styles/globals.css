@@ -284,6 +284,7 @@
 
 /* Slide caption – bottom-left, above counter */
 .lumina-caption {
+  display: none;
   position: absolute;
   bottom: 7rem;
   left: 2.5rem;
