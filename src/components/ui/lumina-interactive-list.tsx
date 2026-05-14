@@ -62,7 +62,7 @@ export function LuminaSlider() {
         "O palco onde ideias florescem, marcas ganham propósito e mulheres brilham juntas.";
 
       const slides = [
-        { title: "UNNA – Conexão Mulher", description: SLIDE_DESCRIPTION, media: "/HeroFotos/3.jpg" },
+        { title: "UNNA – Conexão Mulher", description: SLIDE_DESCRIPTION, media: "/HeroFotos/3.jpg", mobileFocus: [0.72, 0.5] },
         { title: "Propósito & Marca",     description: SLIDE_DESCRIPTION, media: "/HeroFotos/10.jpg" },
         { title: "Conexão Real",          description: SLIDE_DESCRIPTION, media: "/HeroFotos/15.jpg" },
         { title: "Empoderamento",         description: SLIDE_DESCRIPTION, media: "/HeroFotos/17.jpg" },
@@ -75,24 +75,25 @@ export function LuminaSlider() {
       const fragmentShader = `
         uniform sampler2D uTexture1, uTexture2;
         uniform float uProgress;
-        uniform vec2 uResolution, uTexture1Size, uTexture2Size;
+        uniform vec2 uResolution, uTexture1Size, uTexture2Size, uTexture1Focus, uTexture2Focus;
         uniform int uEffectType;
         uniform float uGlobalIntensity, uSpeedMultiplier, uDistortionStrength, uColorEnhancement;
         uniform float uGlassRefractionStrength, uGlassChromaticAberration, uGlassBubbleClarity, uGlassEdgeGlow, uGlassLiquidFlow;
         varying vec2 vUv;
 
-        vec2 getCoverUV(vec2 uv, vec2 textureSize) {
+        vec2 getCoverUV(vec2 uv, vec2 textureSize, vec2 focus) {
           vec2 s = uResolution / textureSize;
           float scale = max(s.x, s.y);
           vec2 scaledSize = textureSize * scale;
-          vec2 offset = (uResolution - scaledSize) * 0.5;
+          vec2 offset = uResolution * 0.5 - scaledSize * focus;
+          offset = clamp(offset, uResolution - scaledSize, vec2(0.0));
           return (uv * uResolution - offset) / scaledSize;
         }
 
         vec4 glassEffect(vec2 uv, float progress) {
           float time = progress * 5.0 * uSpeedMultiplier;
-          vec2 uv1 = getCoverUV(uv, uTexture1Size);
-          vec2 uv2 = getCoverUV(uv, uTexture2Size);
+          vec2 uv1 = getCoverUV(uv, uTexture1Size, uTexture1Focus);
+          vec2 uv2 = getCoverUV(uv, uTexture2Size, uTexture2Focus);
           float maxR = length(uResolution) * 0.85;
           float br = progress * maxR;
           vec2 p = uv * uResolution;
@@ -217,6 +218,8 @@ export function LuminaSlider() {
         shaderMaterial.uniforms.uTexture2.value = targetTexture;
         shaderMaterial.uniforms.uTexture1Size.value = currentTexture.userData.size;
         shaderMaterial.uniforms.uTexture2Size.value = targetTexture.userData.size;
+        shaderMaterial.uniforms.uTexture1Focus.value.copy(getTextureFocus(currentTexture));
+        shaderMaterial.uniforms.uTexture2Focus.value.copy(getTextureFocus(targetTexture));
 
         updateContent(targetIndex);
         currentSlideIndex = targetIndex;
@@ -233,6 +236,7 @@ export function LuminaSlider() {
               shaderMaterial.uniforms.uProgress.value = 0;
               shaderMaterial.uniforms.uTexture1.value = targetTexture;
               shaderMaterial.uniforms.uTexture1Size.value = targetTexture.userData.size;
+              shaderMaterial.uniforms.uTexture1Focus.value.copy(getTextureFocus(targetTexture));
               isTransitioning = false;
               safeStartTimer(100);
             },
@@ -277,10 +281,21 @@ export function LuminaSlider() {
               t.anisotropy = renderer.capabilities.getMaxAnisotropy();
             }
             t.needsUpdate = true;
-            t.userData = { size: new THREE.Vector2(t.image.width, t.image.height) };
+            const slide = slides.find((item) => item.media === src);
+            const mobileFocus = slide?.mobileFocus ?? [0.5, 0.5];
+            t.userData = {
+              size: new THREE.Vector2(t.image.width, t.image.height),
+              focus: new THREE.Vector2(0.5, 0.5),
+              mobileFocus: new THREE.Vector2(mobileFocus[0], mobileFocus[1]),
+            };
             resolve(t);
           }, undefined, reject);
         });
+
+      const getTextureFocus = (texture: any) => {
+        if (window.innerWidth < 768) return texture?.userData?.mobileFocus ?? new THREE.Vector2(0.5, 0.5);
+        return texture?.userData?.focus ?? new THREE.Vector2(0.5, 0.5);
+      };
 
       const initRenderer = async () => {
         const canvas = container.querySelector('.webgl-canvas') as HTMLCanvasElement;
@@ -310,6 +325,8 @@ export function LuminaSlider() {
             uResolution: { value: new THREE.Vector2(w, h) },
             uTexture1Size: { value: new THREE.Vector2(1, 1) },
             uTexture2Size: { value: new THREE.Vector2(1, 1) },
+            uTexture1Focus: { value: new THREE.Vector2(0.5, 0.5) },
+            uTexture2Focus: { value: new THREE.Vector2(0.5, 0.5) },
             uEffectType: { value: 0 },
             uGlobalIntensity: { value: 0.25 },
             uSpeedMultiplier: { value: 1.0 },
@@ -337,6 +354,8 @@ export function LuminaSlider() {
           shaderMaterial.uniforms.uTexture2.value = slideTextures[1];
           shaderMaterial.uniforms.uTexture1Size.value = slideTextures[0].userData.size;
           shaderMaterial.uniforms.uTexture2Size.value = slideTextures[1].userData.size;
+          shaderMaterial.uniforms.uTexture1Focus.value.copy(getTextureFocus(slideTextures[0]));
+          shaderMaterial.uniforms.uTexture2Focus.value.copy(getTextureFocus(slideTextures[1]));
           texturesLoaded = true;
           sliderEnabled  = true;
           container.classList.add('loaded');
@@ -357,6 +376,10 @@ export function LuminaSlider() {
         const h = container.offsetHeight || window.innerHeight;
         renderer.setSize(w, h);
         shaderMaterial.uniforms.uResolution.value.set(w, h);
+        const currentTexture = slideTextures[currentSlideIndex];
+        if (currentTexture) {
+          shaderMaterial.uniforms.uTexture1Focus.value.copy(getTextureFocus(currentTexture));
+        }
       };
 
       // Init

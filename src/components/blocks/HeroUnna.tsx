@@ -25,7 +25,7 @@ export default function HeroUnna() {
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center"
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-[position:72%_center] md:bg-center"
         style={{
           backgroundImage:
             "linear-gradient(90deg, rgba(10, 10, 10, 0.92) 0%, rgba(42, 7, 27, 0.78) 42%, rgba(95, 5, 45, 0.44) 100%), url('/HeroFotos/3.jpg')",
