@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 import { useLenis } from './hooks/useLenis'
 import Nav from './components/Nav'
@@ -104,6 +105,7 @@ export default function App() {
       </AnimatePresence>
 
       <SpeedInsights route={location.pathname} />
+      <Analytics />
     </>
   )
 }
