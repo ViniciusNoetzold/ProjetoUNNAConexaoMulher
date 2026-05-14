@@ -1,6 +1,7 @@
 import { scrollTo } from '@/hooks/useLenis'
 import FooterCredit from '@/components/FooterCredit'
 import { WA_FOOTER_URL, INSTAGRAM_URL } from '@/constants/links'
+import { useLocation } from 'react-router-dom'
 
 // ── Nav links — espelha a navbar ───────────────────────────────────────────
 const NAV_LINKS = [
@@ -44,6 +45,9 @@ function handleNavClick(e: React.MouseEvent<HTMLAnchorElement>, href: string, is
 }
 
 export default function FooterSection() {
+  const location = useLocation()
+  const sectionHref = (href: string) => (location.pathname === '/' ? href : `/${href}`)
+
   return (
     <footer
       role="contentinfo"
@@ -97,7 +101,7 @@ export default function FooterSection() {
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
-                href={link.href}
+                href={link.isPage ? link.href : sectionHref(link.href)}
                 onClick={(e) => handleNavClick(e, link.href, link.isPage)}
                 className={[
                   'font-label text-[11px] uppercase tracking-[0.12em] transition-colors duration-200',

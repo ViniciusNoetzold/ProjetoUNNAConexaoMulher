@@ -57,6 +57,10 @@ export function AnimatedNavFramer() {
   const { scrollY }      = useScroll()
   const lastScrollY      = React.useRef(0)
   const scrollOnCollapse = React.useRef(0)
+  const sectionHref = React.useCallback(
+    (href: string) => (location.pathname === "/" ? href : `/${href}`),
+    [location.pathname],
+  )
 
   React.useEffect(() => { setMobileOpen(false) }, [location.pathname])
 
@@ -213,7 +217,7 @@ export function AnimatedNavFramer() {
             {NAV_LINKS.map((item) => (
               <a
                 key={item.href}
-                href={item.href}
+                href={sectionHref(item.href)}
                 onClick={(e) => handleDesktopLinkClick(e, item.href)}
                 style={{
                   fontSize: "0.72rem",
@@ -417,7 +421,7 @@ export function AnimatedNavFramer() {
                 {[...NAV_LINKS, { label: "Galeria", href: "/galeria", isPage: true }].map((item, i) => (
                   <motion.a
                     key={item.href}
-                    href={item.href}
+                    href={(item as { isPage?: boolean }).isPage ? item.href : sectionHref(item.href)}
                     onClick={(e) => handleMobileItemClick(e, item.href, (item as { isPage?: boolean }).isPage)}
                     initial={{ opacity: 0, x: 24 }}
                     animate={{ opacity: 1, x: 0 }}
