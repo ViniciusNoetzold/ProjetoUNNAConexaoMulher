@@ -71,6 +71,7 @@ function HomePage({ onReserve }) {
 
 export default function App() {
   useLenis()
+  const location = useLocation()
   const [modalData, setModalData] = useState(null)
 
   return (
@@ -102,7 +103,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <SpeedInsights />
+      <SpeedInsights route={location.pathname} />
     </>
   )
 }
