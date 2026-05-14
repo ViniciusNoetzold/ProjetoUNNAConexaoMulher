@@ -36,7 +36,7 @@ export default function Cycle() {
     <section
       id="cycle"
       aria-labelledby="cycle-heading"
-      className="pt-20 pb-6 md:pt-32 md:pb-8 px-5 md:px-12 bg-white relative overflow-hidden"
+      className="pt-14 pb-4 md:pt-32 md:pb-8 px-5 md:px-12 bg-white relative overflow-hidden"
     >
       {/* Soft Glow Background */}
       <div
@@ -67,7 +67,7 @@ export default function Cycle() {
 
         {/* ── Topo: badge + título + subtítulo + separador ─── */}
         <motion.div
-          className="text-center max-w-4xl mx-auto mb-16"
+          className="text-center max-w-4xl mx-auto mb-10 md:mb-16"
           custom={0}
           variants={fadeUp}
           initial="hidden"
@@ -75,7 +75,7 @@ export default function Cycle() {
           viewport={VP}
         >
           <span
-            className="inline-block font-label text-[0.7rem] uppercase tracking-[0.3em] font-semibold text-primary px-4 py-1.5 rounded-full mb-6"
+            className="inline-block font-label text-[0.7rem] uppercase tracking-[0.3em] font-semibold text-primary px-4 py-1.5 rounded-full mb-4 md:mb-6"
             style={{
               background: 'rgba(141, 0, 50, 0.08)',
               border: '1px solid rgba(141, 0, 50, 0.20)',
@@ -97,13 +97,13 @@ export default function Cycle() {
 
           <div
             aria-hidden="true"
-            className="mx-auto mt-10 h-px w-24"
+            className="mx-auto mt-7 md:mt-10 h-px w-24"
             style={{ background: 'rgba(141, 0, 50, 0.45)' }}
           />
         </motion.div>
 
         {/* ── Corpo: grid 60/40 ───────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-9 md:gap-16 items-center">
 
           {/* Coluna esquerda (60%) */}
           <motion.div
@@ -114,13 +114,13 @@ export default function Cycle() {
             whileInView="visible"
             viewport={VP}
           >
-            <p className="font-body text-xl md:text-2xl text-on-surface leading-relaxed">
+            <p className="font-body text-lg md:text-2xl text-on-surface leading-relaxed">
               Um encontro que transforma. Palestra + vivências práticas para despertar
               o que há de mais poderoso em você.
             </p>
 
             {/* 3 cards em coluna — layout de feature list */}
-            <div className="flex flex-col mt-12" style={{ gap: '16px' }}>
+            <div className="flex flex-col mt-8 md:mt-12" style={{ gap: '16px' }}>
               {pillars.map((p, i) => (
                 <motion.div
                   key={p.title}
@@ -193,7 +193,7 @@ export default function Cycle() {
                 src={cicloAtualImg}
                 alt="Foto real do evento UNNA Conexão Mulher — Ciclo Atual"
                 loading="lazy"
-                className="h-[260px] sm:h-[380px] md:h-[480px] w-full object-cover object-top transition-[transform,filter] duration-[400ms] ease-out group-hover:scale-[1.03] group-hover:brightness-105"
+                className="h-[240px] sm:h-[380px] md:h-[480px] w-full object-cover object-top transition-[transform,filter] duration-[400ms] ease-out group-hover:scale-[1.03] group-hover:brightness-105"
                 style={{ display: 'block', cursor: 'pointer' }}
               />
             </figure>

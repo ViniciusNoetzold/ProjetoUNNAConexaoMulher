@@ -47,7 +47,7 @@ export default function Idealizadora() {
     <section
       id="idealizadora"
       aria-labelledby="idealizadora-heading"
-      className="pt-20 pb-12 px-5 md:px-12 md:pt-32 md:pb-16 bg-white relative overflow-hidden"
+      className="pt-14 pb-10 px-5 md:px-12 md:pt-32 md:pb-16 bg-white relative overflow-hidden"
     >
       {/* Soft pink glow */}
       <div
@@ -81,7 +81,7 @@ export default function Idealizadora() {
       ))}
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-24 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-24 items-center">
 
           {/* Left: image */}
           <motion.div
@@ -98,7 +98,7 @@ export default function Idealizadora() {
               whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="relative w-full h-[320px] sm:h-[420px] md:h-[560px]">
+              <div className="relative w-full h-[280px] sm:h-[420px] md:h-[560px]">
                 <AnimatePresence>
                   <motion.img
                     key={currentIndex}
@@ -125,7 +125,7 @@ export default function Idealizadora() {
 
           {/* Right: bio */}
           <motion.div
-            className="space-y-8"
+            className="space-y-6 md:space-y-8"
             variants={fadeUp}
             custom={0.16}
             initial="hidden"
@@ -146,7 +146,7 @@ export default function Idealizadora() {
 
               <h2
                 id="idealizadora-heading"
-                className="font-headline text-4xl md:text-6xl text-on-background leading-[1.05]"
+                className="font-headline text-3xl sm:text-4xl md:text-6xl text-on-background leading-[1.05]"
               >
                 Ana Paula<br />
                 <span className="italic text-primary">Nogueira</span>
@@ -163,13 +163,13 @@ export default function Idealizadora() {
             />
 
             <div className="space-y-5">
-              <p className="font-body text-lg leading-relaxed text-on-surface/80">
+              <p className="font-body text-base md:text-lg leading-relaxed text-on-surface/80">
                 Ana Paula Nogueira é nutricionista holística, com atuação voltada à saúde da mulher.
                 Ao longo de sua trajetória profissional, tem se dedicado ao cuidado integral,
                 promovendo saúde, bem-estar e qualidade de vida por meio de uma abordagem que
                 integra corpo, mente e emoções.
               </p>
-              <p className="font-body text-lg leading-relaxed text-on-surface/80">
+              <p className="font-body text-base md:text-lg leading-relaxed text-on-surface/80">
                 Com o UNNA Conexão Mulher, amplia seu propósito profissional, levando sua
                 experiência para um formato coletivo, impactando grupos de mulheres por meio de
                 eventos que unem conteúdo, vivência e conexão.

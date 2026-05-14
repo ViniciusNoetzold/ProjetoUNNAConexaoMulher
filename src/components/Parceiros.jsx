@@ -59,7 +59,7 @@ export default function Parceiros() {
     <section
       id="parceiros"
       aria-labelledby="parceiros-heading"
-      className="pt-16 pb-20 px-5 md:px-12 md:pt-20 md:pb-24 bg-white relative overflow-hidden"
+      className="pt-12 pb-14 px-5 md:px-12 md:pt-20 md:pb-24 bg-white relative overflow-hidden"
     >
       <div
         aria-hidden="true"
@@ -92,7 +92,7 @@ export default function Parceiros() {
         }} />
       ))}
 
-      <div className="relative z-10 max-w-5xl mx-auto space-y-10">
+      <div className="relative z-10 max-w-5xl mx-auto space-y-8 md:space-y-10">
 
         {/* ── Header ── */}
         <motion.div

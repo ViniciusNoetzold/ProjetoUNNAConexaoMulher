@@ -127,9 +127,9 @@ export default function NossosEncontros() {
 
       <section
         ref={sectionRef}
-        className="relative min-h-[88svh] md:min-h-[92svh] overflow-hidden"
+        className="relative min-h-[76svh] md:min-h-[92svh] overflow-hidden"
       >
-        <div className="relative min-h-[88svh] md:min-h-[92svh] overflow-hidden" style={{ background: '#1a0010' }}>
+        <div className="relative min-h-[76svh] md:min-h-[92svh] overflow-hidden" style={{ background: '#1a0010' }}>
 
           {/* ── CAMADA 1 — Aurora Vinho: background generativo ───────────── */}
           <div
@@ -197,7 +197,7 @@ export default function NossosEncontros() {
           >
             {/* Badge */}
             <motion.span
-              className="inline-block font-label font-bold rounded-full mb-6"
+              className="inline-block font-label font-bold rounded-full mb-4 md:mb-6"
               style={{
                 opacity: badgeOpacity,
                 fontSize: '0.65rem',
@@ -216,7 +216,7 @@ export default function NossosEncontros() {
 
             {/* Título */}
             <motion.h2
-              className="font-headline text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4"
+              className="font-headline text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 md:mb-4"
               style={{ opacity: contentOpacity, y: contentY }}
             >
               Nossos Encontros
@@ -224,7 +224,7 @@ export default function NossosEncontros() {
 
             {/* Subtítulo */}
             <motion.p
-              className="font-body text-base md:text-xl leading-relaxed max-w-2xl mb-6 md:mb-10 px-2 md:px-0"
+              className="font-body text-sm sm:text-base md:text-xl leading-relaxed max-w-2xl mb-5 md:mb-10 px-2 md:px-0"
               style={{
                 opacity: subtitleOpacity,
                 color: 'rgba(255,255,255,0.70)',

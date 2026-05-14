@@ -106,7 +106,7 @@ export default function Events() {
     <section
       id="events"
       aria-labelledby="events-heading"
-      className="-mt-px pt-14 pb-16 md:pt-20 md:pb-24 px-5 md:px-12 relative overflow-hidden"
+      className="-mt-px pt-12 pb-12 md:pt-20 md:pb-24 px-5 md:px-12 relative overflow-hidden"
       style={{
         background: `linear-gradient(180deg, ${EVENTS_SECTION_TOP} 0%, #fff4f8 28%, #fffafc 64%, #ffffff 100%)`,
       }}
@@ -124,7 +124,7 @@ export default function Events() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto space-y-10 md:space-y-16">
+      <div className="relative z-10 max-w-7xl mx-auto space-y-8 md:space-y-16">
 
         <motion.div
           className="text-center space-y-4"

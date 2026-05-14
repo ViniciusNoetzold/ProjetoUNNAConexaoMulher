@@ -36,10 +36,10 @@ export default function Cta() {
     <section
       id="cta"
       aria-labelledby="cta-heading"
-      className="py-20 overflow-hidden"
+      className="py-14 md:py-20 overflow-hidden"
       style={{ backgroundColor: '#fdf5f7' }}
     >
-      <div className="max-w-3xl mx-auto px-5 space-y-10 md:space-y-12">
+      <div className="max-w-3xl mx-auto px-5 space-y-8 md:space-y-12">
 
         {/* ── Título ──────────────────────────────────────────── */}
         <motion.h2
@@ -87,7 +87,7 @@ export default function Cta() {
         </motion.div>
 
         {/* ── Frases ──────────────────────────────────────────── */}
-        <div className="space-y-8 pb-4">
+        <div className="space-y-6 md:space-y-8 pb-4">
           {PHRASES.map(({ text, align, xFrom, style, line }, i) => (
             <div
               key={text}

@@ -21,7 +21,7 @@ export default function HeroUnna() {
     <section
       id="about"
       aria-labelledby="hero-heading"
-      className="relative min-h-[100svh] w-full overflow-hidden bg-[#0a0a0a]"
+      className="relative min-h-[84svh] md:min-h-[100svh] w-full overflow-hidden bg-[#0a0a0a]"
     >
       <div
         aria-hidden="true"
@@ -55,8 +55,8 @@ export default function HeroUnna() {
       />
 
       {/* ── UNNA brand overlay ──────────────────────────────── */}
-      <div className="relative z-[2] w-full max-w-7xl mx-auto px-5 md:px-12 min-h-screen flex flex-col justify-center pt-24 pb-24 md:pb-44">
-        <div className="w-full lg:w-[52%] space-y-7">
+      <div className="relative z-[2] w-full max-w-7xl mx-auto px-5 md:px-12 min-h-[84svh] md:min-h-screen flex flex-col justify-center pt-24 pb-12 md:pb-44">
+        <div className="w-full lg:w-[52%] space-y-5 md:space-y-7">
 
           {/* Eyebrow */}
           <motion.span
@@ -70,7 +70,7 @@ export default function HeroUnna() {
           <motion.h1
             id="hero-heading"
             {...fadeY(LEFT_DELAYS[1])}
-            className="font-headline text-[2.2rem] sm:text-4xl md:text-6xl lg:text-[5.25rem] font-bold text-white leading-[0.93] tracking-tight"
+            className="font-headline text-[2rem] sm:text-4xl md:text-6xl lg:text-[5.25rem] font-bold text-white leading-[0.95] md:leading-[0.93] tracking-tight"
             style={{ textShadow: "0 4px 40px rgba(0,0,0,0.5)" }}
           >
             UNNA –<br />
@@ -80,7 +80,7 @@ export default function HeroUnna() {
           {/* Tagline */}
           <motion.p
             {...fadeY(LEFT_DELAYS[2])}
-            className="font-body text-base md:text-xl italic leading-snug text-white/75 max-w-sm"
+            className="font-body text-sm sm:text-base md:text-xl italic leading-snug text-white/75 max-w-sm"
           >
             Conexão que transforma. Mulheres que se fortalecem.
           </motion.p>
@@ -88,7 +88,7 @@ export default function HeroUnna() {
           {/* CTAs */}
           <motion.div
             {...fadeY(LEFT_DELAYS[3])}
-            className="flex flex-col sm:flex-row gap-3 pt-2"
+            className="flex flex-col sm:flex-row gap-2.5 md:gap-3 pt-1 md:pt-2"
           >
             {/* Primary — glass rosado */}
             <motion.a

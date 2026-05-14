@@ -16,7 +16,7 @@ export default function Essencia() {
     <section
       id="essencia"
       aria-labelledby="essencia-heading"
-      className="py-20 md:py-32 px-5 md:px-12 relative overflow-hidden"
+      className="py-14 md:py-32 px-5 md:px-12 relative overflow-hidden"
       style={{ background: '#0f0005' }}
     >
       {/* Ambient glow */}
@@ -30,11 +30,11 @@ export default function Essencia() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-28 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-28 items-start">
 
           {/* Left: heading */}
           <motion.div
-            className="space-y-8"
+            className="space-y-6 md:space-y-8"
             variants={fadeUp}
             custom={0}
             initial="hidden"
@@ -50,7 +50,7 @@ export default function Essencia() {
 
             <h2
               id="essencia-heading"
-              className="font-headline text-4xl md:text-6xl lg:text-7xl text-white leading-[1.02] tracking-tight"
+              className="font-headline text-3xl sm:text-4xl md:text-6xl lg:text-7xl text-white leading-[1.02] tracking-tight"
             >
               O que é o<br />
               <span className="italic text-[#f4b8ce]">UNNA?</span>
@@ -65,19 +65,19 @@ export default function Essencia() {
 
           {/* Right: paragraphs */}
           <motion.div
-            className="space-y-7 lg:pt-14"
+            className="space-y-5 md:space-y-7 lg:pt-14"
             variants={fadeUp}
             custom={0.16}
             initial="hidden"
             whileInView="visible"
             viewport={VP}
           >
-            <p className="font-body text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
+            <p className="font-body text-base md:text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
               O UNNA Conexão Mulher é um movimento que nasce a partir do propósito de unir mulheres,
               promovendo conexão, autocuidado e fortalecimento feminino.
             </p>
 
-            <p className="font-body text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
+            <p className="font-body text-base md:text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
               O nome{' '}
               <strong style={{ color: '#f4b8ce', fontWeight: 600 }}>UNNA</strong>{' '}
               vem do verbo <em>unir</em>. Ele carrega o significado de conexão, de aproximação, de
@@ -86,13 +86,13 @@ export default function Essencia() {
               essência do projeto: unir para fortalecer, conectar para transformar.
             </p>
 
-            <p className="font-body text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
+            <p className="font-body text-base md:text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
               Voltado ao público feminino, foi criado para proporcionar momentos de pausa e
               reconexão, incentivando cada mulher a olhar para si e compreender a importância do
               autocuidado em todas as áreas da sua vida — física, emocional e mental.
             </p>
 
-            <p className="font-body text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
+            <p className="font-body text-base md:text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
               Além do impacto individual, o projeto também se posiciona como um espaço de
               fortalecimento de marcas e negócios locais, promovendo visibilidade, conexão e
               oportunidades através do networking entre mulheres, profissionais e empresas que
