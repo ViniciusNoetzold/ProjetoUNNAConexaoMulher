@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import { useLenis } from './hooks/useLenis'
 import Nav from './components/Nav'
 import HeroUnna from './components/blocks/HeroUnna'
@@ -100,6 +101,8 @@ export default function App() {
           />
         )}
       </AnimatePresence>
+
+      <SpeedInsights />
     </>
   )
 }
