@@ -13,11 +13,12 @@ export interface EventNewsCard {
   dateLabel: string
   badge: string             // "22 ABR"
   time: string              // "19h30"
-  location: string          // venue name
+  location?: string         // venue name
   image: string
   gradientColors?: [string, string]
   content?: string[]
   proximo?: boolean
+  realizado?: boolean
 }
 
 interface NewsCardsProps {
@@ -49,6 +50,9 @@ const imageVariants = {
     transition: { type: "spring", stiffness: 280, damping: 30, delay: 0.15 },
   },
 }
+
+const formatEventMeta = (time?: string, location?: string) =>
+  [time, location].filter(Boolean).join(" · ")
 
 // ── Component ────────────────────────────────────────────
 const WA_NAO_ME_TOQUE =
@@ -120,6 +124,7 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-7">
           {cards.map((card) => {
             if (selected?.id === card.id) return null
+            const imageMeta = formatEventMeta(card.time, card.location)
             return (
               <motion.article
                 key={card.id}
@@ -196,9 +201,14 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
                     }} />
                   )}
 
-                  {/* Date badge — only on proximo card */}
-                  {card.proximo && (
-                    <div className="absolute top-3 left-3 bg-[#8d0032] text-white font-label text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                  {/* Status badge */}
+                  {(card.proximo || card.realizado) && (
+                    <div
+                      className={cn(
+                        "absolute top-3 left-3 text-white font-label text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full",
+                        card.realizado ? "bg-[#5c3342]" : "bg-[#8d0032]",
+                      )}
+                    >
                       {card.badge}
                     </div>
                   )}
@@ -212,7 +222,9 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
                     <p className="font-label text-[10px] font-semibold uppercase tracking-widest text-[#f4b8ce]/90 mb-0.5">
                       {card.category}
                     </p>
-                    <p className="font-label text-xs text-white/70">{card.time} · {card.location}</p>
+                    {imageMeta && (
+                      <p className="font-label text-xs text-white/70">{imageMeta}</p>
+                    )}
                   </motion.div>
                 </motion.div>
 
@@ -232,7 +244,7 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
                       <MapPin className="w-3 h-3" />
                       {card.subcategory}
                     </span>
-                    {card.proximo && (
+                    {(card.proximo || card.realizado) && (
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
                         {card.dateLabel}
@@ -331,11 +343,13 @@ export function NewsCards({ cards, enableAnimations = true }: NewsCardsProps) {
                           <Clock className="w-3 h-3" />
                           {selected.time}
                         </span>
-                        <span className="flex items-center gap-1.5">
-                          <MapPin className="w-3 h-3" />
-                          {selected.location}
-                        </span>
-                        {selected.proximo && (
+                        {selected.location && (
+                          <span className="flex items-center gap-1.5">
+                            <MapPin className="w-3 h-3" />
+                            {selected.location}
+                          </span>
+                        )}
+                        {(selected.proximo || selected.realizado) && (
                           <span className="flex items-center gap-1.5">
                             <Calendar className="w-3 h-3" />
                             {selected.dateLabel}
