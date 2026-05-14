@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { X } from 'lucide-react'
 import { WA_NUMBER } from '../constants/links'
 
 function maskPhone(raw) {
@@ -110,7 +111,7 @@ export default function ReserveModal({ data, onClose }) {
           onClick={onClose}
           className="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors"
         >
-          <span aria-hidden="true" className="material-symbols-outlined">close</span>
+          <X aria-hidden="true" size={20} strokeWidth={1.8} />
         </button>
 
         <AnimatePresence mode="wait">

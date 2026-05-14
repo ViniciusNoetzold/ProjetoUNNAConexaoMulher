@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
 import { ZoomParallax } from '../components/ui/zoom-parallax'
 import ImageGallery from '../components/ui/image-gallery'
 import Footer from '../components/Footer'
@@ -98,13 +99,17 @@ export default function Galeria({ onReserve }) {
 
           <motion.h1
             id="galeria-heading"
-            className="font-headline text-2xl sm:text-5xl md:text-7xl text-white leading-tight"
+            className="font-headline text-white leading-[1.04] max-w-full"
+            style={{ fontSize: 'clamp(2.75rem, 8vw, 4.5rem)' }}
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.72, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
             Galeria
-            <span className="block italic" style={{ color: '#f4b8ce' }}>
+            <span
+              className="block italic max-w-full whitespace-normal break-words"
+              style={{ color: '#f4b8ce', fontSize: 'clamp(2.35rem, 7.4vw, 4.25rem)' }}
+            >
               Momentos que Inspiram
             </span>
           </motion.h1>
@@ -130,7 +135,7 @@ export default function Galeria({ onReserve }) {
               onClick={() => navigate('/')}
               className="inline-flex items-center gap-2 font-label text-xs font-semibold uppercase tracking-[0.18em] text-white/50 hover:text-[#f4b8ce] transition-colors"
             >
-              <span aria-hidden="true" className="material-symbols-outlined text-base">arrow_back</span>
+              <ArrowLeft aria-hidden="true" size={16} strokeWidth={1.8} />
               Voltar ao site
             </button>
 

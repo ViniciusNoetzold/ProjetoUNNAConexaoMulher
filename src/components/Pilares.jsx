@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Brain, Gem, HeartPulse, Leaf, Sun, TrendingUp, Users } from 'lucide-react'
 
 const VP = { once: true, margin: '-40px' }
 
@@ -13,37 +14,37 @@ const fadeUp = {
 
 const PILARES = [
   {
-    icon: 'spa',
+    icon: Leaf,
     title: 'Autocuidado',
     desc: 'Redescubra o cuidado com você mesma como ato de poder e reconexão.',
   },
   {
-    icon: 'favorite',
+    icon: HeartPulse,
     title: 'Saúde Integral',
     desc: 'Corpo, mente e emoções em harmonia — saúde em todas as suas dimensões.',
   },
   {
-    icon: 'psychology',
+    icon: Brain,
     title: 'Resiliência Feminina',
     desc: 'Transformando desafios em força e crescimento com autenticidade.',
   },
   {
-    icon: 'wb_sunny',
+    icon: Sun,
     title: 'Qualidade de Vida',
     desc: 'Viver bem é uma escolha que começa dentro de você.',
   },
   {
-    icon: 'diamond',
+    icon: Gem,
     title: 'Autoestima',
     desc: 'Reconheça seu valor e brilhe com toda a sua autenticidade.',
   },
   {
-    icon: 'trending_up',
+    icon: TrendingUp,
     title: 'Desenvolvimento Pessoal',
     desc: 'Evolução contínua, em cada versão de você.',
   },
   {
-    icon: 'group',
+    icon: Users,
     title: 'Networking & Conexão',
     desc: 'Mulheres que se encontram para crescer e construir juntas.',
   },
@@ -121,39 +122,42 @@ export default function Pilares() {
 
         {/* Pillar cards grid — 3 cols on lg, 2 on sm, 1 on mobile */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {PILARES.map((p, i) => (
-            <motion.div
-              key={p.title}
-              variants={fadeUp}
-              custom={0.07 + i * 0.07}
-              initial="hidden"
-              whileInView="visible"
-              viewport={VP}
-              className={`group p-7 rounded-2xl cursor-default${i === 6 ? ' lg:col-start-2' : ''}`}
-              style={{
-                background: 'rgba(141,0,50,0.04)',
-                border: '1px solid rgba(141,0,50,0.14)',
-              }}
-              whileHover={{ y: -4 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-            >
-              <span
-                aria-hidden="true"
-                className="material-symbols-outlined icon-fill text-primary mb-5 block"
-                style={{ fontSize: '32px' }}
+          {PILARES.map((p, i) => {
+            const Icon = p.icon
+            return (
+              <motion.div
+                key={p.title}
+                variants={fadeUp}
+                custom={0.07 + i * 0.07}
+                initial="hidden"
+                whileInView="visible"
+                viewport={VP}
+                className={`group p-7 rounded-2xl cursor-default${i === 6 ? ' lg:col-start-2' : ''}`}
+                style={{
+                  background: 'rgba(141,0,50,0.04)',
+                  border: '1px solid rgba(141,0,50,0.14)',
+                }}
+                whileHover={{ y: -4 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
               >
-                {p.icon}
-              </span>
+                <Icon
+                  aria-hidden="true"
+                  className="mb-5 h-8 w-8 text-primary"
+                  strokeWidth={1.8}
+                  fill="currentColor"
+                  fillOpacity={0.12}
+                />
 
-              <h3 className="font-label font-bold text-on-surface text-base mb-2 leading-snug group-hover:text-primary transition-colors duration-200">
-                {p.title}
-              </h3>
+                <h3 className="font-label font-bold text-on-surface text-base mb-2 leading-snug group-hover:text-primary transition-colors duration-200">
+                  {p.title}
+                </h3>
 
-              <p className="font-body text-sm text-on-surface-variant leading-relaxed">
-                {p.desc}
-              </p>
-            </motion.div>
-          ))}
+                <p className="font-body text-sm text-on-surface-variant leading-relaxed">
+                  {p.desc}
+                </p>
+              </motion.div>
+            )
+          })}
         </div>
 
         {/* Bottom note */}

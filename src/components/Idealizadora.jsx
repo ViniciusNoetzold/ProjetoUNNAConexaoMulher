@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Globe2 } from 'lucide-react'
 import { INSTAGRAM_ANA_URL, SITE_ANA_URL } from '../constants/links'
 
 import anaPaula1 from '../../Unna Conexão Mulher Fotos/AnaPaulaPictures/7.jpg'
@@ -202,13 +203,7 @@ export default function Idealizadora() {
                 whileHover={{ x: 3 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
               >
-                <span
-                  className="material-symbols-outlined flex-shrink-0"
-                  style={{ fontSize: '16px' }}
-                  aria-hidden="true"
-                >
-                  language
-                </span>
+                <Globe2 aria-hidden="true" className="h-4 w-4 flex-shrink-0" strokeWidth={1.8} />
                 <span className="underline underline-offset-4 decoration-on-surface-variant/30 group-hover:decoration-primary/50 transition-all duration-200">
                   ananogueiranutri.com.br
                 </span>

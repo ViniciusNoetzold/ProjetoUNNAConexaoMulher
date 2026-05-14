@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Heart, Sparkles, Star } from 'lucide-react'
 
 import cicloAtualImg from '../../Unna Conexão Mulher Fotos/CicloAtual/18.jpg'
 
@@ -15,17 +16,17 @@ const VP = { once: true, margin: '100px' }
 
 const pillars = [
   {
-    icon: 'auto_awesome',
+    icon: Sparkles,
     title: 'Conteúdo que impacta',
     desc: 'Palestras e temas que fazem sentido real na sua vida',
   },
   {
-    icon: 'favorite',
+    icon: Heart,
     title: 'Conexões verdadeiras',
     desc: 'Mulheres reais, histórias reais, vínculos que ficam',
   },
   {
-    icon: 'star',
+    icon: Star,
     title: 'Vivências práticas',
     desc: 'Dinâmicas imersivas de autoconhecimento e conexão',
   },
@@ -121,44 +122,46 @@ export default function Cycle() {
 
             {/* 3 cards em coluna — layout de feature list */}
             <div className="flex flex-col mt-8 md:mt-12" style={{ gap: '16px' }}>
-              {pillars.map((p, i) => (
-                <motion.div
-                  key={p.title}
-                  custom={0.18 + i * 0.08}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={VP}
-                  className="flex flex-row items-center gap-4"
-                  style={{
-                    background: 'rgba(141, 0, 50, 0.08)',
-                    border: '1px solid rgba(141, 0, 50, 0.20)',
-                    borderRadius: '12px',
-                    padding: '16px',
-                    minHeight: '80px',
-                  }}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="flex-shrink-0 flex items-center justify-center material-symbols-outlined icon-fill text-primary"
+              {pillars.map((p, i) => {
+                const Icon = p.icon
+                return (
+                  <motion.div
+                    key={p.title}
+                    custom={0.18 + i * 0.08}
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={VP}
+                    className="flex flex-row items-center gap-4"
                     style={{
-                      width: '40px',
-                      height: '40px',
-                      fontSize: '28px',
+                      background: 'rgba(141, 0, 50, 0.08)',
+                      border: '1px solid rgba(141, 0, 50, 0.20)',
+                      borderRadius: '12px',
+                      padding: '16px',
+                      minHeight: '80px',
                     }}
                   >
-                    {p.icon}
-                  </span>
-                  <div className="flex flex-col">
-                    <h3 className="font-label font-bold text-on-surface text-base leading-snug">
-                      {p.title}
-                    </h3>
-                    <p className="font-body text-sm text-on-surface-variant leading-snug">
-                      {p.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                    <span
+                      aria-hidden="true"
+                      className="flex-shrink-0 flex items-center justify-center text-primary"
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                      }}
+                    >
+                      <Icon size={28} strokeWidth={1.8} fill="currentColor" fillOpacity={0.14} />
+                    </span>
+                    <div className="flex flex-col">
+                      <h3 className="font-label font-bold text-on-surface text-base leading-snug">
+                        {p.title}
+                      </h3>
+                      <p className="font-body text-sm text-on-surface-variant leading-snug">
+                        {p.desc}
+                      </p>
+                    </div>
+                  </motion.div>
+                )
+              })}
             </div>
           </motion.div>
 
